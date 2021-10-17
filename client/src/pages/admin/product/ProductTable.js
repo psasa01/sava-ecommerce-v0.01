@@ -26,9 +26,10 @@ import Alert from "@material-ui/lab/Alert";
 import AdminNav from "../../../components/nav/AdminNav";
 import {
   removeProduct,
+  createProduct,
   getProductsCount,
   updateProduct,
-  getAllProducts,
+  getAllProducts
 } from "../../../functions/product";
 
 import Loader from "../../../components/loader/Loader";
@@ -47,12 +48,12 @@ const ProductTable = () => {
   const loadAllProducts = () => {
     setLoading(true);
     getAllProducts()
-      .then((res) => {
+      .then(res => {
         setProducts(res.data);
         setData(res.data);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(err => {
         setLoading(false);
         console.log(err);
       });
@@ -64,9 +65,25 @@ const ProductTable = () => {
     {
       title: "Šifra Artikla",
       field: "sifra",
-      disabled: true,
+      disabled: true
     },
-    { title: "Puni Naziv", field: "fullTitle", disabled: true },
+    {
+      title: "Puni Naziv",
+      field: "fullTitle",
+      disabled: true,
+      editable: "none"
+    },
+    { title: "Širina", field: "width", editable: "onAdd" },
+    { title: "Visina", field: "height", editable: "onAdd" },
+    { title: "Veličina Felge", field: "rim", editable: "onAdd" },
+    { title: "Index Brzine", field: "speedindex" },
+    { title: "Index Nosivosti", field: "loadindex" },
+    { title: "Model Gume", field: "title" },
+    { title: "Proizvođač", field: "brand" },
+    { title: "Zemlja porijekla", field: "producedin" },
+    { title: "Potrošnja Goriva", field: "fuel" },
+    { title: "Držanje Na Mokrom", field: "wetGrip" },
+    { title: "Razina buke", field: "noise" },
     { title: "Popust", field: "discount" },
     { title: "Cijena", field: "price" },
     { title: "Količina", field: "quantity" },
@@ -75,21 +92,21 @@ const ProductTable = () => {
       title: "Izdvojeno",
       field: "posebnaPonuda",
       disabled: true,
-      editComponent: (props) => {
+      editComponent: props => {
         console.log("proooopppssss", props);
 
         return (
           <input
             type="checkbox"
             checked={props.value}
-            onChange={(e) => props.onChange(e.target.checked)}
+            onChange={e => props.onChange(e.target.checked)}
           />
         );
       },
-      render: (rowdata) => (
+      render: rowdata => (
         <input type="checkbox" checked={rowdata.posebnaPonuda} />
-      ),
-    },
+      )
+    }
   ];
 
   let editable = { sifra: "onAdd" };
@@ -119,12 +136,11 @@ const ProductTable = () => {
     ThirdStateCheck: forwardRef((props, ref) => (
       <Remove {...props} ref={ref} />
     )),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
   };
 
   function validateEmail(email) {
-    const re =
-      /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
+    const re = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
     return re.test(String(email).toLowerCase());
   }
 
@@ -138,29 +154,28 @@ const ProductTable = () => {
   const [productsCount, setProductsCount] = useState(0);
   const [page, setPage] = useState(1);
 
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user } = useSelector(state => ({ ...state }));
 
   const api = axios.create({
-    baseURL: `http://localhost:8000/api/`,
+    baseURL: `http://localhost:8000/api/`
   });
 
   const handleRowAdd = (newData, resolve) => {
     //validation
     let errorList = [];
-    if (newData.first_name === undefined) {
-      errorList.push("Please enter first name");
-    }
-    if (newData.last_name === undefined) {
-      errorList.push("Please enter last name");
-    }
-    if (newData.email === undefined || validateEmail(newData.email) === false) {
-      errorList.push("Please enter a valid email");
-    }
+    // if (newData.first_name === undefined) {
+    //   errorList.push("Please enter first name");
+    // }
+    // if (newData.last_name === undefined) {
+    //   errorList.push("Please enter last name");
+    // }
+    // if (newData.email === undefined || validateEmail(newData.email) === false) {
+    //   errorList.push("Please enter a valid email");
+    // }
     if (errorList.length < 1) {
       //no error
-      api
-        .post("/product", newData)
-        .then((res) => {
+      createProduct(newData, user.token)
+        .then(res => {
           let dataToAdd = [...data];
           dataToAdd.push(newData);
           setData(dataToAdd);
@@ -168,7 +183,7 @@ const ProductTable = () => {
           setErrorMessages([]);
           setIserror(false);
         })
-        .catch((error) => {
+        .catch(error => {
           setErrorMessages(["Cannot add data. Server error!"]);
           setIserror(true);
           resolve();
@@ -186,7 +201,7 @@ const ProductTable = () => {
 
     if (errorList.length < 1) {
       updateProduct(oldData.slug, newData, user.token)
-        .then((res) => {
+        .then(res => {
           const dataUpdate = [...data];
           const index = oldData.tableData.id;
           dataUpdate[index] = newData;
@@ -195,7 +210,7 @@ const ProductTable = () => {
           setIserror(false);
           setErrorMessages([]);
         })
-        .catch((error) => {
+        .catch(error => {
           setErrorMessages(["Update failed! Server error"]);
           setIserror(true);
           resolve();
@@ -210,14 +225,14 @@ const ProductTable = () => {
   const handleRowDelete = (oldData, resolve) => {
     console.log(oldData);
     removeProduct(oldData.slug, user.token)
-      .then((res) => {
+      .then(res => {
         const dataDelete = [...data];
         const index = oldData.tableData._id;
         dataDelete.splice(index, 1);
         setData([...dataDelete]);
         resolve();
       })
-      .catch((error) => {
+      .catch(error => {
         setErrorMessages(["Delete failed! Server error"]);
         setIserror(true);
         resolve();
@@ -245,9 +260,12 @@ const ProductTable = () => {
               <h4>Svi Proizvodi - tabela</h4>
             </div>
 
-            <div className="row" style={{}}>
+            <div className="row" style={{ display: "block" }}>
               <MaterialTable
-                style={{ display: "block", width: "95%", maxWidth: "100%" }}
+                style={{
+                  width: "95%",
+                  maxWidth: "80vw"
+                }}
                 title="Pregled i uredjivanje proizvoda"
                 columns={columns}
                 data={data}
@@ -255,17 +273,17 @@ const ProductTable = () => {
                 options={{ maxBodyHeight: "70vh", pageSize: 20 }}
                 editable={{
                   onRowUpdate: (newData, oldData) =>
-                    new Promise((resolve) => {
+                    new Promise(resolve => {
                       handleRowUpdate(newData, oldData, resolve);
                     }),
-                  onRowAdd: (newData) =>
-                    new Promise((resolve) => {
+                  onRowAdd: newData =>
+                    new Promise(resolve => {
                       handleRowAdd(newData, resolve);
                     }),
-                  onRowDelete: (oldData) =>
-                    new Promise((resolve) => {
+                  onRowDelete: oldData =>
+                    new Promise(resolve => {
                       handleRowDelete(oldData, resolve);
-                    }),
+                    })
                 }}
               />
             </div>

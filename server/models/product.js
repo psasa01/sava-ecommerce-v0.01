@@ -8,52 +8,52 @@ const productSchema = new mongoose.Schema(
       trim: true,
       required: true,
       maxlength: 48,
-      text: true,
+      text: true
     },
     slug: {
       type: String,
       unique: true,
       required: true,
       lowercase: true,
-      index: true,
+      index: true
     },
     brand: {
       type: String,
       trim: true,
       required: true,
       maxlength: 16,
-      text: true,
+      text: true
     },
 
     description: {
       type: String,
       trim: true,
       maxlength: 2000,
-      text: true,
+      text: true
     },
     price: {
       type: Number,
       required: true,
-      trim: true,
+      trim: true
     },
     discount: {
       type: Number,
       required: true,
-      trim: true,
+      trim: true
     },
-    category: {
-      type: ObjectId,
-      ref: "Category",
-    },
-    subs: [
-      {
-        type: ObjectId,
-        ref: "Sub",
-      },
-    ],
+    // category: {
+    //   type: ObjectId,
+    //   ref: "Category",
+    // },
+    // subs: [
+    //   {
+    //     type: ObjectId,
+    //     ref: "Sub",
+    //   },
+    // ],
     quantity: Number,
     images: {
-      type: Array,
+      type: Array
     },
     // shipping: {
     //   type: String,
@@ -64,72 +64,72 @@ const productSchema = new mongoose.Schema(
       trim: true,
       required: true,
       maxlength: 3,
-      text: true,
+      text: true
     },
     height: {
       type: String,
       trim: true,
       required: true,
       maxlength: 2,
-      text: true,
+      text: true
     },
     rim: {
       type: String,
       trim: true,
       required: true,
       maxlength: 2,
-      text: true,
+      text: true
     },
     speedindex: {
       type: String,
       trim: true,
       required: true,
       maxlength: 1,
-      text: true,
+      text: true
     },
     loadindex: {
       type: String,
       trim: true,
       required: true,
       maxlength: 8,
-      text: true,
+      text: true
     },
     dot: {
       type: String,
       trim: true,
       required: true,
       minlength: 4,
-      maxlength: 4,
+      maxlength: 4
     },
     producedin: {
       type: String,
       trim: true,
       required: true,
-      maxlength: 32,
+      maxlength: 32
     },
     fuel: {
       type: String,
       trim: true,
       required: true,
       maxlength: 1,
-      text: true,
+      text: true
     },
     wetGrip: {
       type: String,
       trim: true,
       required: true,
       maxlength: 1,
-      text: true,
+      text: true
     },
     noise: {
       type: String,
       trim: true,
       required: true,
       maxlength: 3,
-      text: true,
+      text: true
     },
     posebnaPonuda: {
-      type: Boolean,
+      type: Boolean
     },
     // ratings: [
     //     {
@@ -141,15 +141,15 @@ const productSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      text: true,
+      text: true
     },
     sifra: {
       type: String,
       trim: true,
       required: true,
       minlength: 3,
-      text: true,
-    },
+      text: true
+    }
   },
 
   { timestamps: true }
