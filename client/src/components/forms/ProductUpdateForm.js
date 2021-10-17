@@ -14,7 +14,7 @@ const ProductUpdateForm = ({
   subOptions,
   arrayOfSubIds,
   setArrayOfSubIds,
-  selectedCategory,
+  selectedCategory
 }) => {
   // destructure
   const {
@@ -35,7 +35,7 @@ const ProductUpdateForm = ({
     dot,
     producedin,
     posebnaPonuda,
-    sifra,
+    sifra
   } = values;
 
   return (
@@ -201,7 +201,7 @@ const ProductUpdateForm = ({
             {/* <option>
             {category ? category.name : "Odaberite osnovnu kategoriju"}
           </option> */}
-            {categories.map((c) => (
+            {categories.map(c => (
               <option key={c._id} value={c._id}>
                 {c.name}
               </option>
@@ -229,10 +229,10 @@ const ProductUpdateForm = ({
             style={{ width: "100%" }}
             placeholder="Odaberite podkategorije"
             value={arrayOfSubIds}
-            onChange={(value) => setArrayOfSubIds(value)}
+            onChange={value => setArrayOfSubIds(value)}
           >
             {subOptions.length &&
-              subOptions.map((s) => (
+              subOptions.map(s => (
                 <Option value={s._id} key={s._id}>
                   {s.name}
                 </Option>

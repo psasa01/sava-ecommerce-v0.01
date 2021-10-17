@@ -27,7 +27,6 @@ import AdminNav from "../../../components/nav/AdminNav";
 import {
   removeProduct,
   createProduct,
-  getProductsCount,
   updateProduct,
   getAllProducts
 } from "../../../functions/product";
@@ -73,17 +72,6 @@ const ProductTable = () => {
       disabled: true,
       editable: "none"
     },
-    { title: "Širina", field: "width", editable: "onAdd" },
-    { title: "Visina", field: "height", editable: "onAdd" },
-    { title: "Veličina Felge", field: "rim", editable: "onAdd" },
-    { title: "Index Brzine", field: "speedindex" },
-    { title: "Index Nosivosti", field: "loadindex" },
-    { title: "Model Gume", field: "title" },
-    { title: "Proizvođač", field: "brand" },
-    { title: "Zemlja porijekla", field: "producedin" },
-    { title: "Potrošnja Goriva", field: "fuel" },
-    { title: "Držanje Na Mokrom", field: "wetGrip" },
-    { title: "Razina buke", field: "noise" },
     { title: "Popust", field: "discount" },
     { title: "Cijena", field: "price" },
     { title: "Količina", field: "quantity" },
