@@ -264,10 +264,7 @@ const ProductTable = () => {
                     new Promise(resolve => {
                       handleRowUpdate(newData, oldData, resolve);
                     }),
-                  onRowAdd: newData =>
-                    new Promise(resolve => {
-                      handleRowAdd(newData, resolve);
-                    }),
+                  onRowAdd: undefined,
                   onRowDelete: oldData =>
                     new Promise(resolve => {
                       handleRowDelete(oldData, resolve);
