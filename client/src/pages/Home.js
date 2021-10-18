@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 import SizeSearchForm from "../components/forms/SizeSearchForm";
 import SpecialOfferSlider from "../components/products/SpecialOfferSlider";
+import BrandCarousel from "../components/products/BrandCarousel";
 import Landing from "../components/Landing";
 
 const Home = () => {
@@ -19,8 +20,8 @@ const Home = () => {
         id="after-landing"
       >
         <SizeSearchForm />
-
-        <SpecialOfferSlider />
+        <BrandCarousel />
+        {/* <SpecialOfferSlider /> */}
       </motion.div>
       <br />
     </>
