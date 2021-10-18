@@ -51,6 +51,7 @@ body {
   color: white;
   background-color: #5faeff;
 }
+
 /* ------------------ LANDING PAGE -------------- */
 
 .landing-all {
@@ -66,10 +67,8 @@ body {
   width: 100vw;
   height: 50vw;
   /* background-color: blue; */
-  background-image: linear-gradient(0deg, #eeefff 0%, rgba(0, 0, 0, 0.623) 20%),
-    url("./images/Landing.jpg");
+  background-image: linear-gradient(0deg, #eeefff 0%, rgba(0, 0, 0, 0.623) 20%), url("./images/Landing.jpg");
   /* background-image:url('./images/Landing.jpg'); */
-
   background-size: cover;
   background-repeat: no-repeat;
   z-index: -2;
@@ -84,8 +83,7 @@ body {
 }
 
 @media only screen and (max-width: 1050px) {
-  .landing-content,
-  .cta {
+  .landing-content, .cta {
     display: none;
   }
 }
@@ -103,8 +101,7 @@ body {
   transform: translateX(-50%);
 }
 
-.landing-content h2 {
-}
+.landing-content h2 {}
 
 .down {
   position: absolute;
@@ -118,12 +115,12 @@ body {
   }
   .landing-page-static {
     margin-top: 2.8em !important;
-    background-image: linear-gradient(0deg, #eeefff 0%, rgba(0, 0, 0, 0.25) 20%),
-      url("./images/Landing.jpg");
+    background-image: linear-gradient(0deg, #eeefff 0%, rgba(0, 0, 0, 0.25) 20%), url("./images/Landing.jpg");
   }
 }
 
 /* --------------------- TYPEWRITER -------------------- */
+
 .typewr {
   font-size: 2.8vw;
   font-weight: 300;
@@ -136,7 +133,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translateX(-50%);
-
   padding: 2em 6em;
   border-radius: 3em;
   background-color: rgb(174, 199, 218);
@@ -156,6 +152,7 @@ body {
 }
 
 /* ------------ SWIPER --------------- */
+
 .mySwiper {
   position: relative;
   max-width: 85%;
@@ -167,8 +164,6 @@ body {
 .mySameSizeSwiper {
   max-width: 91% !important;
 }
-
-
 
 .swiper-container {
   width: 100%;
@@ -220,6 +215,7 @@ h3 {
 .nav {
   margin-top: 0.75em;
 }
+
 .nav-item {
   cursor: pointer;
   position: relative;
@@ -275,9 +271,11 @@ h3 {
   margin-right: 10px;
   position: relative;
 }
+
 .image {
   position: absolute;
 }
+
 .badge {
   position: absolute;
   left: -10%;
@@ -324,6 +322,7 @@ h3 {
   opacity: 0;
   transition: all 5s ease;
 }
+
 .fadeIn {
   opacity: 1;
   transition: all 5s ease;
@@ -389,7 +388,6 @@ h3 {
   padding: 1em 0 2em 1em !important;
   border-radius: 0 0 0 3em;
   margin-bottom: 5em;
-
 }
 
 .mySwiper h4 {
@@ -578,8 +576,7 @@ h3 {
   margin-bottom: 1em;
 }
 
-.btn-edit,
-.btn-delete {
+.btn-edit, .btn-delete {
   width: 50%;
   box-shadow: 2px 2px 3px 0px #999999;
 }
@@ -684,11 +681,9 @@ h3 {
     display: flex;
     flex-direction: column;
   }
-
   .form-select {
     width: 55vw !important;
   }
-
   #select-width {
     border-radius: 1em 1em 0 0;
   }
@@ -696,7 +691,6 @@ h3 {
     border-radius: 0 0 1em 1em;
     margin-bottom: 1em !important;
   }
-
   .disclaimer-row {
     width: 85% !important;
     margin: 1em auto 2em auto !important;
@@ -729,12 +723,8 @@ h3 {
   cursor: pointer;
 }
 
-.custom-file-control,
-.form-control,
-.is-focused .custom-file-control,
-.is-focused .form-control {
-  background-image: linear-gradient(0deg, #009688 2px, rgba(0, 150, 136, 0) 0),
-    linear-gradient(0deg, rgba(255, 255, 255) 1px, transparent 0) !important;
+.custom-file-control, .form-control, .is-focused .custom-file-control, .is-focused .form-control {
+  background-image: linear-gradient(0deg, #009688 2px, rgba(0, 150, 136, 0) 0), linear-gradient(0deg, rgba(255, 255, 255) 1px, transparent 0) !important;
 }
 
 .disclaimer-row {
@@ -753,8 +743,7 @@ h3 {
   border-radius: 3em;
 }
 
-.size-search {
-}
+.size-search {}
 
 .size-search-row {
   background-color: rgb(175, 194, 216);
@@ -763,7 +752,6 @@ h3 {
   transition: all 1s ease;
   width: 85%;
   margin: 2em auto 3em auto;
-  
 }
 
 .size-search-form {
@@ -777,14 +765,13 @@ h3 {
 /* ---------------------- CAROUSEL ---------------- */
 
 .carousel-container {
-  box-shadow: inset 0em 2em 3em  black, inset 0em -2em 3em black;
+  box-shadow: inset 0em 2em 3em black, inset 0em -2em 3em black;
 }
 
 /* .carousel-image {
  
   border: solid black 1em
 } */
-
 
 /* -------------------------------- FULL  SINGLE PRODUCT --------------------------------- */
 
@@ -806,7 +793,6 @@ h3 {
   justify-content: flex-start flex-end;
   background: white;
   overflow: hidden;
-
   box-shadow: 0 0 2.5em rgba(0, 0, 0, 0.158);
 }
 
@@ -849,11 +835,13 @@ h3 {
   font-style: italic !important;
   color: #333;
 }
+
 .brand-logo-container {
   position: relative;
   width: 100%;
   background-color: red;
 }
+
 .single-product-brand-logo {
   height: 3.3vw;
   width: auto !important;
@@ -904,7 +892,8 @@ h3 {
   color: #888;
   font-size: 1.1vw !important;
   width: 100%;
-  border-radius: 0 2em 2em 0;;
+  border-radius: 0 2em 2em 0;
+  ;
 }
 
 .labels-table td:last-child {
@@ -913,8 +902,9 @@ h3 {
 }
 
 .table-left {
-    font-size: 1.8vw;
-    font-weight: bold;;
+  font-size: 1.8vw;
+  font-weight: bold;
+  ;
 }
 
 .dot-h4 {
@@ -937,24 +927,19 @@ h3 {
   padding-bottom: 1em !important;
 }
 
-.single-product-description{
+.single-product-description {
   font-size: 1vw;
   width: 83%;
   position: absolute !important;
   bottom: .5em !important;
-
   margin-left: -3em;
   padding-left: 1.8em;
 }
 
-
-
 .label-container {
   position: relative;
-
   width: 100%;
   transform: translateX(-16.5%);
-
   text-align: right !important;
 }
 
@@ -979,6 +964,7 @@ h3 {
 .fuel-image {
   width: 100%;
 }
+
 .wet-image {
   width: 100%;
 }
@@ -1011,6 +997,7 @@ h3 {
   width: 100%;
   height: 20%;
 }
+
 .price-labels-container {
   position: relative;
   width: 100%;
@@ -1037,7 +1024,6 @@ h3 {
   line-height: 1em !important;
   font-weight: 600 !important;
   font-style: italic;
-
   text-shadow: 2px 2px 0 white;
   z-index: 9;
 }
@@ -1068,19 +1054,18 @@ h3 {
 }
 
 .percent-label {
-    position: absolute;
-    font-style: italic;
-    right: 6vw;
-    bottom: 4.5vw !important;
-    font-size: 1vw;
-
-
+  position: absolute;
+  font-style: italic;
+  right: 6vw;
+  bottom: 4.5vw !important;
+  font-size: 1vw;
 }
 
 .percent-label h2 {
-    color: green;
-    font-weight: bold;
+  color: green;
+  font-weight: bold;
 }
+
 /* Single Product Mobile */
 
 @media (max-width: 1000px) {
@@ -1098,10 +1083,8 @@ h3 {
     margin: 0 !important;
     background: white;
     overflow: hidden;
-
     box-shadow: 0 0 2.5em rgba(0, 0, 0, 0.158);
   }
-
   .single-product-image {
     margin: 0;
     padding: 0 0 1em 0;
@@ -1111,13 +1094,11 @@ h3 {
     background-color: white;
     box-shadow: 1em 0 1em rgb(0, 0, 0, 0.1);
   }
-
   .single-product-image img {
     margin-top: 2em;
     width: 88%;
     border-radius: 4em 4em 0 0;
   }
-
   .single-product-image h3 {
     text-align: left;
     padding-left: 6%;
@@ -1128,7 +1109,6 @@ h3 {
     color: #999;
     font-size: 2.3em;
   }
-
   .single-product-image h4 {
     text-align: left;
     padding-left: 6%;
@@ -1150,12 +1130,10 @@ h3 {
     height: 3.3em;
     width: auto !important;
     border-radius: 0 !important;
-
     float: right;
     margin-right: 6%;
     box-shadow: 0 0 1em #bbbccc;
   }
-
   .single-product-content {
     border-radius: 5em;
     transform: translateX(0%);
@@ -1168,17 +1146,14 @@ h3 {
     z-index: 998;
     box-shadow: 0 0 1em #bbbccc;
   }
-
   .single-product-content h3 {
     display: none !important;
     color: #888;
     font-size: 2em !important;
     font-family: "Univia Pro", sans-serif !important;
-
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
   }
-
   .single-product-content h4 {
     font-family: "Segoe UI", sans-serif !important;
     font-weight: 500 !important;
@@ -1188,24 +1163,19 @@ h3 {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
-
   .single-product-content-h4-title {
     display: none;
   }
-
   .br {
     display: none;
   }
-
   .labels-table {
     width: 95%;
     font-size: .9em !important;
   }
-
   .table-left {
-      font-size: 1.5em !important;
+    font-size: 1.5em !important;
   }
-
   .dot-h4 {
     font-family: "Segoe UI", sans-serif !important;
     font-style: italic !important;
@@ -1213,7 +1183,6 @@ h3 {
     font-weight: bold !important;
     font-size: 1.6em !important;
   }
-
   .producedin-h4 {
     font-family: "Segoe UI", sans-serif !important;
     font-style: italic !important;
@@ -1223,19 +1192,14 @@ h3 {
     text-transform: none !important;
     margin-top: 0 !important;
   }
-
-
-
   .label-container {
     position: relative;
     width: 80%;
     text-align: right !important;
     margin-bottom: 5em !important;
-
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
-
   .labels {
     position: relative;
     margin-top: 3em;
@@ -1243,32 +1207,26 @@ h3 {
     padding: 1em;
     border-radius: 2em 2em 0 2em;
     background-color: white;
-
     box-shadow: 0 0 1em #bbbccc;
   }
-
   .wet-fuel {
     display: grid;
     grid-template-columns: 55% 40.5%;
     gap: 5%;
   }
-
   .fuel-image {
     width: 100%;
   }
   .wet-image {
     width: 100%;
   }
-
   .noise-image {
     margin-top: 1em;
     max-width: 100%;
   }
-
   .noise-image-container {
     position: relative;
   }
-
   .noise-image-container h4 {
     position: absolute;
     font-family: "Montserrat", sans-serif !important;
@@ -1280,7 +1238,6 @@ h3 {
     transform: translateY(-66%);
     right: 0.66em;
   }
-
   .price-container {
     position: relative;
     height: 5em !important;
@@ -1294,7 +1251,6 @@ h3 {
     position: relative;
     /* justify-content: space-evenly !important; */
   }
-
   .discount-price-label {
     position: relative;
     padding: 1em !important;
@@ -1304,7 +1260,6 @@ h3 {
     width: 95% !important;
     margin-left: .33em !important;
   }
-
   .discount-price-label h2 {
     font-size: 1.5em;
     padding: 0 !important;
@@ -1322,7 +1277,6 @@ h3 {
     margin-right: .33em !important;
     justify-content: center;
   }
-
   .full-price-label h3 {
     font-size: 1.5em;
     padding: 0 !important;
@@ -1332,7 +1286,7 @@ h3 {
     justify-content: center;
   }
   .percent-label {
-      display: none;
+    display: none;
     position: relative;
     padding: 1em !important;
     height: 66%;
@@ -1353,14 +1307,17 @@ h3 {
 }
 
 @media (max-width: 375px) {
-    .noise-image-container h4 {
-        font-size: 2em;;
-    }
+  .noise-image-container h4 {
+    font-size: 2em;
+    ;
+  }
 }
+
 @media (max-width: 1030px) {
-    .percent-label h2 {
-        font-size: 2.22em;;
-    }
+  .percent-label h2 {
+    font-size: 2.22em;
+    ;
+  }
 }
 
 .footer {
@@ -1378,34 +1335,19 @@ h3 {
 }
 
 .good-year {
-  background: linear-gradient(
-    to top,
-    rgb(70, 156, 255) 0%,
-    rgb(130, 199, 255) 30%,
-    rgb(219, 239, 255) 100%
-  );
+  background: linear-gradient( to top, rgb(70, 156, 255) 0%, rgb(130, 199, 255) 30%, rgb(219, 239, 255) 100%);
 }
 
 .dunlop {
-  background: linear-gradient(
-    0deg,
-    rgb(255, 213, 0) 0%,
-    rgb(251, 255, 141) 100.2%
-  );
+  background: linear-gradient( 0deg, rgb(255, 213, 0) 0%, rgb(251, 255, 141) 100.2%);
 }
 
 .sava {
-  background: linear-gradient(0deg, rgb(81, 161, 81) 0%, rgb(155, 206, 88) 30%),
-    rgb(235, 255, 208) 90.3%;
+  background: linear-gradient(0deg, rgb(81, 161, 81) 0%, rgb(155, 206, 88) 30%), rgb(235, 255, 208) 90.3%;
 }
 
 .vredestein {
-  background: linear-gradient(
-    to top,
-    rgb(124, 124, 124) 0%,
-    rgb(214, 214, 214) 30%,
-    rgb(218, 218, 218) 100%
-  );
+  background: linear-gradient( to top, rgb(124, 124, 124) 0%, rgb(214, 214, 214) 30%, rgb(218, 218, 218) 100%);
 }
 
 .fulda {
@@ -1413,20 +1355,11 @@ h3 {
 }
 
 .good-year-content {
-  background: linear-gradient(
-    to top,
-    rgb(70, 156, 255) 0%,
-    rgb(130, 199, 255) 30%,
-    rgb(219, 239, 255) 100%
-  );
+  background: linear-gradient( to top, rgb(70, 156, 255) 0%, rgb(130, 199, 255) 30%, rgb(219, 239, 255) 100%);
 }
 
 .dunlop-content {
-  background: linear-gradient(
-    0deg,
-    rgb(255, 213, 0) 0%,
-    rgb(251, 255, 141) 100.2%
-  );
+  background: linear-gradient( 0deg, rgb(255, 213, 0) 0%, rgb(251, 255, 141) 100.2%);
 }
 
 .sava-content {
@@ -1434,52 +1367,41 @@ h3 {
 }
 
 .vredestein-content {
-  background: linear-gradient(
-    to top,
-    rgb(124, 124, 124) 0%,
-    rgb(214, 214, 214) 30%,
-    rgb(218, 218, 218) 100%
-  );
+  background: linear-gradient( to top, rgb(124, 124, 124) 0%, rgb(214, 214, 214) 30%, rgb(218, 218, 218) 100%);
 }
 
 .fulda-content {
   background: linear-gradient(to top, #fd5d5d 0%, #ffd0d0 30%);
 }
 
-
 /* -------------------  KORPA -------------------- */
 
 .korpa-container {
-
-    gap: 0;
-    position: relative;
-    display: grid;
-    grid-template-columns: 66% 34%;
-    gap: 0;
-    width: 90vw;
-    height: 80vh;
-    opacity: 1;
-    border-radius: 5em 5em 0em 3em;
-    top: 5em;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 0 !important;
-    margin: 0 !important;
-    margin-bottom: 7em !important;
-    justify-content: flex-start flex-end;
-    background: white;
-    overflow: hidden;
-
-    box-shadow: 0 0 2.5em rgba(0, 0, 0, 0.158);
-
+  gap: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: 66% 34%;
+  gap: 0;
+  width: 90vw;
+  height: 80vh;
+  opacity: 1;
+  border-radius: 5em 5em 0em 3em;
+  top: 5em;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 !important;
+  margin: 0 !important;
+  margin-bottom: 7em !important;
+  justify-content: flex-start flex-end;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 0 2.5em rgba(0, 0, 0, 0.158);
 }
 
 .korpa-right {
   background-color: #ebebeb;
   border-radius: 0 5em 0em 0;
   position: relative;
-
-  
 }
 
 .korpa-left {
@@ -1506,41 +1428,33 @@ h3 {
   font-size: .70vw;
 }
 
-
 /* SCROLLBAR KORPA LEFT */
 
 /* STYLE 4 */
 
-
-#style-4::-webkit-scrollbar-track
-{
-  box-shadow: inset 5px 0 5px rgba(0,0,0,0.3);
-	-webkit-box-shadow: inset 1px 0 5px rgba(0,0,0,0.3);
-	background-color: #eeefff;
+#style-4::-webkit-scrollbar-track {
+  box-shadow: inset 5px 0 5px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 1px 0 5px rgba(0, 0, 0, 0.3);
+  background-color: #eeefff;
   transform: translateX(-1em) !important;
 }
 
-#style-4::-webkit-scrollbar
-{
-	width: 10px;
+#style-4::-webkit-scrollbar {
+  width: 10px;
   height: 95% !important;
   background-color: #F5F5F5;
-  
 }
 
-#style-4::-webkit-scrollbar-thumb
-{
-	background-color: #fff;
-	border-left: 1px solid #ccc;
+#style-4::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   border-radius: .1em;
-
 }
 
 .proizvod-row {
   background-color: #d8d8d8;
   width: 95%;
-
   border-radius: 1.5em;
   margin: auto 2em;
   padding: 0 .5em;
@@ -1554,7 +1468,6 @@ h3 {
   /* padding: .6em 0 .6em .6em; */
   box-shadow: .3em .5em .5em rgba(0, 0, 0, 0.1);
   position: relative;
-
 }
 
 .proizvod-row:last-child {
@@ -1568,8 +1481,8 @@ h3 {
   margin: auto 0;
   border-radius: 1em;
   position: relative;
-
 }
+
 .cart-left-image img {
   max-width: 100%;
   height: 100%;
@@ -1585,7 +1498,6 @@ h3 {
   margin: auto 0;
   border-radius: 1em;
   position: relative;
-
 }
 
 .cart-left-product p {
@@ -1599,8 +1511,6 @@ h3 {
   font-weight: bold;
   color: #555;
   transform: translateY(-50%);
-
-
 }
 
 .cart-left-product span {
@@ -1635,7 +1545,6 @@ h3 {
   justify-content: center;
   gap: 1vw;
   position: relative;
-
 }
 
 .form-control {
@@ -1648,14 +1557,14 @@ h3 {
   background-image: none !important;
 }
 
-.form-control:focus{
+.form-control:focus {
   background-color: #ddd !important;
   border-radius: .3em !important;
   border: 0px solid rgb(231, 231, 231) !important;
   box-shadow: 0 0 8px rgb(133, 255, 150) !important;
   transition: all .3s ease;
- 
 }
+
 .count-minus {
   cursor: pointer;
   background-color: #ddd;
@@ -1666,9 +1575,8 @@ h3 {
   margin: 0;
   position: relative;
   top: .5em;
-
-
 }
+
 .count-minus p {
   position: absolute;
   height: 100%;
@@ -1677,8 +1585,8 @@ h3 {
   text-align: center;
   margin: auto;
   line-height: 1.8vw;
-
 }
+
 .count-value {
   position: relative;
   height: 2.5vw;
@@ -1688,7 +1596,6 @@ h3 {
   border-radius: .7em;
 }
 
-
 .count-value input {
   border: none;
   background-color: #ddd;
@@ -1697,7 +1604,6 @@ h3 {
   margin: auto;
   text-align: center;
   border-radius: .7em;
-
   font-size: 1.6vw;
   padding: 0;
 }
@@ -1712,9 +1618,8 @@ h3 {
   margin: 0;
   position: relative;
   top: .5em;
-
-
 }
+
 .count-plus p {
   position: absolute;
   height: 100%;
@@ -1723,7 +1628,6 @@ h3 {
   text-align: center;
   margin: auto;
   line-height: 1.8vw;
-
 }
 
 .cart-count-hr, hr {
@@ -1740,7 +1644,6 @@ h3 {
   /* background-color: tomato; */
   top: 0;
   position: relative;
-
 }
 
 .cart-count-price p {
@@ -1751,7 +1654,6 @@ h3 {
   width: 100%;
   /* background-color:tomato; */
   padding: 0;
-  
 }
 
 .cart-left-price {
@@ -1777,11 +1679,11 @@ h3 {
 }
 
 .cart-left-remove {
-  
   position: relative;
   max-width: 100%;
   height: 100%;
-  width: 7vw;;
+  width: 7vw;
+  ;
   margin: auto 1.5vw;
 }
 
@@ -1807,7 +1709,6 @@ h3 {
 }
 
 .icon-delete:active {
-  
   background-color: rgb(253, 86, 86);
   top: 50%;
   transform: translateY(-49%);
@@ -1821,18 +1722,13 @@ h3 {
 
 .icon-delete:hover {
   background-color: rgb(255, 75, 75);
-
 }
 
-.icon-delete .anticon svg{
+.icon-delete .anticon svg {
   position: absolute;
   margin: 0;
   padding: .1em;
-  
   margin-top: 0.75vw;
   left: 50%;
   transform: translateX(-50%);
-  
 }
-
-
