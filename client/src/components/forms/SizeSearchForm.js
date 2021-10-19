@@ -28,7 +28,7 @@ const SizeSearch = () => {
 
   const loadAll = async () => {
     setLoading(true);
-    getAllProducts().then((res) => {
+    getAllProducts().then(res => {
       setProducts(res.data);
 
       setTimeout(setLoading(false), 4000);
@@ -36,7 +36,7 @@ const SizeSearch = () => {
   };
 
   const w = products
-    .map((p) => p.width)
+    .map(p => p.width)
     .filter((value, index, self) => self.indexOf(value) === index)
     .sort((a, b) => {
       return a - b;
@@ -59,7 +59,7 @@ const SizeSearch = () => {
   const sirinaOption = document.getElementById("sirina-option");
   const sizeSearchButton = document.getElementById("size-search-button");
 
-  const handleSubmitSizeSearch = (e) => {
+  const handleSubmitSizeSearch = e => {
     e.preventDefault();
 
     setSizePretrazeno(true);
@@ -75,7 +75,7 @@ const SizeSearch = () => {
     setValues({
       width: null,
       height: null,
-      rim: null,
+      rim: null
     });
 
     // izbrisi sve dosadasnje visine i felge
@@ -103,10 +103,10 @@ const SizeSearch = () => {
     setTimeout(setLoading(false), 1000);
   };
 
-  const handleWidthChange = (e) => {
+  const handleWidthChange = e => {
     // pretrazi products za odabranu sirinu
     const productsWithSelectedWidth = _.filter(products, {
-      width: e.target.value,
+      width: e.target.value
     });
 
     // enable Visina
@@ -125,7 +125,7 @@ const SizeSearch = () => {
     // nadji sve visine koje pripadaju selectovanoj sirini
 
     h = productsWithSelectedWidth
-      .map((p) => p.height)
+      .map(p => p.height)
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => {
         return a - b;
@@ -150,7 +150,7 @@ const SizeSearch = () => {
     rimSelector.add(rimOption, null);
 
     // za svaku visinu iz productsWithSelectedWidth napravi novi option
-    h.map((hg) => {
+    h.map(hg => {
       var option = document.createElement("option");
       option.text = hg;
       option.value = hg;
@@ -164,16 +164,16 @@ const SizeSearch = () => {
       height: null,
       rim: null,
 
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
-  const handleHeightChange = (e) => {
+  const handleHeightChange = e => {
     // pretrazi products za odabranu sirinu
 
     const productsWithSelectedWidthAndHeight = _.filter(products, {
       width: values.width,
-      height: e.target.value,
+      height: e.target.value
     });
 
     // disable sizeSearchButton
@@ -191,7 +191,7 @@ const SizeSearch = () => {
     // nadji sve felge koje pripadaju selectovanoj sirini i visini
 
     r = productsWithSelectedWidthAndHeight
-      .map((p) => p.rim)
+      .map(p => p.rim)
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => {
         return a - b;
@@ -210,7 +210,7 @@ const SizeSearch = () => {
     rimSelector.add(rimOption, null);
 
     // za svaku visinu iz productsWithSelectedWidth napravi novi option
-    r.map((rg) => {
+    r.map(rg => {
       var option = document.createElement("option");
       option.text = rg;
       option.value = rg;
@@ -223,16 +223,16 @@ const SizeSearch = () => {
       ...values,
 
       [e.target.name]: e.target.value,
-      rim: null,
+      rim: null
     });
   };
 
-  const handleRimChange = (e) => {
+  const handleRimChange = e => {
     const sizeSearchButton = document.getElementById("size-search-button");
     setValues({
       ...values,
 
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
 
     !rim || rim === "rim"
@@ -240,7 +240,7 @@ const SizeSearch = () => {
       : (sizeSearchButton.disabled = true);
   };
 
-  const resetSearch = (e) => {
+  const resetSearch = e => {
     e.preventDefault();
     // window.location.reload(false);
 
@@ -248,7 +248,7 @@ const SizeSearch = () => {
     setValues({
       width: null,
       height: null,
-      rim: null,
+      rim: null
     });
 
     // izbrisi sve dosadasnje visine i felge
@@ -285,7 +285,15 @@ const SizeSearch = () => {
         )}
       </div>
       <div className="size-search">
-        <div className="size-search-row">
+        <div
+          className={`size-search-row ${
+            sizeFilteredProducts.length
+              ? "size-search-row-open"
+              : "size-search-row-close"
+          }`}
+        >
+          {/* <div className={`banner ${active ? "active" : ""}`}></div> */}
+
           <div className="disclaimer-row">
             <p className="disclaimer">
               Poštovani posjetioci, da bi pronašli gume koje nudimo u Vašoj
@@ -317,7 +325,7 @@ const SizeSearch = () => {
                 185
               </option> */}
 
-                  {w.map((w) => (
+                  {w.map(w => (
                     <option key={w} value={w}>
                       {w}
                     </option>
@@ -341,7 +349,7 @@ const SizeSearch = () => {
                   disabled
                   id="select-rim"
                   style={{
-                    marginBottom: "1em",
+                    marginBottom: "1em"
                   }}
                 >
                   <option value="rim">Veličina felge</option>
@@ -349,7 +357,7 @@ const SizeSearch = () => {
                 15
               </option> */}
 
-                  {r.map((r) => (
+                  {r.map(r => (
                     <option key={r} value={r}>
                       {r}
                     </option>
@@ -364,7 +372,7 @@ const SizeSearch = () => {
                     background: "#5faeff",
                     paddingTop: ".6em",
                     color: "white",
-                    margin: "0",
+                    margin: "0"
                   }}
                   className="btn btn-outline-info btn-disabled"
                   id="size-search-button"
@@ -380,7 +388,7 @@ const SizeSearch = () => {
                     background: "#ff3035",
                     paddingTop: ".6em",
                     color: "white",
-                    margin: "0",
+                    margin: "0"
                   }}
                   className="btn btn-danger"
                   id="reset-button"
@@ -396,7 +404,7 @@ const SizeSearch = () => {
             transition={{ delay: 0.004441, duration: 3 }}
           >
             {sizeFilteredProducts.length && sizePretrazeno ? (
-              sizeFilteredProducts.map((product) => (
+              sizeFilteredProducts.map(product => (
                 <div key={product._id} className="col-lg-4 col-xl-3">
                   <Link to={`/product/${product.slug}`}>
                     <ProductCard product={product} />

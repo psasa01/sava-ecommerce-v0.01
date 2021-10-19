@@ -20,6 +20,7 @@ const BrandCarousel = () => {
       <Carousel
         autoplay
         autoplaySpeed={5000}
+        easing="ease-in-out"
         arrows
         prevArrow={<LeftOutlined />}
         nextArrow={<RightOutlined />}
