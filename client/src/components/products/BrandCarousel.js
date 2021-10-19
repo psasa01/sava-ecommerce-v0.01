@@ -5,6 +5,12 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { red } from "@material-ui/core/colors";
 import GoodYearImage from "./../../images/goodyear-carousel.jpg";
 import DunlopImage from "./../../images/dunlop-carousel.jpg";
+import SavaImage from "./../../images/sava-carousel.jpg";
+import VredesteinImage from "./../../images/vredestein-carousel.jpg";
+import DunlopBrand from "./../../images/dunlop-100px.jpg";
+import GoodYearBrand from "./../../images/good-year-100px.jpg";
+import SavaBrand from "./../../images/sava-100px.jpg";
+import VredesteinBrand from "./../../images/vredestein-100px.jpg";
 
 const GoodYear = {};
 
@@ -13,117 +19,69 @@ const BrandCarousel = () => {
     <>
       <Carousel
         autoplay
+        autoplaySpeed={5000}
         arrows
         prevArrow={<LeftOutlined />}
         nextArrow={<RightOutlined />}
       >
-        <div className="carousel-container">
-          <div
-            style={{
-              position: "absolute",
-              backgroundImage: `linear-gradient(110deg, rgba(0, 3, 10, .9), rgba(0, 0, 0, .1) 15%)`,
-              zIndex: "99",
-              width: "100%",
-              height: "100%"
-            }}
-          ></div>
-          <div
-            style={{
-              position: "relative",
-              height: "40vw",
-              width: "100%",
-              color: "#fff",
-              textAlign: "center"
-            }}
-          >
-            <h3
-              className="carousel-h3"
-              style={{
-                position: "absolute",
-                left: "15%",
-                top: "45%",
-                margin: "auto",
-                zIndex: "999",
-                color: "#fff",
-                fontSize: "2vw",
-                fontWeight: "200",
-                border: "1px solid #5faeff",
-                padding: ".5em 1em .75em 1em",
-                borderRadius: "1em",
-                backgroundColor: "rgba(0,20,50, .3)",
-                cursor: "pointer"
-              }}
-            >
+        <div className="carousel">
+          <div className="carousel-gradient"></div>
+          <div className="carousel-container">
+            <h3 className="carousel-h3 carousel-h3-goodyear">
               Pregledajte gume marke{" "}
               <span style={{ color: "#5faeff", fontWeight: "500" }}>
                 {" "}
                 Good Year{" "}
               </span>
             </h3>
-            <img
-              src={GoodYearImage}
-              alt=""
-              className="carousel-image"
-              style={{
-                width: `100%`,
-                bottom: "0"
-              }}
-            />
+            <img src={GoodYearBrand} alt="" className="carousel-brand" />
+            <img src={GoodYearImage} alt="" className="carousel-image" />
           </div>
         </div>
-        <div className="carousel-container">
-          <div
-            style={{
-              position: "absolute",
-              backgroundImage: `linear-gradient(110deg, rgba(0, 3, 10, .9), rgba(0, 0, 0, .1) 15%)`,
-              zIndex: "99",
-              width: "100%",
-              height: "100%"
-            }}
-          ></div>
-          <div
-            style={{
-              position: "relative",
-              height: "40vw",
-              width: "100%",
-              color: "#fff",
-              textAlign: "center"
-            }}
-          >
-            <h3
-              style={{
-                position: "absolute",
-                left: "15%",
-                top: "45%",
-                margin: "auto",
-                zIndex: "999",
-                color: "#fff",
-                fontSize: "2.8vw",
-                fontWeight: "200"
-              }}
-            >
+        <div className="carousel">
+          <div className="carousel-gradient"></div>
+
+          <div className="carousel-container">
+            <h3 className="carousel-h3 carousel-h3-dunlop">
               Pregledajte gume marke{" "}
               <span style={{ color: "#eeff00", fontWeight: "500" }}>
                 {" "}
                 Dunlop{" "}
               </span>
             </h3>
-            <img
-              src={DunlopImage}
-              alt=""
-              className="carousel-image"
-              style={{
-                width: `100%`,
-                bottom: "0"
-              }}
-            />
+            <img src={DunlopBrand} alt="" className="carousel-brand" />
+            <img src={DunlopImage} alt="" className="carousel-image" />
           </div>
-        </div>{" "}
-        <div>
-          <h3>5</h3>
         </div>
-        <div>
-          <h3>4</h3>
+        <div className="carousel">
+          <div className="carousel-gradient"></div>
+
+          <div className="carousel-container">
+            <h3 className="carousel-h3 carousel-h3-sava">
+              Pregledajte gume marke{" "}
+              <span style={{ color: "#20ff20", fontWeight: "500" }}>
+                {" "}
+                Sava{" "}
+              </span>
+            </h3>
+            <img src={SavaBrand} alt="" className="carousel-brand" />
+            <img src={SavaImage} alt="" className="carousel-image" />
+          </div>
+        </div>
+        <div className="carousel">
+          <div className="carousel-gradient"></div>
+
+          <div className="carousel-container">
+            <h3 className="carousel-h3 carousel-h3-vredestein">
+              Pregledajte gume marke{" "}
+              <span style={{ color: "#060905", fontWeight: "500" }}>
+                {" "}
+                Vredestein{" "}
+              </span>
+            </h3>
+            <img src={VredesteinBrand} alt="" className="carousel-brand" />
+            <img src={VredesteinImage} alt="" className="carousel-image" />
+          </div>
         </div>
       </Carousel>
     </>
