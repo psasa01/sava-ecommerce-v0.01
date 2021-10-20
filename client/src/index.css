@@ -4,6 +4,7 @@ body {
   --sava-carousel: #00ff00;
   --vredestein-carousel: #c7c4c0;
   --background-color: #d7e1fb;
+  --red: rgb(253, 86, 86);
   /* position: relative; */
   max-width: 100%;
   overflow-x: hidden;
@@ -362,6 +363,7 @@ h3 {
 
 .full-product {
   opacity: 0;
+  transition: all .6 ease;
 }
 
 .product-card {
@@ -510,7 +512,7 @@ h3 {
 }
 
 .full-price {
-  color: red;
+  color: var(--red);
   text-decoration: line-through;
   font-size: 0.6em;
 }
@@ -553,7 +555,7 @@ h3 {
 }
 
 .discount-percent {
-  background-color: rgb(255, 51, 0);
+  background-color: var(--red);
   position: absolute;
   bottom: 0.5em;
   right: 0.5em;
@@ -847,12 +849,28 @@ h3 {
   margin-bottom: 1em;
 }
 
+.reset-size-search-button {
+  position: absolute;
+  background: none;
+  color: var(--red) !important;
+  transition: all .9s ease;
+  right: 0em !important;
+  border: solid 1px red !important
+}
+
+.reset-size-search-button:hover {
+  background-color: rgba(255, 60, 60, .2) !important;
+  /* color: white !important; */
+}
+
+
 /* ---------------------- CAROUSEL ---------------- */
 
 .carousel {
   /* box-shadow: inset 0em 2em 3em black, inset 0em -2em 3em black; */
   width: 99% !important;
   position: relative;
+
 }
 
 .carousel-gradient {
@@ -1041,7 +1059,7 @@ h3 {
 .brand-logo-container {
   position: relative;
   width: 100%;
-  background-color: red;
+  background-color: var(--red);
 }
 
 .single-product-brand-logo {
@@ -1260,7 +1278,7 @@ h3 {
   font-weight: bold !important;
   -webkit-text-decoration: line-through black;
   text-decoration: line-through black;
-  color: red;
+  color: var(--red);
   font-style: italic !important;
 }
 
@@ -1990,7 +2008,7 @@ hr {
   position: relative;
   font-size: 2.5vw;
   color: white;
-  background-color: rgb(253, 86, 86);
+  background-color: var(--red);
   height: 4vw;
   width: 4vw;
   border-radius: 50%;
@@ -2018,7 +2036,7 @@ hr {
 }
 
 .icon-delete:active {
-  background-color: rgb(253, 86, 86);
+  background-color: var(--red);
   top: 50%;
   -webkit-transform: translateY(-49%);
   transform: translateY(-49%);

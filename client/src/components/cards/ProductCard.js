@@ -23,7 +23,7 @@ const ProductCard = ({ product, handleRemove }) => {
     loadindex,
     speedindex,
     // slug,
-    posebnaPonuda,
+    posebnaPonuda
   } = product;
   const discountPercent = discount;
   const discountPrice = price - (price * discount) / 100;
