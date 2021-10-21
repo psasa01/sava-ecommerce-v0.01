@@ -41,20 +41,22 @@ const ProductFilter = () => {
   //   setFiltered(fp);
   //   const { brand, width, height, posebnaPonuda } = values;
 
-  const handleChange = (e) => {
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value,
-    });
-  };
+  //   const handleChange = (e) => {
+  //     setValues({
+  //       ...values,
+  //       [e.target.name]: e.target.value,
+  //     });
+  //   };
+
+  const { brand, width, height, posebnaPonuda } = values;
 
   const handleSubmit = () => {
     const result = _.filter(products, function (item) {
       return (
-        values.brand.indexOf(item.brand) >= 0 &&
-        values.width.indexOf(item.width) >= 0 &&
-        values.height.indexOf(item.height) >= 0 &&
-        values.posebnaPonuda.indexOf(item.posebnaPonuda) >= 0
+        brand.indexOf(item.brand) >= 0 &&
+        width.indexOf(item.width) >= 0 &&
+        height.indexOf(item.height) >= 0 &&
+        posebnaPonuda.indexOf(item.posebnaPonuda) >= 0
       );
     });
 
@@ -85,7 +87,7 @@ const ProductFilter = () => {
                     type="text"
                     name="sirina"
                     className="form-control"
-                    onChange={handleChange}
+                    // onChange={handleChange}
                   />
                 </div>
               </div>
