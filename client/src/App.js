@@ -25,6 +25,7 @@ import ProductUpdate from "./pages/admin/product/ProductUpdate";
 import SingleProduct from "./pages/SingleProduct";
 import Cart from "./pages/Cart";
 import ProductTable from "./pages/admin/product/ProductTable";
+import ProductFilter from "./pages/ProductFilter";
 
 import Header from "./components/nav/Header";
 import Footer from "./components/Footer";
@@ -74,6 +75,7 @@ const App = () => {
         <Route exact path="/signup/complete" component={RegisterComplete} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
         <Route exact path="/product/:slug" component={SingleProduct} />
+        <Route exact path="/products/filter" component={ProductFilter} />
         <UserRoute exact path="/user/history" component={History} />
         <UserRoute exact path="/user/password" component={Password} />
         <UserRoute exact path="/user/wishlist" component={Wishlist} />
