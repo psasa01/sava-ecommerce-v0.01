@@ -12,91 +12,135 @@ const ProductFilter = () => {
   const loadAllProducts = () => {
     setLoading(true);
     getAllProducts()
-      .then((res) => {
+      .then(res => {
         setProducts(res.data);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(err => {
         setLoading(false);
         console.log(err);
       });
   };
 
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [brandchckd, setBrandchckd] = useState([]);
-  const [filtered, setFiltered] = useState([]);
-  const [filters, setFilters] = useState({
-    subs: {
-      name: [],
-    },
-    brand: [],
-    category: {
-      name: [],
-    },
+  const initialState = {
     width: "",
     height: "",
     rim: "",
-  });
+    posebnaPonuda: [true]
+  };
 
-  // destructure filter
-  const { width, height, rim, brand } = filters;
-  const category = filters.category.name;
-  const subs = filters.subs.name;
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [values, setValues] = useState(initialState);
+  const [markas, setMarkas] = useState([]);
+  const [seasons, setSeasons] = useState([]);
 
   //   const fp = _.filter(products, { brand: "Dunlop" });
 
   //   setFiltered(fp);
   //   const { brand, width, height, posebnaPonuda } = values;
 
-  const handleChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
+  const { width, height, rim, posebnaPonuda } = values;
+
+  const handleChange = e => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value
     });
   };
 
-  const handleBrandCheck = (e) => {
+  const handleCheck = e => {
     if (e.target.checked) {
-      let brandArray = filters[e.target.name];
-      brandArray.push(e.target.value);
-      setFilters({ ...filters, [e.target.name]: brandArray });
+      setMarkas([...markas, e.target.value]);
     } else {
-      let brandArray = filters[e.target.name];
-      let newBrandArray = brandArray.filter((br) => br !== e.target.value);
-
-      setFilters({ ...filters, [e.target.name]: newBrandArray });
+      setMarkas(markas.filter(br => br !== e.target.value));
     }
   };
 
-  const handleSeasonsCheck = (e) => {
+  const handleSeasonsCheck = e => {
     if (e.target.checked) {
-      let subsArray = filters[e.target.name].name;
-      subsArray.push(e.target.value);
-      setFilters({ ...filters, [e.target.name]: { name: subsArray } });
+      setSeasons([...seasons, e.target.value]);
     } else {
-      let newSubsArray = subs.filter((br) => br !== e.target.value);
-
-      setFilters({ ...filters, [e.target.name]: { name: newSubsArray } });
+      setSeasons(seasons.filter(br => br !== e.target.value));
     }
   };
 
-  const handleCheckboxSubmit = () => {
-    //
-  };
+  // const handleCheckboxSubmit = () => {
+  //   const brandCheckboxes = document.querySelectorAll(
+  //     'input[name="brand"]:checked'
+  //   );
+  //   let checkedBrands = [];
+  //   brandCheckboxes.forEach(checkbox => {
+  //     checkedBrands.push(checkbox.value);
+  //   });
 
-  let buildFilter = (filters) => {
-    let query = {};
-    for (let keys in filters) {
-      if (filters[keys].constructor === Array && filters[keys].length > 0) {
-        query[keys] = filters[keys];
+  //   setValues({
+  //     ...values,
+  //     brand: checkedBrands
+  //   });
+  // };
+
+  const handleSubmit = e => {
+    if (seasons.length) {
+      if (markas.length) {
+        const result = _.filter(products, function(item) {
+          return (
+            width.indexOf(item.width) >= 0 &&
+            height.indexOf(item.height) >= 0 &&
+            rim.indexOf(item.rim) >= 0 &&
+            markas.indexOf(item.brand) >= 0 &&
+            seasons.indexOf(item.subs[0].name) >= 0 &&
+            posebnaPonuda.indexOf(item.posebnaPonuda) >= 0
+          );
+        });
+        setFiltered(result);
+      } else {
+        const result = _.filter(products, function(item) {
+          return (
+            width.indexOf(item.width) >= 0 &&
+            height.indexOf(item.height) >= 0 &&
+            rim.indexOf(item.rim) >= 0 &&
+            seasons.indexOf(item.subs[0].name) >= 0 &&
+            posebnaPonuda.indexOf(item.posebnaPonuda) >= 0
+          );
+        });
+        setFiltered(result);
+      }
+    } else {
+      if (markas.length) {
+        const result = _.filter(products, function(item) {
+          return (
+            width.indexOf(item.width) >= 0 &&
+            height.indexOf(item.height) >= 0 &&
+            rim.indexOf(item.rim) >= 0 &&
+            markas.indexOf(item.brand) >= 0 &&
+            posebnaPonuda.indexOf(item.posebnaPonuda) >= 0
+          );
+        });
+        setFiltered(result);
+      } else {
+        const result = _.filter(products, function(item) {
+          return (
+            width.indexOf(item.width) >= 0 &&
+            height.indexOf(item.height) >= 0 &&
+            rim.indexOf(item.rim) >= 0 &&
+            posebnaPonuda.indexOf(item.posebnaPonuda) >= 0
+          );
+        });
+        setFiltered(result);
       }
     }
-    return query;
-  };
 
-  const handleSubmit = (e) => {
-    //
+    // const filterBy = { brand: ["Sava", "Dunlop"], width: ["195", "205"] };
+    // const result = products.filter((o) =>
+    //   Object.keys(filterBy).every((k) => filterBy[k].some((f) => o[k] === f))
+    // );
+
+    // const fp = _.filter(products, {
+    //   brand: "Dunlop",
+    //   width: "205",
+    // });
   };
 
   return (
@@ -145,7 +189,7 @@ const ProductFilter = () => {
                     name="brand"
                     value="Sava"
                     id="sava"
-                    onChange={handleBrandCheck}
+                    onChange={handleCheck}
                   />
                   Sava
                 </label>
@@ -157,7 +201,7 @@ const ProductFilter = () => {
                     name="brand"
                     value="Good Year"
                     id="good-year"
-                    onChange={handleBrandCheck}
+                    onChange={handleCheck}
                   />
                   Good Year
                 </label>
@@ -169,7 +213,7 @@ const ProductFilter = () => {
                     name="brand"
                     value="Dunlop"
                     id="dunlop"
-                    onChange={handleBrandCheck}
+                    onChange={handleCheck}
                   />
                   Dunlop
                 </label>
@@ -181,20 +225,18 @@ const ProductFilter = () => {
                     name="brand"
                     value="Vredestein"
                     id="vredestein"
-                    onChange={handleBrandCheck}
+                    onChange={handleCheck}
                   />
                   Vredestein
                 </label>
               </div>
-
               <hr />
-
               <div className="row">
                 <label for="summer">
                   {" "}
                   <input
                     type="checkbox"
-                    name="subs"
+                    name="seasons"
                     value="Ljetna guma"
                     id="summer"
                     onChange={handleSeasonsCheck}
@@ -205,7 +247,7 @@ const ProductFilter = () => {
                   {" "}
                   <input
                     type="checkbox"
-                    name="subs"
+                    name="seasons"
                     value="Zimska guma"
                     id="winter"
                     onChange={handleSeasonsCheck}
@@ -216,60 +258,18 @@ const ProductFilter = () => {
                   {" "}
                   <input
                     type="checkbox"
-                    name="subs"
+                    name="seasons"
                     value="Cjelogodisnja guma"
                     id="allseason"
                     onChange={handleSeasonsCheck}
                   />
-                  Cjelogodisnja guma
+                  Ljetna Guma
                 </label>
 
                 {/* <button type="button" onClick={handleCheckboxSubmit}>
                       Submit
                     </button> */}
               </div>
-
-              <hr />
-
-              {/* <div className="row">
-                <label for="putnicka">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="category"
-                    value="Gume za putnicka vozila"
-                    id="putnicka"
-                    onChange={handleSeasonsCheck}
-                  />
-                  Gume za putnicka vozila
-                </label>
-                <label for="suv">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="category"
-                    value="Gume za SUV vozila"
-                    id="suv"
-                    onChange={handleSeasonsCheck}
-                  />
-                  Gume za SUV vozila
-                </label>
-                <label for="dostavna">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="category"
-                    value="Gume za dostavna vozila"
-                    id="dostavna"
-                    onChange={handleSeasonsCheck}
-                  />
-                  Gume za dostavna vozila
-                </label> */}
-
-              {/* <button type="button" onClick={handleCheckboxSubmit}>
-                      Submit
-                    </button> */}
-              {/* </div> */}
             </form>
             <br />
             <button onClick={handleSubmit}>
@@ -283,7 +283,7 @@ const ProductFilter = () => {
             </div>
 
             <div className="row max-w-100">
-              {filtered.map((product) => (
+              {filtered.map(product => (
                 <div key={product._id} className="col-lg-6 col-xl-3">
                   <ProductCard product={product} />
                 </div>
