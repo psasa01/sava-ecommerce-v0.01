@@ -8,7 +8,7 @@ exports.create = async (req, res) => {
     // console.log("produuuucuuucucutt REQ BODY", req.body);
     // console.log(req.body);
     let cat = await Category.findOne({ _id: catId });
-    req.body.categoryFilter = cat.name;
+    req.body.categoryFilter = slugify(cat.name);
     req.body.slug = slugify(`
       ${req.body.width}-${req.body.height}-${req.body.rim}-${req.body.loadindex}-${req.body.speedindex}-${req.body.title}`);
     req.body.fullTitle = `${req.body.width}/${req.body.height}R${req.body.rim} ${req.body.loadindex}${req.body.speedindex} - ${req.body.title}`;
