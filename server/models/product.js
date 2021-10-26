@@ -45,12 +45,18 @@ const productSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "Category"
     },
+    categoryFilter: {
+      type: String
+    },
     subs: [
       {
         type: ObjectId,
         ref: "Sub"
       }
     ],
+    subsFilter: {
+      type: String
+    },
     quantity: Number,
     images: {
       type: Array

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 import { getAllProducts } from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
 import _ from "lodash";
+import Loader from "../components/loader/Loader";
 
 const initialSizeSearchState = [];
 
@@ -14,11 +15,11 @@ const ProductFilter = () => {
   const loadAllProducts = () => {
     setLoading(true);
     getAllProducts()
-      .then((res) => {
+      .then(res => {
         setProducts(res.data);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(err => {
         setLoading(false);
         console.log(err);
       });
@@ -34,20 +35,20 @@ const ProductFilter = () => {
   const [filtered, setFiltered] = useState([]);
   const [filters, setFilters] = useState({
     subs: {
-      name: [],
+      name: []
     },
     brand: [],
     category: {
-      name: [],
+      name: []
     },
     width: [],
     height: [],
-    rim: [],
+    rim: []
   });
 
   // destructure filter
-  const { width, height, rim, brand } = filters;
-  const category = filters.category.name;
+  // const { width, height, rim, brand } = filters;
+  // const category = filters.category.name;
   const subs = filters.subs.name;
 
   //   const fp = _.filter(products, { brand: "Dunlop" });
@@ -55,35 +56,35 @@ const ProductFilter = () => {
   //   setFiltered(fp);
   //   const { brand, width, height, posebnaPonuda } = values;
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     let newArr = [];
     newArr.push(e.target.value);
     setFilters({
       ...filters,
-      [e.target.name]: newArr,
+      [e.target.name]: newArr
     });
   };
 
-  const handleBrandCheck = (e) => {
+  const handleBrandCheck = e => {
     if (e.target.checked) {
       let brandArray = filters[e.target.name];
       brandArray.push(e.target.value);
       setFilters({ ...filters, [e.target.name]: brandArray });
     } else {
       let brandArray = filters[e.target.name];
-      let newBrandArray = brandArray.filter((br) => br !== e.target.value);
+      let newBrandArray = brandArray.filter(br => br !== e.target.value);
 
       setFilters({ ...filters, [e.target.name]: newBrandArray });
     }
   };
 
-  const handleSeasonsCheck = (e) => {
+  const handleSeasonsCheck = e => {
     if (e.target.checked) {
       let subsArray = filters[e.target.name].name;
       subsArray.push(e.target.value);
       setFilters({ ...filters, [e.target.name]: { name: subsArray } });
     } else {
-      let newSubsArray = subs.filter((br) => br !== e.target.value);
+      let newSubsArray = subs.filter(br => br !== e.target.value);
 
       setFilters({ ...filters, [e.target.name]: { name: newSubsArray } });
     }
@@ -93,7 +94,7 @@ const ProductFilter = () => {
     //
   };
 
-  const buildFilter = (filter) => {
+  const buildFilter = filter => {
     let query = {};
     for (let keys in filter) {
       if (filter[keys].constructor === Array && filter[keys].length > 0) {
@@ -103,8 +104,8 @@ const ProductFilter = () => {
     setFilteredFilters(query);
   };
 
-  const filterData = (data, query) => {
-    const filteredData = data.filter((item) => {
+  const filterData = async (data, query) => {
+    const filteredData = await data.filter(item => {
       for (let key in query) {
         if (item[key] === undefined || !query[key].includes(item[key])) {
           return false;
@@ -115,13 +116,15 @@ const ProductFilter = () => {
     setFiltered(filteredData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
+    setLoading(true);
     buildFilter(filters);
     filterData(products, filteredFilters);
+    setLoading(false);
   };
 
   const w = products
-    .map((p) => p.width)
+    .map(p => p.width)
     .filter((value, index, self) => self.indexOf(value) === index)
     .sort((a, b) => {
       return a - b;
@@ -144,10 +147,10 @@ const ProductFilter = () => {
   const sirinaOption = document.getElementById("sirina-option");
   // const sizeSearchButton = document.getElementById("size-search-button");
 
-  const handleWidthChange = (e) => {
+  const handleWidthChange = e => {
     // pretrazi products za odabranu sirinu
     const productsWithSelectedWidth = _.filter(products, {
-      width: e.target.value,
+      width: e.target.value
     });
 
     // enable Visina
@@ -166,7 +169,7 @@ const ProductFilter = () => {
     // nadji sve visine koje pripadaju selectovanoj sirini
 
     h = productsWithSelectedWidth
-      .map((p) => p.height)
+      .map(p => p.height)
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => {
         return a - b;
@@ -191,7 +194,7 @@ const ProductFilter = () => {
     rimSelector.add(rimOption, null);
 
     // za svaku visinu iz productsWithSelectedWidth napravi novi option
-    h.map((hg) => {
+    h.map(hg => {
       var option = document.createElement("option");
       option.text = hg;
       option.value = hg;
@@ -205,23 +208,23 @@ const ProductFilter = () => {
       height: null,
       rim: null,
 
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
     setFilters({
       ...filters,
       height: null,
       rim: null,
 
-      [e.target.name]: [e.target.value],
+      [e.target.name]: [e.target.value]
     });
   };
 
-  const handleHeightChange = (e) => {
+  const handleHeightChange = e => {
     // pretrazi products za odabranu sirinu
 
     const productsWithSelectedWidthAndHeight = _.filter(products, {
       width: values.width,
-      height: e.target.value,
+      height: e.target.value
     });
 
     // disable sizeSearchButton
@@ -239,7 +242,7 @@ const ProductFilter = () => {
     // nadji sve felge koje pripadaju selectovanoj sirini i visini
 
     r = productsWithSelectedWidthAndHeight
-      .map((p) => p.rim)
+      .map(p => p.rim)
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => {
         return a - b;
@@ -258,7 +261,7 @@ const ProductFilter = () => {
     rimSelector.add(rimOption, null);
 
     // za svaku visinu iz productsWithSelectedWidth napravi novi option
-    r.map((rg) => {
+    r.map(rg => {
       var option = document.createElement("option");
       option.text = rg;
       option.value = rg;
@@ -271,26 +274,26 @@ const ProductFilter = () => {
       ...values,
 
       [e.target.name]: e.target.value,
-      rim: null,
+      rim: null
     });
     setFilters({
       ...filters,
 
       [e.target.name]: [e.target.value],
-      rim: null,
+      rim: null
     });
   };
 
-  const handleRimChange = (e) => {
+  const handleRimChange = e => {
     // const sizeSearchButton = document.getElementById("size-search-button");
     setValues({
       ...values,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
 
     setFilters({
       ...filters,
-      [e.target.name]: [e.target.value],
+      [e.target.name]: [e.target.value]
     });
 
     // !rim || rim === "rim"
@@ -298,7 +301,7 @@ const ProductFilter = () => {
     //   : (sizeSearchButton.disabled = true);
   };
 
-  const resetSearch = (e) => {
+  const resetSearch = e => {
     e.preventDefault();
     // window.location.reload(false);
 
@@ -306,14 +309,14 @@ const ProductFilter = () => {
     setValues({
       width: null,
       height: null,
-      rim: null,
+      rim: null
     });
 
     setFilters({
       ...filters,
       width: null,
       height: null,
-      rim: null,
+      rim: null
     });
 
     // izbrisi sve dosadasnje visine i felge
@@ -341,11 +344,24 @@ const ProductFilter = () => {
 
   return (
     <>
+      <div className="loading-container" onclick="return false;">
+        {loading ? (
+          // <LoadingOutlined style={{ color: "red" }} />
+          <Loader />
+        ) : (
+          <></>
+        )}
+      </div>
       <div className="container-fluid">
         <div className="row">
           <div
             className="col-md-3"
-            style={{ top: "3em", left: "2em", marginRight: "2em" }}
+            style={{
+              width: "93%",
+              top: "3em",
+              left: "2em",
+              paddingRight: "2em"
+            }}
           >
             {" "}
             <h3>filter</h3>
@@ -370,7 +386,7 @@ const ProductFilter = () => {
                 185
               </option> */}
 
-                      {w.map((w) => (
+                      {w.map(w => (
                         <option key={w} value={w}>
                           {w}
                         </option>
@@ -399,7 +415,7 @@ const ProductFilter = () => {
                 15
               </option> */}
 
-                      {r.map((r) => (
+                      {r.map(r => (
                         <option key={r} value={r}>
                           {r}
                         </option>
@@ -627,9 +643,15 @@ const ProductFilter = () => {
             </div>
 
             <div className="row max-w-100">
-              {filtered.map((product) => (
-                <div key={product._id} className="col-lg-6 col-xl-3">
-                  <ProductCard product={product} />
+              {filtered.map(product => (
+                <div
+                  key={product._id}
+                  className="col-lg-6 col-xl-3"
+                  style={{ marginLeft: "2em", width: "95%" }}
+                >
+                  <Link to={`/product/${product.slug}`}>
+                    <ProductCard product={product} />
+                  </Link>
                 </div>
               ))}
             </div>

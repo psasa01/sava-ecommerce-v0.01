@@ -1,7 +1,7 @@
 body {
   --good-year-carousel: #5faeff;
   --dunlop-carousel: #eeff00;
-  --sava-carousel: rgba(0,255,0);
+  --sava-carousel: rgba(0, 255, 0);
   --vredestein-carousel: #c7c4c0;
   --background-color: #d7e1fb;
   --red: rgb(253, 86, 86);
@@ -765,7 +765,7 @@ h3 {
 
 .filter-size-reset-button {
   /* height: 3em; */
-  border: 1px solid #ccc;
+
   background: #ff3035;
   width: 100%;
   color: white;
@@ -792,15 +792,16 @@ h3 {
   height: 2.5em;
   width: 100%;
   text-align: center;
-  padding-top: .7em; 
+  padding-top: .7em;
   cursor: pointer;
   border-radius: .5em;
   box-shadow: -1px -1px 2px rgba(255, 255, 255, 1),
-              2px 2px 4px rgba(0, 0, 0, 0.1);
+    2px 2px 4px rgba(0, 0, 0, 0.1);
   transition: all .6em;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 1.2em;;
+  font-size: 1.2em;
+  ;
   color: rgb(80, 80, 80);
   /* text-shadow: 1px 1px 3px rgb(194, 194, 194);; */
 
@@ -808,26 +809,25 @@ h3 {
 
 
 
-.checkbox-sava:checked ~ .label-sava,
-.checkbox-goodyear:checked ~ .label-goodyear,
-.checkbox-dunlop:checked ~ .label-dunlop,
-.checkbox-vredestein:checked ~ .label-vredestein,
-.checkbox-summer:checked ~ .label-summer,
-.checkbox-winter:checked ~ .label-winter,
-.checkbox-allseason:checked ~ .label-allseason,
-.checkbox-putnicka:checked ~ .label-putnicka,
-.checkbox-suv:checked ~ .label-suv,
-.checkbox-dostavna:checked ~ .label-dostavna
-
-{
+.checkbox-sava:checked~.label-sava,
+.checkbox-goodyear:checked~.label-goodyear,
+.checkbox-dunlop:checked~.label-dunlop,
+.checkbox-vredestein:checked~.label-vredestein,
+.checkbox-summer:checked~.label-summer,
+.checkbox-winter:checked~.label-winter,
+.checkbox-allseason:checked~.label-allseason,
+.checkbox-putnicka:checked~.label-putnicka,
+.checkbox-suv:checked~.label-suv,
+.checkbox-dostavna:checked~.label-dostavna {
   box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 1),
-  inset 3px 3px 1px rgba(0, 0, 0, 0.1);
+    inset 3px 3px 1px rgba(0, 0, 0, 0.1);
   background: rgba(0, 0, 0, 0.027);
-  text-shadow: 0px 0px 10px rgb(255, 252, 50);;
+  text-shadow: 0px 0px 10px rgb(255, 252, 50);
+  ;
 }
-  
+
 .label-sava {
-  background: rgba(0,255,0,0.5)
+  background: rgba(0, 255, 0, 0.5)
 }
 
 .label-goodyear {
@@ -840,11 +840,9 @@ h3 {
 
 .label-vredestein {
   background: rgba(100, 100, 100, .33)
-
-  
 }
 
-input[type='checkbox'] {
+.filter-checkbox-row input[type='checkbox'] {
   position: absolute;
   opacity: 0;
 }
@@ -852,6 +850,7 @@ input[type='checkbox'] {
 .filter-button {
   width: 100%;
   border-radius: .5em;
+  background: rgba(255, 255, 0, 0.5);
 }
 
 
