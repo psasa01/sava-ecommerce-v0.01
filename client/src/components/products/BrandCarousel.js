@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import { Carousel } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { red } from "@material-ui/core/colors";
@@ -28,13 +28,15 @@ const BrandCarousel = () => {
         <div className="carousel">
           <div className="carousel-gradient"></div>
           <div className="carousel-container">
-            <h3 className="carousel-h3 carousel-h3-goodyear">
-              Pregledajte gume marke{" "}
-              <span style={{ color: "#5faeff", fontWeight: "500" }}>
-                {" "}
-                Good Year{" "}
-              </span>
-            </h3>
+            <Link to="/products/filter">
+              <h3 className="carousel-h3 carousel-h3-goodyear">
+                Pregledajte gume marke{" "}
+                <span style={{ color: "#5faeff", fontWeight: "500" }}>
+                  {" "}
+                  Good Year{" "}
+                </span>
+              </h3>
+            </Link>
             <img src={GoodYearBrand} alt="" className="carousel-brand" />
             <img src={GoodYearImage} alt="" className="carousel-image" />
           </div>

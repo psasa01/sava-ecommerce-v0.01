@@ -14,11 +14,11 @@ const ProductFilter = () => {
   const loadAllProducts = () => {
     setLoading(true);
     getAllProducts()
-      .then(res => {
+      .then((res) => {
         setProducts(res.data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setLoading(false);
         console.log(err);
       });
@@ -34,15 +34,15 @@ const ProductFilter = () => {
   const [filtered, setFiltered] = useState([]);
   const [filters, setFilters] = useState({
     subs: {
-      name: []
+      name: [],
     },
     brand: [],
     category: {
-      name: []
+      name: [],
     },
     width: [],
     height: [],
-    rim: []
+    rim: [],
   });
 
   // destructure filter
@@ -55,35 +55,35 @@ const ProductFilter = () => {
   //   setFiltered(fp);
   //   const { brand, width, height, posebnaPonuda } = values;
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     let newArr = [];
     newArr.push(e.target.value);
     setFilters({
       ...filters,
-      [e.target.name]: newArr
+      [e.target.name]: newArr,
     });
   };
 
-  const handleBrandCheck = e => {
+  const handleBrandCheck = (e) => {
     if (e.target.checked) {
       let brandArray = filters[e.target.name];
       brandArray.push(e.target.value);
       setFilters({ ...filters, [e.target.name]: brandArray });
     } else {
       let brandArray = filters[e.target.name];
-      let newBrandArray = brandArray.filter(br => br !== e.target.value);
+      let newBrandArray = brandArray.filter((br) => br !== e.target.value);
 
       setFilters({ ...filters, [e.target.name]: newBrandArray });
     }
   };
 
-  const handleSeasonsCheck = e => {
+  const handleSeasonsCheck = (e) => {
     if (e.target.checked) {
       let subsArray = filters[e.target.name].name;
       subsArray.push(e.target.value);
       setFilters({ ...filters, [e.target.name]: { name: subsArray } });
     } else {
-      let newSubsArray = subs.filter(br => br !== e.target.value);
+      let newSubsArray = subs.filter((br) => br !== e.target.value);
 
       setFilters({ ...filters, [e.target.name]: { name: newSubsArray } });
     }
@@ -93,7 +93,7 @@ const ProductFilter = () => {
     //
   };
 
-  const buildFilter = filter => {
+  const buildFilter = (filter) => {
     let query = {};
     for (let keys in filter) {
       if (filter[keys].constructor === Array && filter[keys].length > 0) {
@@ -104,7 +104,7 @@ const ProductFilter = () => {
   };
 
   const filterData = (data, query) => {
-    const filteredData = data.filter(item => {
+    const filteredData = data.filter((item) => {
       for (let key in query) {
         if (item[key] === undefined || !query[key].includes(item[key])) {
           return false;
@@ -115,13 +115,13 @@ const ProductFilter = () => {
     setFiltered(filteredData);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     buildFilter(filters);
     filterData(products, filteredFilters);
   };
 
   const w = products
-    .map(p => p.width)
+    .map((p) => p.width)
     .filter((value, index, self) => self.indexOf(value) === index)
     .sort((a, b) => {
       return a - b;
@@ -144,10 +144,10 @@ const ProductFilter = () => {
   const sirinaOption = document.getElementById("sirina-option");
   // const sizeSearchButton = document.getElementById("size-search-button");
 
-  const handleWidthChange = e => {
+  const handleWidthChange = (e) => {
     // pretrazi products za odabranu sirinu
     const productsWithSelectedWidth = _.filter(products, {
-      width: e.target.value
+      width: e.target.value,
     });
 
     // enable Visina
@@ -166,7 +166,7 @@ const ProductFilter = () => {
     // nadji sve visine koje pripadaju selectovanoj sirini
 
     h = productsWithSelectedWidth
-      .map(p => p.height)
+      .map((p) => p.height)
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => {
         return a - b;
@@ -191,7 +191,7 @@ const ProductFilter = () => {
     rimSelector.add(rimOption, null);
 
     // za svaku visinu iz productsWithSelectedWidth napravi novi option
-    h.map(hg => {
+    h.map((hg) => {
       var option = document.createElement("option");
       option.text = hg;
       option.value = hg;
@@ -205,23 +205,23 @@ const ProductFilter = () => {
       height: null,
       rim: null,
 
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
     setFilters({
       ...filters,
       height: null,
       rim: null,
 
-      [e.target.name]: [e.target.value]
+      [e.target.name]: [e.target.value],
     });
   };
 
-  const handleHeightChange = e => {
+  const handleHeightChange = (e) => {
     // pretrazi products za odabranu sirinu
 
     const productsWithSelectedWidthAndHeight = _.filter(products, {
       width: values.width,
-      height: e.target.value
+      height: e.target.value,
     });
 
     // disable sizeSearchButton
@@ -239,7 +239,7 @@ const ProductFilter = () => {
     // nadji sve felge koje pripadaju selectovanoj sirini i visini
 
     r = productsWithSelectedWidthAndHeight
-      .map(p => p.rim)
+      .map((p) => p.rim)
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => {
         return a - b;
@@ -258,7 +258,7 @@ const ProductFilter = () => {
     rimSelector.add(rimOption, null);
 
     // za svaku visinu iz productsWithSelectedWidth napravi novi option
-    r.map(rg => {
+    r.map((rg) => {
       var option = document.createElement("option");
       option.text = rg;
       option.value = rg;
@@ -271,26 +271,26 @@ const ProductFilter = () => {
       ...values,
 
       [e.target.name]: e.target.value,
-      rim: null
+      rim: null,
     });
     setFilters({
       ...filters,
 
       [e.target.name]: [e.target.value],
-      rim: null
+      rim: null,
     });
   };
 
-  const handleRimChange = e => {
+  const handleRimChange = (e) => {
     // const sizeSearchButton = document.getElementById("size-search-button");
     setValues({
       ...values,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
 
     setFilters({
       ...filters,
-      [e.target.name]: [e.target.value]
+      [e.target.name]: [e.target.value],
     });
 
     // !rim || rim === "rim"
@@ -298,7 +298,7 @@ const ProductFilter = () => {
     //   : (sizeSearchButton.disabled = true);
   };
 
-  const resetSearch = e => {
+  const resetSearch = (e) => {
     e.preventDefault();
     // window.location.reload(false);
 
@@ -306,14 +306,14 @@ const ProductFilter = () => {
     setValues({
       width: null,
       height: null,
-      rim: null
+      rim: null,
     });
 
     setFilters({
       ...filters,
       width: null,
       height: null,
-      rim: null
+      rim: null,
     });
 
     // izbrisi sve dosadasnje visine i felge
@@ -343,19 +343,22 @@ const ProductFilter = () => {
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-6" style={{ top: "3em", left: "2em" }}>
+          <div
+            className="col-md-3"
+            style={{ top: "3em", left: "2em", marginRight: "2em" }}
+          >
             {" "}
             <h3>filter</h3>
             <form>
-              <div className="form-row">
+              <div className="filter-size-search-row">
                 <form
                   // onSubmit={handleSubmitSizeSearch}
-                  className="form-inline size-search-form"
+                  className="form-inline"
                 >
-                  <div className="form-container">
+                  <div className="filter-size-search-form-container">
                     <select
                       name="width"
-                      className="form-select"
+                      className="filter-form-select"
                       id="select-width"
                       onChange={handleWidthChange}
                       placeholder="Sirina"
@@ -367,7 +370,7 @@ const ProductFilter = () => {
                 185
               </option> */}
 
-                      {w.map(w => (
+                      {w.map((w) => (
                         <option key={w} value={w}>
                           {w}
                         </option>
@@ -376,7 +379,7 @@ const ProductFilter = () => {
 
                     <select
                       name="height"
-                      className="form-select"
+                      className="filter-form-select"
                       disabled
                       id="select-height"
                       onChange={handleHeightChange}
@@ -386,20 +389,17 @@ const ProductFilter = () => {
 
                     <select
                       name="rim"
-                      className="form-select"
+                      className="filter-form-select"
                       onChange={handleRimChange}
                       disabled
                       id="select-rim"
-                      style={{
-                        marginBottom: "1em"
-                      }}
                     >
                       <option value="rim">Veličina felge</option>
                       {/* <option key="15" value="15">
                 15
               </option> */}
 
-                      {r.map(r => (
+                      {r.map((r) => (
                         <option key={r} value={r}>
                           {r}
                         </option>
@@ -421,184 +421,190 @@ const ProductFilter = () => {
                 >
                   PRETRAŽIVANJE
                 </button> */}
-                    <button
-                      type="button"
-                      onClick={resetSearch}
-                      style={{
-                        height: "3em",
-                        border: "1px solid #ccc",
-                        background: "#ff3035",
-                        paddingTop: ".6em",
-                        color: "white",
-                        margin: "0"
-                      }}
-                      className="btn btn-danger"
-                      id="reset-button"
-                    >
-                      PONIŠTI PRETRAGU
-                    </button>
                   </div>
+                  <button
+                    type="button"
+                    onClick={resetSearch}
+                    className="btn btn-raised btn-danger filter-size-reset-button"
+                    id="reset-button"
+                  >
+                    PONIŠTI PRETRAGU
+                  </button>
                 </form>
               </div>
 
-              {/* <div className="row">
-                <div className="form-group col-md-2">
-                  <label>Sirina</label>
-                  <input
-                    type="text"
-                    name="width"
-                    className="form-control"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group col-md-2">
-                  <label>Visina</label>
-                  <input
-                    type="text"
-                    name="height"
-                    className="form-control"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group col-md-2">
-                  <label>Velicina felge</label>
-                  <input
-                    type="text"
-                    name="rim"
-                    className="form-control"
-                    onChange={handleChange}
-                  />
-                </div>
-              </div> */}
-
               <hr />
+              <br />
+              <h4 style={{ fontSize: "1.3em", color: "#444" }}>
+                Odaberite brandove koji vas zanimaju
+              </h4>
 
-              <div className="row">
-                <label for="sava">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="brand"
-                    value="Sava"
-                    id="sava"
-                    onChange={handleBrandCheck}
-                  />
+              <div className="filter-checkbox-row">
+                <input
+                  className="checkbox-sava"
+                  type="checkbox"
+                  name="brand"
+                  value="Sava"
+                  id="sava"
+                  onChange={handleBrandCheck}
+                />
+                <label
+                  for="sava"
+                  className="filter-checkbox-label label-sava"
+                  id="checkbox-sava"
+                >
                   Sava
                 </label>
 
-                <label for="goodyear">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="brand"
-                    value="Good Year"
-                    id="good-year"
-                    onChange={handleBrandCheck}
-                  />
+                <input
+                  className="checkbox-goodyear"
+                  type="checkbox"
+                  name="brand"
+                  value="Good Year"
+                  id="goodyear"
+                  onChange={handleBrandCheck}
+                />
+                <label
+                  for="goodyear"
+                  className="filter-checkbox-label label-goodyear"
+                >
                   Good Year
                 </label>
+              </div>
 
-                <label for="dunlop">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="brand"
-                    value="Dunlop"
-                    id="dunlop"
-                    onChange={handleBrandCheck}
-                  />
+              <div className="filter-checkbox-row">
+                <input
+                  className="checkbox-dunlop"
+                  type="checkbox"
+                  name="brand"
+                  value="Dunlop"
+                  id="dunlop"
+                  onChange={handleBrandCheck}
+                />
+                <label
+                  for="dunlop"
+                  className="filter-checkbox-label  label-dunlop"
+                >
                   Dunlop
                 </label>
 
-                <label for="vredestein">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="brand"
-                    value="Vredestein"
-                    id="vredestein"
-                    onChange={handleBrandCheck}
-                  />
+                <input
+                  className="checkbox-vredestein"
+                  type="checkbox"
+                  name="brand"
+                  value="Vredestein"
+                  id="vredestein"
+                  onChange={handleBrandCheck}
+                />
+                <label
+                  for="vredestein"
+                  className="filter-checkbox-label label-vredestein"
+                >
                   Vredestein
                 </label>
               </div>
 
               <hr />
-
-              <div className="row">
-                <label for="summer">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="subs"
-                    value="Ljetna guma"
-                    id="summer"
-                    onChange={handleSeasonsCheck}
-                  />
+              <br />
+              <h4 style={{ fontSize: "1.3em", color: "#444" }}>
+                Odaberite vrstu guma po sezoni
+              </h4>
+              <div className="filter-checkbox-row-flexcolumn">
+                <input
+                  className="checkbox-summer"
+                  type="checkbox"
+                  name="subs"
+                  value="Ljetna guma"
+                  id="summer"
+                  onChange={handleSeasonsCheck}
+                />
+                <label
+                  for="summer"
+                  className="filter-checkbox-label label-summer"
+                >
                   Ljetna Guma
                 </label>
-                <label for="winter">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="subs"
-                    value="Zimska guma"
-                    id="winter"
-                    onChange={handleSeasonsCheck}
-                  />
+                <input
+                  className="checkbox-winter"
+                  type="checkbox"
+                  name="subs"
+                  value="Zimska guma"
+                  id="winter"
+                  onChange={handleSeasonsCheck}
+                />
+                <label
+                  for="winter"
+                  className="filter-checkbox-label label-winter"
+                >
                   Zimska Guma
-                </label>
-                <label for="allseason">
-                  {" "}
-                  <input
-                    type="checkbox"
-                    name="subs"
-                    value="Cjelogodisnja guma"
-                    id="allseason"
-                    onChange={handleSeasonsCheck}
-                  />
+                </label>{" "}
+                <input
+                  className="checkbox-allseason"
+                  type="checkbox"
+                  name="subs"
+                  value="Cjelogodisnja guma"
+                  id="allseason"
+                  onChange={handleSeasonsCheck}
+                />
+                <label
+                  for="allseason"
+                  className="filter-checkbox-label label-allseason"
+                >
                   Cjelogodisnja guma
                 </label>
-
                 {/* <button type="button" onClick={handleCheckboxSubmit}>
                       Submit
                     </button> */}
               </div>
 
               <hr />
-
-              <div className="row">
-                <label for="putnicka">
+              <br />
+              <h4 style={{ fontSize: "1.2em", color: "#444" }}>
+                Odaberite namjenu guma po vrsti vozila
+              </h4>
+              <div className="filter-checkbox-row-flexcolumn">
+                <input
+                  className="checkbox-putnicka"
+                  type="checkbox"
+                  name="category"
+                  value="Gume za putnicka vozila"
+                  id="putnicka"
+                  onChange={handleSeasonsCheck}
+                />
+                <label
+                  for="putnicka"
+                  className="filter-checkbox-label label-putnicka"
+                >
                   {" "}
-                  <input
-                    type="checkbox"
-                    name="category"
-                    value="Gume za putnicka vozila"
-                    id="putnicka"
-                    onChange={handleSeasonsCheck}
-                  />
                   Gume za putnicka vozila
                 </label>
-                <label for="suv">
+
+                <input
+                  className="checkbox-suv"
+                  type="checkbox"
+                  name="category"
+                  value="Gume za SUV vozila"
+                  id="suv"
+                  onChange={handleSeasonsCheck}
+                />
+                <label for="suv" className="filter-checkbox-label label-suv">
                   {" "}
-                  <input
-                    type="checkbox"
-                    name="category"
-                    value="Gume za SUV vozila"
-                    id="suv"
-                    onChange={handleSeasonsCheck}
-                  />
                   Gume za SUV vozila
                 </label>
-                <label for="dostavna">
+
+                <input
+                  className="checkbox-dostavna"
+                  type="checkbox"
+                  name="category"
+                  value="Gume za dostavna vozila"
+                  id="dostavna"
+                  onChange={handleSeasonsCheck}
+                />
+                <label
+                  for="dostavna"
+                  className="filter-checkbox-label label-dostavna"
+                >
                   {" "}
-                  <input
-                    type="checkbox"
-                    name="category"
-                    value="Gume za dostavna vozila"
-                    id="dostavna"
-                    onChange={handleSeasonsCheck}
-                  />
                   Gume za dostavna vozila
                 </label>
 
@@ -607,9 +613,11 @@ const ProductFilter = () => {
                     </button> */}
               </div>
             </form>
-            <br />
-            <button onClick={handleSubmit}>
-              <h3>Pretrazi</h3>
+            <button
+              onClick={handleSubmit}
+              className="filter-button btn btn-raised btn-success float-right"
+            >
+              <h4>Primjenite filtere</h4>
             </button>
           </div>
           <div className="col" style={{ top: "3em" }}>
@@ -619,7 +627,7 @@ const ProductFilter = () => {
             </div>
 
             <div className="row max-w-100">
-              {filtered.map(product => (
+              {filtered.map((product) => (
                 <div key={product._id} className="col-lg-6 col-xl-3">
                   <ProductCard product={product} />
                 </div>
