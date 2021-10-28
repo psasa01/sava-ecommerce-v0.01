@@ -842,7 +842,7 @@ h3 {
   background: rgba(100, 100, 100, .33)
 }
 
-.filter-checkbox-row input[type='checkbox'] {
+.hidden-checkbox  {
   position: absolute;
   opacity: 0;
 }
