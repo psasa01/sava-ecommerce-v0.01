@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getAllProducts } from "../functions/product";
+import { Link, useLocation } from "react-router-dom";
+import { getAllProducts, getProductsByBrand } from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
 import _ from "lodash";
 import Loader from "../components/loader/Loader";
@@ -8,22 +8,11 @@ import Loader from "../components/loader/Loader";
 const initialSizeSearchState = [];
 
 const ProductFilter = () => {
-  useEffect(() => {
-    loadAllProducts();
-  }, []);
-
-  const loadAllProducts = () => {
-    setLoading(true);
-    getAllProducts()
-      .then((res) => {
-        setProducts(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-      });
-  };
+  const location = useLocation();
+  if (location.state) {
+    const { from } = location.state;
+  }
+  const from = undefined;
 
   const [sizePretrazeno, setSizePretrazeno] = useState(false);
   const [values, setValues] = useState(initialSizeSearchState);
@@ -39,8 +28,46 @@ const ProductFilter = () => {
     categoryFilter: [],
     width: [],
     height: [],
-    rim: [],
+    rim: []
   });
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  // useEffect(() => {
+  //   load();
+  // });
+
+  // const load = () => {
+  //   if (from) loadBrandProducts();
+  // };
+
+  const load = () => {
+    !from ? loadAllProducts() : loadBrandProducts();
+  };
+
+  const loadBrandProducts = () => {
+    setLoading(true);
+    loadAllProducts();
+    setFilteredFilters({ brand: [from] });
+    filterData(products, filteredFilters);
+    setLoading(false);
+  };
+
+  const loadAllProducts = () => {
+    setLoading(true);
+    getAllProducts()
+      .then(res => {
+        setProducts(res.data);
+        setFiltered(res.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
 
   // destructure filter
   // const { width, height, rim, brand } = filters;
@@ -52,23 +79,23 @@ const ProductFilter = () => {
   //   setFiltered(fp);
   //   const { brand, width, height, posebnaPonuda } = values;
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     let newArr = [];
     newArr.push(e.target.value);
     setFilters({
       ...filters,
-      [e.target.name]: newArr,
+      [e.target.name]: newArr
     });
   };
 
-  const handleBrandCheck = (e) => {
+  const handleBrandCheck = e => {
     if (e.target.checked) {
       let brandArray = filters[e.target.name];
       brandArray.push(e.target.value);
       setFilters({ ...filters, [e.target.name]: brandArray });
     } else {
       let brandArray = filters[e.target.name];
-      let newBrandArray = brandArray.filter((br) => br !== e.target.value);
+      let newBrandArray = brandArray.filter(br => br !== e.target.value);
 
       setFilters({ ...filters, [e.target.name]: newBrandArray });
     }
@@ -90,7 +117,7 @@ const ProductFilter = () => {
     //
   };
 
-  const buildFilter = (filter) => {
+  const buildFilter = filter => {
     let query = {};
     for (let keys in filter) {
       if (filter[keys].constructor === Array && filter[keys].length > 0) {
@@ -101,7 +128,7 @@ const ProductFilter = () => {
   };
 
   const filterData = async (data, query) => {
-    const filteredData = await data.filter((item) => {
+    const filteredData = await data.filter(item => {
       for (let key in query) {
         if (item[key] === undefined || !query[key].includes(item[key])) {
           return false;
@@ -112,7 +139,8 @@ const ProductFilter = () => {
     setFiltered(filteredData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
+    e.preventDefault();
     setLoading(true);
     buildFilter(filters);
     filterData(products, filteredFilters);
@@ -120,7 +148,7 @@ const ProductFilter = () => {
   };
 
   const w = products
-    .map((p) => p.width)
+    .map(p => p.width)
     .filter((value, index, self) => self.indexOf(value) === index)
     .sort((a, b) => {
       return a - b;
@@ -143,10 +171,10 @@ const ProductFilter = () => {
   const sirinaOption = document.getElementById("sirina-option");
   // const sizeSearchButton = document.getElementById("size-search-button");
 
-  const handleWidthChange = (e) => {
+  const handleWidthChange = e => {
     // pretrazi products za odabranu sirinu
     const productsWithSelectedWidth = _.filter(products, {
-      width: e.target.value,
+      width: e.target.value
     });
 
     // enable Visina
@@ -165,7 +193,7 @@ const ProductFilter = () => {
     // nadji sve visine koje pripadaju selectovanoj sirini
 
     h = productsWithSelectedWidth
-      .map((p) => p.height)
+      .map(p => p.height)
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => {
         return a - b;
@@ -190,7 +218,7 @@ const ProductFilter = () => {
     rimSelector.add(rimOption, null);
 
     // za svaku visinu iz productsWithSelectedWidth napravi novi option
-    h.map((hg) => {
+    h.map(hg => {
       var option = document.createElement("option");
       option.text = hg;
       option.value = hg;
@@ -204,23 +232,23 @@ const ProductFilter = () => {
       height: null,
       rim: null,
 
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
     setFilters({
       ...filters,
       height: null,
       rim: null,
 
-      [e.target.name]: [e.target.value],
+      [e.target.name]: [e.target.value]
     });
   };
 
-  const handleHeightChange = (e) => {
+  const handleHeightChange = e => {
     // pretrazi products za odabranu sirinu
 
     const productsWithSelectedWidthAndHeight = _.filter(products, {
       width: values.width,
-      height: e.target.value,
+      height: e.target.value
     });
 
     // disable sizeSearchButton
@@ -238,7 +266,7 @@ const ProductFilter = () => {
     // nadji sve felge koje pripadaju selectovanoj sirini i visini
 
     r = productsWithSelectedWidthAndHeight
-      .map((p) => p.rim)
+      .map(p => p.rim)
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => {
         return a - b;
@@ -257,7 +285,7 @@ const ProductFilter = () => {
     rimSelector.add(rimOption, null);
 
     // za svaku visinu iz productsWithSelectedWidth napravi novi option
-    r.map((rg) => {
+    r.map(rg => {
       var option = document.createElement("option");
       option.text = rg;
       option.value = rg;
@@ -270,26 +298,26 @@ const ProductFilter = () => {
       ...values,
 
       [e.target.name]: e.target.value,
-      rim: null,
+      rim: null
     });
     setFilters({
       ...filters,
 
       [e.target.name]: [e.target.value],
-      rim: null,
+      rim: null
     });
   };
 
-  const handleRimChange = (e) => {
+  const handleRimChange = e => {
     // const sizeSearchButton = document.getElementById("size-search-button");
     setValues({
       ...values,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
 
     setFilters({
       ...filters,
-      [e.target.name]: [e.target.value],
+      [e.target.name]: [e.target.value]
     });
 
     // !rim || rim === "rim"
@@ -297,7 +325,7 @@ const ProductFilter = () => {
     //   : (sizeSearchButton.disabled = true);
   };
 
-  const resetSearch = (e) => {
+  const resetSearch = e => {
     e.preventDefault();
     // window.location.reload(false);
 
@@ -305,14 +333,14 @@ const ProductFilter = () => {
     setValues({
       width: null,
       height: null,
-      rim: null,
+      rim: null
     });
 
     setFilters({
       ...filters,
       width: null,
       height: null,
-      rim: null,
+      rim: null
     });
 
     // izbrisi sve dosadasnje visine i felge
@@ -338,6 +366,8 @@ const ProductFilter = () => {
     sirinaOption.selected = true;
   };
 
+  // console.log("lllooocacation", location);
+
   return (
     <>
       <div className="loading-container" onclick="return false;">
@@ -356,11 +386,11 @@ const ProductFilter = () => {
               width: "93%",
               top: "3em",
               left: "2em",
-              paddingRight: "2em",
+              paddingRight: "2em"
             }}
           >
-            {" "}
-            <h3>filter</h3>
+            {/* <h1>{JSON.stringify(location.state.from)}</h1> */}
+            <h4>filter</h4>
             <form>
               <div className="filter-size-search-row">
                 <form
@@ -382,7 +412,7 @@ const ProductFilter = () => {
                 185
               </option> */}
 
-                      {w.map((w) => (
+                      {w.map(w => (
                         <option key={w} value={w}>
                           {w}
                         </option>
@@ -411,7 +441,7 @@ const ProductFilter = () => {
                 15
               </option> */}
 
-                      {r.map((r) => (
+                      {r.map(r => (
                         <option key={r} value={r}>
                           {r}
                         </option>
@@ -469,6 +499,7 @@ const ProductFilter = () => {
                 </label>
 
                 <input
+                  // checked={location.state.from === "Good Year" ? true : false}
                   className="checkbox-goodyear  hidden-checkbox"
                   type="checkbox"
                   name="brand"
@@ -486,6 +517,7 @@ const ProductFilter = () => {
 
               <div className="filter-checkbox-row">
                 <input
+                  // checked={location.state.from === "Dunlop" ? true : false}
                   className="checkbox-dunlop  hidden-checkbox"
                   type="checkbox"
                   name="brand"
@@ -639,7 +671,7 @@ const ProductFilter = () => {
             </div>
 
             <div className="row max-w-100">
-              {filtered.map((product) => (
+              {filtered.map(product => (
                 <div
                   key={product._id}
                   className="col-lg-6 col-xl-3"

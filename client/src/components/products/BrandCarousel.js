@@ -28,7 +28,12 @@ const BrandCarousel = () => {
         <div className="carousel">
           <div className="carousel-gradient"></div>
           <div className="carousel-container">
-            <Link to="/products/filter" params={{ from: "Good Year" }}>
+            <Link
+              to={{
+                pathname: "/products/filter",
+                state: { from: "Good Year" }
+              }}
+            >
               <h3 className="carousel-h3 carousel-h3-goodyear">
                 Pregledajte gume marke{" "}
                 <span style={{ color: "#5faeff", fontWeight: "500" }}>
@@ -45,13 +50,20 @@ const BrandCarousel = () => {
           <div className="carousel-gradient"></div>
 
           <div className="carousel-container">
-            <h3 className="carousel-h3 carousel-h3-dunlop">
-              Pregledajte gume marke{" "}
-              <span style={{ color: "#eeff00", fontWeight: "500" }}>
-                {" "}
-                Dunlop{" "}
-              </span>
-            </h3>
+            <Link
+              to={{
+                pathname: "/products/filter",
+                state: { from: "Dunlop" }
+              }}
+            >
+              <h3 className="carousel-h3 carousel-h3-dunlop">
+                Pregledajte gume marke{" "}
+                <span style={{ color: "#eeff00", fontWeight: "500" }}>
+                  {" "}
+                  Dunlop{" "}
+                </span>
+              </h3>
+            </Link>
             <img src={DunlopBrand} alt="" className="carousel-brand" />
             <img src={DunlopImage} alt="" className="carousel-image" />
           </div>

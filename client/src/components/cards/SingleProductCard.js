@@ -24,7 +24,7 @@ const SingleProductCard = ({ product }) => {
     loadindex,
     speedindex,
     price,
-    discount,
+    discount
   } = product;
 
   const discountPercent = discount;
@@ -51,11 +51,11 @@ const SingleProductCard = ({ product }) => {
   }, [setDuplicateProduct, setExistingCart]);
 
   // redux
-  const { user, cart } = useSelector((state) => ({ ...state }));
+  const { user, cart } = useSelector(state => ({ ...state }));
   const dispatch = useDispatch();
 
   const descriptionText = tyreDesc[slugify(title).toLowerCase()]
-    ? tyreDesc[slugify(title).toLowerCase()].split("\n").map((i) => {
+    ? tyreDesc[slugify(title).toLowerCase()].split("\n").map(i => {
         return <li>{i}</li>;
       })
     : "";
@@ -147,7 +147,7 @@ const SingleProductCard = ({ product }) => {
           product1 = { ...product, count: newCount };
           console.log("noviProduct", product1);
 
-          cart1 = cart.filter((obj) => {
+          cart1 = cart.filter(obj => {
             return obj._id != product._id;
           });
           product1 = {};
@@ -162,7 +162,7 @@ const SingleProductCard = ({ product }) => {
           // add to redux state
           dispatch({
             type: "ADD_TO_CART",
-            payload: cart1,
+            payload: cart1
           });
         } else {
           console.log("nema ti ovog proizvoda jaro");
@@ -176,7 +176,7 @@ const SingleProductCard = ({ product }) => {
           // add to redux state
           dispatch({
             type: "ADD_TO_CART",
-            payload: cart,
+            payload: cart
           });
         }
       } else {
@@ -195,7 +195,7 @@ const SingleProductCard = ({ product }) => {
         // add to redux state
         dispatch({
           type: "ADD_TO_CART",
-          payload: cart,
+          payload: cart
         });
       }
     }
@@ -288,7 +288,13 @@ const SingleProductCard = ({ product }) => {
           </div>
         </div>
       </motion.div>
-      <div className="add-to-cart-container">
+      <motion.div
+        style={{ opacity: "0" }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ delay: 0.005, duration: 1 }}
+        className="add-to-cart-container"
+      >
         <button
           onClick={handleQuantityDecrease}
           className="btn add-to-cart-decrease"
@@ -327,7 +333,7 @@ const SingleProductCard = ({ product }) => {
         )}
         <br />
         <br />
-      </div>
+      </motion.div>
     </>
   );
 };

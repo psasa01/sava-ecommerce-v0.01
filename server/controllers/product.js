@@ -23,7 +23,7 @@ exports.create = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(400).json({
-      err: err.message,
+      err: err.message
     });
   }
 };
@@ -60,7 +60,7 @@ exports.listAllForPagination = async (req, res) => {
 exports.remove = async (req, res) => {
   try {
     const deleted = await Product.findOneAndRemove({
-      slug: req.params.slug,
+      slug: req.params.slug
     }).exec();
     res.json(deleted);
   } catch (err) {
@@ -97,10 +97,24 @@ exports.update = async (req, res) => {
   }
 };
 
+exports.pretragaPoBrandu = async (req, res) => {
+  try {
+    const productsByBrand = await Product.find({
+      brand: req.params.brand
+    })
+      .populate("category")
+      .populate("subs")
+      .exec();
+    res.json(productsByBrand);
+  } catch (err) {
+    return res.status(400);
+  }
+};
+
 exports.posebnaPonuda = async (req, res) => {
   try {
     const posebni = await Product.find({
-      posebnaPonuda: true,
+      posebnaPonuda: true
     })
       .populate("category")
       .populate("subs")
@@ -116,7 +130,7 @@ exports.pretragaPoDimenziji = async (req, res) => {
     const poDimenziji = await Product.find({
       width: req.params.width,
       height: req.params.height,
-      rim: req.params.rim,
+      rim: req.params.rim
     })
       .populate("category")
       .populate("subs")
@@ -128,6 +142,8 @@ exports.pretragaPoDimenziji = async (req, res) => {
 };
 
 exports.productsCount = async (req, res) => {
-  let total = await Product.find({}).estimatedDocumentCount().exec();
+  let total = await Product.find({})
+    .estimatedDocumentCount()
+    .exec();
   res.json(total);
 };

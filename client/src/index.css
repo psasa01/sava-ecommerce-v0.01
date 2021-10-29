@@ -843,7 +843,7 @@ h3 {
   background: rgba(100, 100, 100, .33)
 }
 
-.hidden-checkbox  {
+.hidden-checkbox {
   position: absolute;
   opacity: 0;
 }
@@ -1089,7 +1089,7 @@ h3 {
   transform: translateX(-50%);
   padding: 0 !important;
   margin: 0 !important;
-  margin-bottom: 7em !important;
+  margin-bottom: 0em !important;
   justify-content: flex-start flex-end;
   background: white;
   overflow: hidden;
@@ -1715,14 +1715,15 @@ h3 {
   gap: .33em;
   background: white;
   position: relative;
-  padding-top: 5em;
+  padding-top: 2em;
   padding-bottom: 1em;
   width: 42%;
   left: 57%;
-  margin-top: -5em;
+  margin-top: 5em;
   transform: translateX(-15%);
   box-shadow: 1em 1em 2em rgba(0, 0, 0, 0.096);
   border-radius: 0 0 2em 2em;
+
 }
 
 .add-to-cart-decrease {
@@ -1730,7 +1731,8 @@ h3 {
   width: 3em;
   height: 2em;
   background: var(--dark-bg);
-  border-radius: 1em 0 0 1em;;
+  border-radius: 1em 0 0 1em;
+  ;
 }
 
 .add-to-cart-increase {
@@ -1741,7 +1743,7 @@ h3 {
 }
 
 .add-to-cart-input {
-  height :2em;
+  height: 2em;
   font-size: 2em;
   border: none !important;
   background: var(--background-color);
