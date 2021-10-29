@@ -28,7 +28,7 @@ const BrandCarousel = () => {
         <div className="carousel">
           <div className="carousel-gradient"></div>
           <div className="carousel-container">
-            <Link to="/products/filter">
+            <Link to="/products/filter" params={{ from: "Good Year" }}>
               <h3 className="carousel-h3 carousel-h3-goodyear">
                 Pregledajte gume marke{" "}
                 <span style={{ color: "#5faeff", fontWeight: "500" }}>

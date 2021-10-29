@@ -24,7 +24,7 @@ const SingleProductCard = ({ product }) => {
     loadindex,
     speedindex,
     price,
-    discount
+    discount,
   } = product;
 
   const discountPercent = discount;
@@ -51,11 +51,11 @@ const SingleProductCard = ({ product }) => {
   }, [setDuplicateProduct, setExistingCart]);
 
   // redux
-  const { user, cart } = useSelector(state => ({ ...state }));
+  const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
 
   const descriptionText = tyreDesc[slugify(title).toLowerCase()]
-    ? tyreDesc[slugify(title).toLowerCase()].split("\n").map(i => {
+    ? tyreDesc[slugify(title).toLowerCase()].split("\n").map((i) => {
         return <li>{i}</li>;
       })
     : "";
@@ -147,7 +147,7 @@ const SingleProductCard = ({ product }) => {
           product1 = { ...product, count: newCount };
           console.log("noviProduct", product1);
 
-          cart1 = cart.filter(obj => {
+          cart1 = cart.filter((obj) => {
             return obj._id != product._id;
           });
           product1 = {};
@@ -162,7 +162,7 @@ const SingleProductCard = ({ product }) => {
           // add to redux state
           dispatch({
             type: "ADD_TO_CART",
-            payload: cart1
+            payload: cart1,
           });
         } else {
           console.log("nema ti ovog proizvoda jaro");
@@ -176,7 +176,7 @@ const SingleProductCard = ({ product }) => {
           // add to redux state
           dispatch({
             type: "ADD_TO_CART",
-            payload: cart
+            payload: cart,
           });
         }
       } else {
@@ -195,7 +195,7 @@ const SingleProductCard = ({ product }) => {
         // add to redux state
         dispatch({
           type: "ADD_TO_CART",
-          payload: cart
+          payload: cart,
         });
       }
     }
@@ -288,18 +288,27 @@ const SingleProductCard = ({ product }) => {
           </div>
         </div>
       </motion.div>
-      <div className="cart text-center">
-        <h1>CART</h1>
-
-        <button onClick={handleQuantityDecrease}>-</button>
+      <div className="add-to-cart-container">
+        <button
+          onClick={handleQuantityDecrease}
+          className="btn add-to-cart-decrease"
+        >
+          -
+        </button>
         <input
-          className="text-center"
+          disabled
+          className="text-center add-to-cart-input"
           value={count}
           name="quantity"
           id="quantity"
-          type="number"
+          type="text"
         />
-        <button onClick={handleQuantityIncrease}>+</button>
+        <button
+          onClick={handleQuantityIncrease}
+          className="btn add-to-cart-increase"
+        >
+          +
+        </button>
 
         {duplicateProduct != null || duplicateProduct != undefined ? (
           <Popconfirm
@@ -309,15 +318,15 @@ const SingleProductCard = ({ product }) => {
             okText={`DODAJ JOS ${count} KOMADA`}
             cancelText="Zatvori"
           >
-            <button>{`dodaj jos ${count} komada u korpu`}</button>
+            <button className="add-to-cart-button">{`dodaj jos ${count} komada u korpu`}</button>
           </Popconfirm>
         ) : (
-          <button onClick={handleAddToCart}>dodaj u korpu</button>
+          <button onClick={handleAddToCart} className="add-to-cart-submit btn">
+            dodaj u korpu
+          </button>
         )}
         <br />
         <br />
-
-        {JSON.stringify(product)}
       </div>
     </>
   );

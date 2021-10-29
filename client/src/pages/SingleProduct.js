@@ -5,6 +5,7 @@ import Loader from "./../components/loader/Loader";
 
 import SingleProductCard from "../components/cards/SingleProductCard";
 import SameDimensionSlider from "../components/products/SameDimensionSlider";
+import BackButton from "../components/nav/BackButton";
 
 import slugify from "slugify";
 
@@ -38,12 +39,12 @@ const SingleProduct = ({ match }) => {
       ) : (
         <div className="">
           <SingleProductCard product={product} />
+          <BackButton />
           <SameDimensionSlider product={product} />
 
           <br />
         </div>
       )}
-      <div className="">{product.width}</div>
     </>
   );
 };

@@ -5,6 +5,7 @@ body {
   --vredestein-carousel: #c7c4c0;
   --background-color: #d7e1fb;
   --red: rgb(253, 86, 86);
+  --dark-bg: #AFC2D8;
   /* position: relative; */
   max-width: 100%;
   overflow-x: hidden;
@@ -1047,6 +1048,31 @@ h3 {
   right: 1.1em !important;
 }
 
+/* -------------------------------- BACK BUTTON --------------------------------- */
+
+.back-button {
+  background-color: var(--red);
+  width: 1.66em;
+  height: 1.66em;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+  padding-right: 0.15em;
+  border-radius: .45em;
+  right: .2em;
+  bottom: .73em;
+  color: white;
+  z-index: 999999;
+  transition: all .6s ease;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: rgb(243, 64, 64);
+}
+
 /* -------------------------------- FULL  SINGLE PRODUCT --------------------------------- */
 
 .full-single-product {
@@ -1068,6 +1094,7 @@ h3 {
   background: white;
   overflow: hidden;
   box-shadow: 0 0 2.5em rgba(0, 0, 0, 0.158);
+  z-index: 99;
 }
 
 .single-product-image {
@@ -1677,6 +1704,60 @@ h3 {
 
 .fulda-content {
   background: linear-gradient(to top, #fd5d5d 0%, #ffd0d0 30%);
+}
+
+/* --------------------- ADD TO CART --------------- */
+
+.add-to-cart-container {
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  gap: .33em;
+  background: white;
+  position: relative;
+  padding-top: 5em;
+  padding-bottom: 1em;
+  width: 42%;
+  left: 57%;
+  margin-top: -5em;
+  transform: translateX(-15%);
+  box-shadow: 1em 1em 2em rgba(0, 0, 0, 0.096);
+  border-radius: 0 0 2em 2em;
+}
+
+.add-to-cart-decrease {
+  font-size: 2em;
+  width: 3em;
+  height: 2em;
+  background: var(--dark-bg);
+  border-radius: 1em 0 0 1em;;
+}
+
+.add-to-cart-increase {
+  font-size: 2em;
+  width: 3em;
+  height: 2em;
+  background: var(--dark-bg);
+}
+
+.add-to-cart-input {
+  height :2em;
+  font-size: 2em;
+  border: none !important;
+  background: var(--background-color);
+  width: 4em
+}
+
+.add-to-cart-submit {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  font-size: 2em;
+  height: 2em;
+  background: #66f066;
+  padding-right: 2em;
+  border-radius: 0 1em 1em 0;
+  color: white;
 }
 
 /* -------------------  KORPA -------------------- */
