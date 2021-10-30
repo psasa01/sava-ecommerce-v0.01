@@ -9,10 +9,10 @@ const initialSizeSearchState = [];
 
 const ProductFilter = () => {
   const location = useLocation();
-  if (location.state) {
-    const { from } = location.state;
-  }
-  const from = undefined;
+
+  const { from } = location.state;
+
+  // const from = undefined;
 
   const [sizePretrazeno, setSizePretrazeno] = useState(false);
   const [values, setValues] = useState(initialSizeSearchState);
@@ -24,7 +24,7 @@ const ProductFilter = () => {
   const [filtered, setFiltered] = useState([]);
   const [filters, setFilters] = useState({
     subsFilter: [],
-    brand: [],
+    brand: from ? [from] : [],
     categoryFilter: [],
     width: [],
     height: [],
@@ -51,7 +51,7 @@ const ProductFilter = () => {
     setLoading(true);
     loadAllProducts();
     setFilteredFilters({ brand: [from] });
-    filterData(products, filteredFilters);
+    filterData(products, { brand: from });
     setLoading(false);
   };
 
@@ -60,13 +60,43 @@ const ProductFilter = () => {
     getAllProducts()
       .then(res => {
         setProducts(res.data);
-        setFiltered(res.data);
+        // setFiltered(res.data);
         setLoading(false);
       })
       .catch(err => {
         setLoading(false);
         console.log(err);
       });
+  };
+
+  const buildFilter = filter => {
+    let query = {};
+    for (let keys in filter) {
+      if (filter[keys].constructor === Array && filter[keys].length > 0) {
+        query[keys] = filter[keys];
+      }
+    }
+    setFilteredFilters(query);
+  };
+
+  const filterData = async (data, query) => {
+    const filteredData = data.filter(item => {
+      for (let key in query) {
+        if (item[key] === undefined || !query[key].includes(item[key])) {
+          return false;
+        }
+      }
+      return true;
+    });
+    await setFiltered(filteredData);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    setLoading(true);
+    buildFilter(filters);
+    filterData(products, filteredFilters);
+    setLoading(false);
   };
 
   // destructure filter
@@ -115,36 +145,6 @@ const ProductFilter = () => {
 
   const handleCheckboxSubmit = () => {
     //
-  };
-
-  const buildFilter = filter => {
-    let query = {};
-    for (let keys in filter) {
-      if (filter[keys].constructor === Array && filter[keys].length > 0) {
-        query[keys] = filter[keys];
-      }
-    }
-    setFilteredFilters(query);
-  };
-
-  const filterData = async (data, query) => {
-    const filteredData = await data.filter(item => {
-      for (let key in query) {
-        if (item[key] === undefined || !query[key].includes(item[key])) {
-          return false;
-        }
-      }
-      return true;
-    });
-    setFiltered(filteredData);
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    setLoading(true);
-    buildFilter(filters);
-    filterData(products, filteredFilters);
-    setLoading(false);
   };
 
   const w = products
@@ -475,14 +475,14 @@ const ProductFilter = () => {
                 </form>
               </div>
 
-              <hr />
               <br />
-              <h4 style={{ fontSize: "1.3em", color: "#444" }}>
-                Odaberite brandove koji vas zanimaju
-              </h4>
+              <h3 style={{ fontSize: "1.2em", color: "#444" }}>
+                Odaberite brandove
+              </h3>
 
               <div className="filter-checkbox-row">
                 <input
+                  defaultChecked={from === "Sava" ? true : false}
                   className="checkbox-sava hidden-checkbox"
                   type="checkbox"
                   name="brand"
@@ -501,6 +501,7 @@ const ProductFilter = () => {
                 <input
                   // checked={location.state.from === "Good Year" ? true : false}
                   className="checkbox-goodyear  hidden-checkbox"
+                  defaultChecked={from === "Good Year" ? true : false}
                   type="checkbox"
                   name="brand"
                   value="Good Year"
@@ -517,7 +518,7 @@ const ProductFilter = () => {
 
               <div className="filter-checkbox-row">
                 <input
-                  // checked={location.state.from === "Dunlop" ? true : false}
+                  defaultChecked={from === "Dunlop" ? true : false}
                   className="checkbox-dunlop  hidden-checkbox"
                   type="checkbox"
                   name="brand"
@@ -533,6 +534,7 @@ const ProductFilter = () => {
                 </label>
 
                 <input
+                  defaultChecked={from === "Vredestein" ? true : false}
                   className="checkbox-vredestein  hidden-checkbox"
                   type="checkbox"
                   name="brand"
@@ -548,11 +550,10 @@ const ProductFilter = () => {
                 </label>
               </div>
 
-              <hr />
               <br />
-              <h4 style={{ fontSize: "1.3em", color: "#444" }}>
+              <h3 style={{ fontSize: "1.2em", color: "#444" }}>
                 Odaberite vrstu guma po sezoni
-              </h4>
+              </h3>
               <div className="filter-checkbox-row-flexcolumn">
                 <input
                   className="checkbox-summer  hidden-checkbox"
@@ -601,11 +602,10 @@ const ProductFilter = () => {
                     </button> */}
               </div>
 
-              <hr />
               <br />
-              <h4 style={{ fontSize: "1.2em", color: "#444" }}>
+              <h3 style={{ fontSize: "1.2em", color: "#444" }}>
                 Odaberite namjenu guma po vrsti vozila
-              </h4>
+              </h3>
               <div className="filter-checkbox-row-flexcolumn">
                 <input
                   className="checkbox-putnicka  hidden-checkbox"
@@ -661,7 +661,7 @@ const ProductFilter = () => {
               onClick={handleSubmit}
               className="filter-button btn btn-raised btn-success float-right"
             >
-              <h4>Primjenite filtere</h4>
+              <h3 style={{ marginTop: ".36em" }}>Primjenite filtere</h3>
             </button>
           </div>
           <div className="col" style={{ top: "3em" }}>

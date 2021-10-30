@@ -851,7 +851,16 @@ h3 {
 .filter-button {
   width: 100%;
   border-radius: .5em;
-  background: rgba(255, 255, 0, 0.5);
+  background-color: #28cdd3 !important;
+  transition: all .6s ease
+}
+
+.filter-button h4 {
+  color: white !important;
+}
+
+.filter-button:hover {
+  background-color: #28b6bb !important;
 }
 
 

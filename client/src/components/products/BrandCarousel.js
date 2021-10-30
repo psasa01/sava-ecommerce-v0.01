@@ -72,13 +72,20 @@ const BrandCarousel = () => {
           <div className="carousel-gradient"></div>
 
           <div className="carousel-container">
-            <h3 className="carousel-h3 carousel-h3-sava">
-              Pregledajte gume marke{" "}
-              <span style={{ color: "#20ff20", fontWeight: "500" }}>
-                {" "}
-                Sava{" "}
-              </span>
-            </h3>
+            <Link
+              to={{
+                pathname: "/products/filter",
+                state: { from: "Sava" }
+              }}
+            >
+              <h3 className="carousel-h3 carousel-h3-sava">
+                Pregledajte gume marke{" "}
+                <span style={{ color: "#20ff20", fontWeight: "500" }}>
+                  {" "}
+                  Sava{" "}
+                </span>
+              </h3>
+            </Link>
             <img src={SavaBrand} alt="" className="carousel-brand" />
             <img src={SavaImage} alt="" className="carousel-image" />
           </div>
@@ -87,13 +94,20 @@ const BrandCarousel = () => {
           <div className="carousel-gradient"></div>
 
           <div className="carousel-container">
-            <h3 className="carousel-h3 carousel-h3-vredestein">
-              Pregledajte gume marke{" "}
-              <span style={{ color: "#060905", fontWeight: "500" }}>
-                {" "}
-                Vredestein{" "}
-              </span>
-            </h3>
+            <Link
+              to={{
+                pathname: "/products/filter",
+                state: { from: "Vredestein" }
+              }}
+            >
+              <h3 className="carousel-h3 carousel-h3-vredestein">
+                Pregledajte gume marke{" "}
+                <span style={{ color: "#060905", fontWeight: "500" }}>
+                  {" "}
+                  Vredestein{" "}
+                </span>
+              </h3>
+            </Link>
             <img src={VredesteinBrand} alt="" className="carousel-brand" />
             <img src={VredesteinImage} alt="" className="carousel-image" />
           </div>
