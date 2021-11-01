@@ -787,6 +787,7 @@ h3 {
 
 .filter-checkbox-row-flexcolumn {
   flex-direction: column;
+  padding-top: 0;
 }
 
 .filter-checkbox-label {
@@ -808,6 +809,13 @@ h3 {
 
 }
 
+.filter-checkbox-label-h3 {
+  font-size: 1em;
+  color: #1a7f83;
+  font-weight: 400;
+  padding-bottom: 0;
+}
+
 
 
 .checkbox-sava:checked~.label-sava,
@@ -822,8 +830,8 @@ h3 {
 .checkbox-dostavna:checked~.label-dostavna {
   box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 1),
     inset 3px 3px 1px rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.027);
-  text-shadow: 0px 0px 10px rgb(255, 252, 50);
+  background: rgba(0, 0, 0, 0.05);
+  text-shadow: 0px 0px 5px #fff;
   ;
 }
 

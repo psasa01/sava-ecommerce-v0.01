@@ -10,9 +10,12 @@ const initialSizeSearchState = [];
 const ProductFilter = () => {
   const location = useLocation();
 
-  const { from } = location.state;
+  // const { from } = location.state;
 
   // const from = undefined;
+  const [from, setFrom] = useState(
+    location.state.from.length > 0 ? location.state.from : ""
+  );
 
   const [sizePretrazeno, setSizePretrazeno] = useState(false);
   const [values, setValues] = useState(initialSizeSearchState);
@@ -92,6 +95,7 @@ const ProductFilter = () => {
   };
 
   const handleSubmit = e => {
+    setFrom("");
     e.preventDefault();
     setLoading(true);
     buildFilter(filters);
@@ -384,14 +388,17 @@ const ProductFilter = () => {
             className="col-md-3"
             style={{
               width: "93%",
-              top: "3em",
+              top: "4em",
               left: "2em",
               paddingRight: "2em"
             }}
           >
             {/* <h1>{JSON.stringify(location.state.from)}</h1> */}
-            <h4>filter</h4>
+
             <form>
+              <h3 className="filter-checkbox-label-h3">
+                Odaberite dimenziju gume
+              </h3>
               <div className="filter-size-search-row">
                 <form
                   // onSubmit={handleSubmitSizeSearch}
@@ -476,9 +483,7 @@ const ProductFilter = () => {
               </div>
 
               <br />
-              <h3 style={{ fontSize: "1.2em", color: "#444" }}>
-                Odaberite brandove
-              </h3>
+              <h3 className="filter-checkbox-label-h3">Odaberite brandove</h3>
 
               <div className="filter-checkbox-row">
                 <input
@@ -551,7 +556,7 @@ const ProductFilter = () => {
               </div>
 
               <br />
-              <h3 style={{ fontSize: "1.2em", color: "#444" }}>
+              <h3 className="filter-checkbox-label-h3">
                 Odaberite vrstu guma po sezoni
               </h3>
               <div className="filter-checkbox-row-flexcolumn">
@@ -603,7 +608,7 @@ const ProductFilter = () => {
               </div>
 
               <br />
-              <h3 style={{ fontSize: "1.2em", color: "#444" }}>
+              <h3 className="filter-checkbox-label-h3">
                 Odaberite namjenu guma po vrsti vozila
               </h3>
               <div className="filter-checkbox-row-flexcolumn">

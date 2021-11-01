@@ -324,7 +324,10 @@ const SingleProductCard = ({ product }) => {
             okText={`DODAJ JOS ${count} KOMADA`}
             cancelText="Zatvori"
           >
-            <button className="add-to-cart-button">{`dodaj jos ${count} komada u korpu`}</button>
+            <button
+              className="add-to-cart-submit btn"
+              style={{ fontSize: "2em" }}
+            >{`dodaj jos ${count} u korpu`}</button>
           </Popconfirm>
         ) : (
           <button onClick={handleAddToCart} className="add-to-cart-submit btn">
