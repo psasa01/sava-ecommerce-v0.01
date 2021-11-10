@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { DeleteOutlined } from "@ant-design/icons";
+import { Popconfirm } from "antd";
 import _ from "lodash";
 
 const Cart = () => {
   const { cart, user } = useSelector((state) => ({ ...state }));
-  const [korpa, setKorpa] = useState(cart);
+  const [korpa, setKorpa] = useState(cart.length > 0 ? cart : []);
   const dispatch = useDispatch();
   let proizvodi = "";
   if (cart.length === 1) {
@@ -19,6 +20,11 @@ const Cart = () => {
 
   let total = 0;
 
+  const cancel = (e) => {
+    // console.log(e);
+    // message.error("Click on No");
+  };
+
   const handlePlus = (value) => {
     //   // 1. Make a shallow copy of the items
 
@@ -28,14 +34,37 @@ const Cart = () => {
     items[index].count = items[index].count + 1;
 
     setKorpa([...korpa], items);
-    console.log(korpa[index].count);
+    localStorage.setItem("cart", JSON.stringify(korpa));
+  };
 
-    //   // 2. Make a shallow copy of the item you want to mutate
-    // let item = korpa.filter({_id: ''})
-    //   // 3. Replace the property you're intested in
-    //   item.name = 'newName';
-    //   // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-    //   items[1] = item;
+  const handleMinus = (value) => {
+    let items = korpa;
+    let index = items.findIndex((p) => p._id == value);
+
+    if (korpa[index].count > 1) {
+      items[index].count = items[index].count - 1;
+    } else {
+      items[index].count = items[index].count;
+    }
+
+    setKorpa([...korpa], items);
+    localStorage.setItem("cart", JSON.stringify(korpa));
+  };
+
+  const handleRemove = (value) => {
+    let items = korpa;
+    let index = items.findIndex((p) => p._id == value);
+
+    let filteredItems = _.reject(items, { _id: value });
+
+    localStorage.setItem("cart", JSON.stringify(filteredItems));
+    setKorpa(filteredItems);
+
+    // add to redux state
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: filteredItems,
+    });
   };
 
   return (
@@ -65,7 +94,10 @@ const Cart = () => {
                 </div>
                 <div className="cart-left-price-count">
                   <div className="cart-count">
-                    <div className="count-minus">
+                    <div
+                      className="count-minus"
+                      onClick={() => handleMinus(c._id)}
+                    >
                       <p>-</p>
                     </div>
                     <div className="count-value">
@@ -102,7 +134,15 @@ const Cart = () => {
                 </div>
                 <div className="cart-left-remove">
                   <div className="icon-delete">
-                    <DeleteOutlined className="icon" />
+                    <Popconfirm
+                      title="Da li ste sigurni da želite ukloniti proizvod iz korpe?"
+                      onConfirm={() => handleRemove(c._id)}
+                      onCancel={cancel}
+                      okText="Obriši"
+                      cancelText="Zatvori"
+                    >
+                      <DeleteOutlined className="icon" />
+                    </Popconfirm>
                   </div>
                 </div>
               </div>
@@ -119,7 +159,7 @@ const Cart = () => {
           <h2>Detaljan pregled narudžbe:</h2>
           <br />
 
-          {cart.length ? (
+          {korpa.length ? (
             <table
               className="table table-sm table-striped table-hover col-md-12"
               style={{
@@ -139,7 +179,7 @@ const Cart = () => {
                 </tr>
               </thead>
               <tbody>
-                {cart.map((c, i) => (
+                {korpa.map((c, i) => (
                   <tr key={i}>
                     <td>{i + 1}</td>
                     <td>
@@ -180,7 +220,7 @@ const Cart = () => {
               width: "100%",
             }}
           >
-            {cart.map((c, i) => {
+            {korpa.map((c, i) => {
               total = (
                 parseFloat(total) +
                 parseFloat((c.price - (c.price * c.discount) / 100) * c.count)
@@ -202,6 +242,12 @@ const Cart = () => {
               type="button"
               style={{ fontWeight: "bold" }}
               className="btn btn-outline-primary mt-4 mr-4 float-right"
+              className={
+                total === 0
+                  ? "disabled btn btn-outline-primary mt-4 mr-4 float-right"
+                  : "btn btn-outline-primary mt-4 mr-4 float-right"
+              }
+              disabled={total === 0 ? true : false}
             >
               Potvrdite narudžbu
             </button>
