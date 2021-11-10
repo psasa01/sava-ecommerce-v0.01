@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { DeleteOutlined } from "@ant-design/icons";
-import { size } from "lodash";
+import _ from "lodash";
 
 const Cart = () => {
   const { cart, user } = useSelector((state) => ({ ...state }));
+  const [korpa, setKorpa] = useState(cart);
   const dispatch = useDispatch();
   let proizvodi = "";
   if (cart.length === 1) {
@@ -18,13 +19,32 @@ const Cart = () => {
 
   let total = 0;
 
+  const handlePlus = (value) => {
+    //   // 1. Make a shallow copy of the items
+
+    let items = korpa;
+    let index = items.findIndex((p) => p._id == value);
+
+    items[index].count = items[index].count + 1;
+
+    setKorpa([...korpa], items);
+    console.log(korpa[index].count);
+
+    //   // 2. Make a shallow copy of the item you want to mutate
+    // let item = korpa.filter({_id: ''})
+    //   // 3. Replace the property you're intested in
+    //   item.name = 'newName';
+    //   // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+    //   items[1] = item;
+  };
+
   return (
     <>
       <div className="korpa-container">
         <div className="korpa-left" id="style-4">
           <h2>Vaša korpa</h2>
-          {cart.length ? (
-            cart.map((c, i) => (
+          {korpa.length ? (
+            korpa.map((c, i) => (
               <div key={i} className="proizvod-row">
                 <div className="cart-left-image">
                   <img
@@ -53,9 +73,13 @@ const Cart = () => {
                         type="text"
                         value={c.count}
                         className="form-control"
+                        id="count-value"
                       />
                     </div>
-                    <div className="count-plus">
+                    <div
+                      className="count-plus"
+                      onClick={() => handlePlus(c._id)}
+                    >
                       <p>+</p>
                     </div>
                   </div>
