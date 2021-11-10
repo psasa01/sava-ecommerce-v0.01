@@ -14,7 +14,9 @@ const ProductFilter = () => {
 
   // const from = undefined;
   const [from, setFrom] = useState(
-    location.state.from.length > 0 ? location.state.from : ""
+    location.state && location.state.from.length > 0
+      ? location.state.from
+      : "nista"
   );
 
   const [sizePretrazeno, setSizePretrazeno] = useState(false);
@@ -47,13 +49,15 @@ const ProductFilter = () => {
   // };
 
   const load = () => {
-    !from ? loadAllProducts() : loadBrandProducts();
+    from === "nista" ? loadAllProducts() : loadBrandProducts();
   };
 
   const loadBrandProducts = () => {
     setLoading(true);
     loadAllProducts();
-    setFilteredFilters({ brand: [from] });
+    setFilteredFilters(
+      from != undefined ? { brand: [from] } : { brand: ["nothing"] }
+    );
     filterData(products, { brand: from });
     setLoading(false);
   };
