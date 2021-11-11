@@ -1068,19 +1068,19 @@ h3 {
 /* -------------------------------- BACK BUTTON --------------------------------- */
 
 .back-button {
-  background-color: var(--red);
-  width: 1.66em;
-  height: 1.66em;
+  background-color: black;
+  width: 1.5em;
+  height: 1.5em;
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3em;
+  font-size: 2.5em;
   padding-right: 0.15em;
-  border-radius: .45em;
+  border-radius: .33em;
   right: .2em;
   bottom: .73em;
-  color: white;
+  color: var(--good-year-carousel);
   z-index: 999999;
   transition: all .6s ease;
   cursor: pointer;

@@ -7,6 +7,8 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { Popconfirm } from "antd";
 import _ from "lodash";
 
+import BackButton from "../components/nav/BackButton";
+
 const Cart = () => {
   const { cart, user } = useSelector((state) => ({ ...state }));
   const [korpa, setKorpa] = useState(cart.length > 0 ? cart : []);
@@ -254,6 +256,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      <BackButton />
     </>
   );
 };
