@@ -52,7 +52,7 @@ const ProductFilter = () => {
   // };
 
   const load = () => {
-    from === "nista" ? loadAllProducts() : loadBrandProducts();
+    from == "nista" ? loadAllProducts() : loadBrandProducts();
   };
 
   const loadBrandProducts = () => {
@@ -87,16 +87,17 @@ const ProductFilter = () => {
     setFilteredFilters(query);
   };
 
-  const filterData = async (data, query) => {
-    const filteredData = data.filter((item) => {
-      for (let key in query) {
-        if (item[key] === undefined || !query[key].includes(item[key])) {
-          return false;
+  const filterData = (data, query) => {
+    setFiltered(
+      data.filter((item) => {
+        for (let key in query) {
+          if (item[key] === undefined || !query[key].includes(item[key])) {
+            return false;
+          }
         }
-      }
-      return true;
-    });
-    await setFiltered(filteredData);
+        return true;
+      })
+    );
   };
 
   const handleSubmit = (e) => {
