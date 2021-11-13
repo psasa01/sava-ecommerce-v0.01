@@ -68,7 +68,7 @@ const ProductFilter = () => {
     getAllProducts()
       .then((res) => {
         setProducts(res.data);
-        // setFiltered(res.data);
+        setFiltered(res.data);
         setLoading(false);
       })
       .catch((err) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import Typewriter from "typewriter-effect";
-import { Link } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
+import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 
 import { motion } from "framer-motion";
@@ -35,10 +36,12 @@ const Landing = () => {
               />{" "}
             </div>
           </div>
-          <div className="cta">
-            <h2>POSJETITE PRODAVNICU</h2>
-          </div>
-          <Link
+          <Link to="/products/filter">
+            <div className="cta">
+              <h2>POSJETITE PRODAVNICU</h2>
+            </div>
+          </Link>
+          <ScrollLink
             className="down"
             to="after-landing"
             smooth={true}
@@ -54,7 +57,7 @@ const Landing = () => {
                 borderRadius: ".33em",
               }}
             />
-          </Link>
+          </ScrollLink>
         </div>
       </motion.div>
     </>
