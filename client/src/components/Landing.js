@@ -36,7 +36,12 @@ const Landing = () => {
               />{" "}
             </div>
           </div>
-          <Link to="/products/filter">
+          <Link
+            to={{
+              pathname: "/products/filter",
+              state: { from: "nista" },
+            }}
+          >
             <div className="cta">
               <h2>POSJETITE PRODAVNICU</h2>
             </div>

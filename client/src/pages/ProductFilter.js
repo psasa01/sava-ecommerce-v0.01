@@ -22,22 +22,24 @@ const ProductFilter = () => {
       : ""
   );
 
-  const [sizePretrazeno, setSizePretrazeno] = useState(false);
+  const initialFiltersState = {
+    subsFilter: [],
+    brand: from && from !== "nista" ? [from] : [],
+    categoryFilter: [],
+    width: [],
+    height: [],
+    rim: [],
+  };
+
+  // const [sizePretrazeno, setSizePretrazeno] = useState(false);
   const [values, setValues] = useState(initialSizeSearchState);
-  const [sizeFilteredProducts, setSizeFilteredProducts] = useState([]);
+  // const [sizeFilteredProducts, setSizeFilteredProducts] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [filteredFilters, setFilteredFilters] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [filters, setFilters] = useState({
-    subsFilter: [],
-    brand: from ? [from] : [],
-    categoryFilter: [],
-    width: [],
-    height: [],
-    rim: [],
-  });
+  const [filters, setFilters] = useState(initialFiltersState);
 
   useEffect(() => {
     load();
@@ -57,10 +59,24 @@ const ProductFilter = () => {
 
   const loadBrandProducts = () => {
     setLoading(true);
-    loadAllProducts();
+    loadAllProductsForFiltering();
     setFilteredFilters(from !== "nista" ? { brand: [from] } : { brand: [""] });
-    filterData(products, { brand: from });
+    filterData(products, filteredFilters);
     setLoading(false);
+  };
+
+  const loadAllProductsForFiltering = () => {
+    setLoading(true);
+    getAllProducts()
+      .then((res) => {
+        setProducts(res.data);
+        // setFiltered(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
   };
 
   const loadAllProducts = () => {
@@ -335,8 +351,8 @@ const ProductFilter = () => {
     //   : (sizeSearchButton.disabled = true);
   };
 
-  const resetSearch = (e) => {
-    e.preventDefault();
+  const resetSearch = () => {
+    // e.preventDefault();
     // window.location.reload(false);
 
     // izbrisi state
@@ -348,9 +364,9 @@ const ProductFilter = () => {
 
     setFilters({
       ...filters,
-      width: null,
-      height: null,
-      rim: null,
+      width: [],
+      height: [],
+      rim: [],
     });
 
     // izbrisi sve dosadasnje visine i felge
@@ -377,6 +393,55 @@ const ProductFilter = () => {
   };
 
   // console.log("lllooocacation", location);
+
+  const resetFilters = (e) => {
+    e.preventDefault();
+    setFilters({
+      subsFilter: [],
+      brand: [],
+      categoryFilter: [],
+      width: [],
+      height: [],
+      rim: [],
+    });
+
+    setValues({
+      width: null,
+      height: null,
+      rim: null,
+    });
+
+    setFiltered([]);
+    setFilteredFilters([]);
+
+    // izbrisi sve dosadasnje visine i felge
+
+    heightSelector.options.length = null;
+    rimSelector.options.length = null;
+
+    // napravi 'visina' i 'felga' option
+    var visinaOption = document.createElement("option");
+    visinaOption.text = "Visina";
+    visinaOption.value = "visina";
+    heightSelector.add(visinaOption, null);
+    heightSelector.disabled = true;
+
+    var rimOption = document.createElement("option");
+    rimOption.text = "Veličina felge";
+    rimOption.value = "felga";
+    rimSelector.add(rimOption, null);
+    rimSelector.disabled = true;
+    // sizeSearchButton.disabled = true;
+
+    // postavi sirinu na 'sirina'
+    sirinaOption.selected = true;
+
+    let allInputs = document.getElementsByTagName("input");
+
+    for (var i = 0, max = allInputs.length; i < max; i++) {
+      if (allInputs[i].type === "checkbox") allInputs[i].checked = false;
+    }
+  };
 
   return (
     <>
@@ -669,15 +734,33 @@ const ProductFilter = () => {
               </div>
             </form>
             <button
+              disabled={
+                // (filters.rim === null && filters.width != null) ||
+                (Array.isArray(filters.rim) && filters.rim[0] === "rim") ||
+                (Array.isArray(filters.width) &&
+                  filters.width[0] != "sirina" &&
+                  filters.rim === null) ||
+                (Array.isArray(filters.rim) &&
+                  filters.rim.length < 1 &&
+                  Array.isArray(filters.width) &&
+                  filters.width.length > 0)
+                  ? true
+                  : false
+              }
               onClick={handleSubmit}
               className="filter-button btn btn-raised btn-success float-right"
             >
               <h3 style={{ marginTop: ".36em" }}>Primjenite filtere</h3>
             </button>
+            <button className="filter-reset-button btn btn-raised btn-danger float-right">
+              <h3 style={{ marginTop: ".36em" }} onClick={resetFilters}>
+                Poništite filtere
+              </h3>
+            </button>
           </div>
           <div className="col" style={{ top: "3em" }}>
             <div className="title-page">
-              <h4>Svi Proizvodi</h4>
+              {/* <h4>Svi Proizvodi</h4> */}
               {/* <div className="page-no">Stranica: {page}</div> */}
             </div>
 

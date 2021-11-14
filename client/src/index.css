@@ -860,16 +860,76 @@ h3 {
   width: 100%;
   border-radius: .5em;
   background-color: #28cdd3 !important;
-  transition: all .6s ease
+  transition: all .6s ease;
+  margin-bottom: .5em;
+
 }
 
-.filter-button h4 {
+.filter-button h3 {
   color: white !important;
 }
 
 .filter-button:hover {
   background-color: #28b6bb !important;
 }
+
+.filter-button:disabled:hover {
+  background-color: #28cdd3 !important;
+}
+
+/* .filter-button:disabled::after {
+  opacity: 0;
+  transition: all 4s ease;
+  z-index: 0;
+} */
+
+.filter-button:disabled:hover::after {
+  content: 'Morate zavrsiti ili ponistiti odabir dimenzije';
+  font-size: .77em;
+  text-transform: lowercase;
+  color: white;
+  position: absolute;
+  left: 0;
+  bottom: -0em;
+  width: 100%;
+  background-color: #ff3333;
+  opacity: 1;
+  transition: all 1s ease;
+  border-radius: 0 0 .5em .5em;
+
+
+
+}
+
+.filter-reset-button {
+  width: 100%;
+  border-radius: .5em;
+  background-color: #ff3333 !important;
+  transition: all .6s ease
+}
+
+.filter-reset-button h3 {
+  color: white !important;
+}
+
+.filter-reset-button:hover {
+  background-color: #df3b3b !important;
+}
+
+/* .filter-button:disabled:hover::after {
+  animation-duration: 1s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+} */
 
 
 /* -------------------------- SIZE SEARCH ---------------------------- */
