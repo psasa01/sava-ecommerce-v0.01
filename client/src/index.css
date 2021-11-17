@@ -2206,3 +2206,30 @@ hr {
   left: 50%;
   transform: translateX(-50%);
 }
+
+/* --------------------------- LOGIN FORMA ---------------------- */
+
+.confirm-reg-container {
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  background-color: rgb(255, 255, 255);
+  width: 66vw !important;
+  margin-top: 3.4em;
+  padding: 3em;
+}
+
+.input-no-bg {
+  background: rgba(0, 0, 0, 0.041) !important;
+  /* border: solid 1px rgb(167, 162, 179) !important; */
+  padding: 1em;
+  /* border-radius: 0 1em; */
+  box-shadow: inset .1em .1em .1em  rgba(0, 0, 0, 0.219), 1px 1px white !important;
+}
+
+.input-no-bg:focus {
+  border: none !important;
+  box-shadow: inset .1em .1em .2em  rgba(0, 0, 0, 0.219), 1px 1px white !important;
+  background: rgba(183, 191, 197, 0.411) !important;
+  border-radius: 0 !important;
+}

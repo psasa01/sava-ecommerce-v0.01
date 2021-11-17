@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { auth, googleAuthProvider } from "./../../firebase";
 import { toast } from "react-toastify";
 import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { createOrUpdateUser } from "../../functions/auth";
 
 // const createOrUpdateUser = async (authtoken) => {
@@ -112,7 +112,7 @@ const Login = ({ history }) => {
   };
 
   const loginForm = () => (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ marginBottom: "2.5em" }}>
       <div className="form-group">
         <input
           type="email"
@@ -120,7 +120,7 @@ const Login = ({ history }) => {
           value={email}
           id="email"
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Your Email"
+          placeholder="Email"
           autoFocus
         />
       </div>
@@ -132,7 +132,7 @@ const Login = ({ history }) => {
           onChange={(e) => setPassword(e.target.value)}
           className="form-control"
           value={password}
-          placeholder="Your Password"
+          placeholder="Šifra"
         />
       </div>
       <br />
@@ -146,7 +146,7 @@ const Login = ({ history }) => {
         size="large"
         disabled={!email || password.length < 6}
       >
-        Login with Email/Password
+        Prijava
       </Button>
 
       <Button
@@ -158,11 +158,11 @@ const Login = ({ history }) => {
         icon={<GoogleOutlined />}
         size="large"
       >
-        Login with Google
+        Google Prijava
       </Button>
 
       <Link to="/forgot/password" className="float-right">
-        Forgot Password?
+        Zaboravili ste šifru?
       </Link>
     </form>
   );
@@ -176,10 +176,22 @@ const Login = ({ history }) => {
           {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
-            <h4>Login</h4>
+            <h4>Prijava</h4>
           )}
 
           {loginForm()}
+          <hr style={{ marginBottom: "1.3em" }} />
+          <Link to="/signup">
+            <Button
+              type="primary"
+              className="mb-3"
+              block
+              shape="round"
+              size="large"
+            >
+              <b>REGISTRACIJA</b>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

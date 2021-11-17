@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Carousel } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { red } from "@material-ui/core/colors";
+// import { red } from "@material-ui/core/colors";
 import GoodYearImage from "./../../images/goodyear-carousel.jpg";
 import DunlopImage from "./../../images/dunlop-carousel.jpg";
 import SavaImage from "./../../images/sava-carousel.jpg";
@@ -12,7 +12,7 @@ import GoodYearBrand from "./../../images/good-year-100px.jpg";
 import SavaBrand from "./../../images/sava-100px.jpg";
 import VredesteinBrand from "./../../images/vredestein-100px.jpg";
 
-const GoodYear = {};
+// const GoodYear = {};
 
 const BrandCarousel = () => {
   return (
@@ -31,7 +31,7 @@ const BrandCarousel = () => {
             <Link
               to={{
                 pathname: "/products/filter",
-                state: { from: "Good Year" }
+                state: { from: "Good Year" },
               }}
             >
               <h3 className="carousel-h3 carousel-h3-goodyear">
@@ -53,7 +53,7 @@ const BrandCarousel = () => {
             <Link
               to={{
                 pathname: "/products/filter",
-                state: { from: "Dunlop" }
+                state: { from: "Dunlop" },
               }}
             >
               <h3 className="carousel-h3 carousel-h3-dunlop">
@@ -75,7 +75,7 @@ const BrandCarousel = () => {
             <Link
               to={{
                 pathname: "/products/filter",
-                state: { from: "Sava" }
+                state: { from: "Sava" },
               }}
             >
               <h3 className="carousel-h3 carousel-h3-sava">
@@ -97,7 +97,7 @@ const BrandCarousel = () => {
             <Link
               to={{
                 pathname: "/products/filter",
-                state: { from: "Vredestein" }
+                state: { from: "Vredestein" },
               }}
             >
               <h3 className="carousel-h3 carousel-h3-vredestein">

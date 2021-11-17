@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema(
       default: [],
     },
     address: String,
+    phone: String,
+    poNum: String,
+    city: String,
     // wishlist: [{type: ObjectId, ref: "Product"}]
   },
   { timestamps: true }

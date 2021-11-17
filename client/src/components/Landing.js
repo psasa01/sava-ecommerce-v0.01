@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 
 import { motion } from "framer-motion";
+import FilterLink from "./nav/FilterLink";
 const Landing = () => {
   return (
     <>
@@ -36,16 +37,7 @@ const Landing = () => {
               />{" "}
             </div>
           </div>
-          <Link
-            to={{
-              pathname: "/products/filter",
-              state: { from: "nista" },
-            }}
-          >
-            <div className="cta">
-              <h2>POSJETITE PRODAVNICU</h2>
-            </div>
-          </Link>
+          <FilterLink />
           <ScrollLink
             className="down"
             to="after-landing"

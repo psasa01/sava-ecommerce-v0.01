@@ -23,6 +23,10 @@ const RegisterComplete = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [poNum, setPoNum] = useState("");
+  const [city, setCity] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   // let { user } = useSelector((state) => ({ ...state }));
@@ -104,68 +108,128 @@ const RegisterComplete = () => {
 
   const completeRegistrationForm = () => (
     <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Email address</label>
-        <input
-          type="email"
-          className="form-control"
-          value={email}
-          id="email"
-          disabled
-        />
-      </div>
-      <div className="form-group">
-        <label>User name</label>
-        <input
-          autoComplete="off"
-          value={name}
-          placeholder="Please enter your username"
-          type="text"
-          id="name"
-          onChange={(e) => setName(e.target.value)}
-          className="form-control"
-        />
-      </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          autoComplete="off"
-          value={password}
-          placeholder="Please enter your password"
-          type="password"
-          className="form-control"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label>Confirm Password</label>
-        <input
-          autoComplete="off"
-          value={confirmPassword}
-          placeholder="Please confirm your password"
-          type="password"
-          className="form-control"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-      </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6">
+            <div className="form-group">
+              <label>Email adresa</label>
+              <input
+                type="email"
+                className="form-control input-no-bg"
+                value={email}
+                id="email"
+                disabled
+              />
+            </div>
 
+            <div className="form-group">
+              <label>Šifra</label>
+              <input
+                autoComplete="off"
+                value={password}
+                placeholder=""
+                type="password"
+                className="form-control input-no-bg"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Adresa</label>
+              <input
+                autoComplete="off"
+                value={address}
+                placeholder=""
+                type="text"
+                id="address"
+                onChange={(e) => setAddress(e.target.value)}
+                className="form-control input-no-bg"
+              />
+            </div>
+            <div className="row">
+              <div className="form-group col-md-4">
+                <label>Poštanski broj</label>
+                <input
+                  autoComplete="off"
+                  value={poNum}
+                  placeholder=""
+                  type="text"
+                  id="poNum"
+                  onChange={(e) => setPoNum(e.target.value)}
+                  className="form-control input-no-bg"
+                />
+              </div>
+              <div className="form-group col-md-8">
+                <label>Grad</label>
+                <input
+                  autoComplete="off"
+                  value={city}
+                  placeholder=""
+                  type="text"
+                  id="address"
+                  onChange={(e) => setCity(e.target.value)}
+                  className="form-control input-no-bg"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-6">
+            <div className="form-group">
+              <label>Korisničko ime</label>
+              <input
+                autoComplete="off"
+                value={name}
+                placeholder=""
+                type="text"
+                id="name"
+                onChange={(e) => setName(e.target.value)}
+                className="form-control input-no-bg"
+              />
+            </div>
+            <div className="form-group">
+              <label>Potvrdite šifru</label>
+              <input
+                autoComplete="off"
+                value={confirmPassword}
+                placeholder=""
+                type="password"
+                className="form-control input-no-bg"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Telefon</label>
+              <input
+                autoComplete="off"
+                value={phone}
+                placeholder=""
+                type="text"
+                id="phone"
+                onChange={(e) => setPhone(e.target.value)}
+                className="form-control input-no-bg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <br />
       <button type="submit" className="btn btn-raised">
-        Complete Registration
+        Potvrda Registracije
       </button>
     </form>
   );
 
   return (
-    <div className="container p-5">
-      <div className="row">
-        <div className="col-md-6 offset-md-3">
-          <h4>Register Complete</h4>
-
-          {completeRegistrationForm()}
+    <>
+      <br />
+      {/* <div className="container"> */}
+      <div className="confirm-reg-container">
+        <div className="row">
+          <div className="col-md-12">{completeRegistrationForm()}</div>
         </div>
       </div>
-    </div>
+      {/* </div> */}
+    </>
   );
 };
 

@@ -19,7 +19,7 @@ const ProductFilter = () => {
       location.state.from.length > 0 &&
       location.state.from !== "nista"
       ? location.state.from
-      : ""
+      : "nista"
   );
 
   const initialFiltersState = {
@@ -54,13 +54,15 @@ const ProductFilter = () => {
   // };
 
   const load = () => {
-    from == "nista" ? loadAllProducts() : loadBrandProducts();
+    from === "nista" || from === "" ? loadAllProducts() : loadBrandProducts();
   };
 
   const loadBrandProducts = () => {
     setLoading(true);
     loadAllProductsForFiltering();
-    setFilteredFilters(from !== "nista" ? { brand: [from] } : { brand: [""] });
+    setFilteredFilters(
+      from !== "nista" || from !== "" ? { brand: [from] } : { brand: [""] }
+    );
     filterData(products, filteredFilters);
     setLoading(false);
   };
