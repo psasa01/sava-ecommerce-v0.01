@@ -1,6 +1,6 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 // import 'firebase/firestore';
-import "firebase/auth";
+import "firebase/compat/auth";
 // import { firebaseConfig } from './config';
 
 // Your web app's Firebase configuration

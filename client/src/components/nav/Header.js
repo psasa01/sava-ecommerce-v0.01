@@ -9,11 +9,11 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
 
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 const { SubMenu, Item } = Menu;
@@ -21,7 +21,7 @@ const { SubMenu, Item } = Menu;
 const Header = () => {
   const [current, setCurrent] = useState("home");
 
-  let history = useHistory();
+  let history = useNavigate();
   let { user, cart } = useSelector((state) => ({ ...state }));
 
   let dispatch = useDispatch();

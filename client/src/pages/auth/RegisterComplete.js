@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "./../../firebase";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createOrUpdateUser } from "../../functions/auth";
 
@@ -18,7 +18,7 @@ import { createOrUpdateUser } from "../../functions/auth";
 // };
 
 const RegisterComplete = () => {
-  const history = useHistory();
+  const history = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -82,10 +82,15 @@ const RegisterComplete = () => {
 
         createOrUpdateUser(idTokenResult.token)
           .then((res) => {
-            console.log("JEBENI USER", user.displayName);
+            console.log("JEBENI USER", res);
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
+                displayName: res.data.name,
+                address: res.data.address,
+                phone: res.data.phone,
+                city: res.data.city,
+                poNum: res.data.poNum,
                 name: res.data.name,
                 email: res.data.email,
                 token: idTokenResult.token,

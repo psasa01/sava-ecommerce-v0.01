@@ -27,7 +27,7 @@ const Login = ({ history }) => {
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
-  // const history = useHistory();
+  // const history = useNavigate();
 
   useEffect(() => {
     if (user && user.token) {

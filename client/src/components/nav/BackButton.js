@@ -1,9 +1,9 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { LeftOutlined } from "@ant-design/icons";
 
 const BackButton = () => {
-  let history = useHistory();
+  let history = useNavigate();
 
   const goBack = () => {
     history.goBack();

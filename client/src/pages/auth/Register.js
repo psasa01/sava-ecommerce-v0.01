@@ -9,7 +9,7 @@ const Register = ({ history }) => {
   // const [confirmPassword, setConfirmPassword] = useState("");
 
   const { user } = useSelector((state) => ({ ...state }));
-  // const history = useHistory();
+  // const history = useNavigate();
 
   useEffect(() => {
     if (user && user.token) {
