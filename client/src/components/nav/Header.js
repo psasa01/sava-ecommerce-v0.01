@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, Badge } from "antd";
+import { Modal, Menu, Badge, Button } from "antd";
 import {
   UserOutlined,
   UserAddOutlined,
@@ -20,6 +20,8 @@ const { SubMenu, Item } = Menu;
 
 const Header = () => {
   const [current, setCurrent] = useState("home");
+  const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   let history = useHistory();
   let { user, cart } = useSelector((state) => ({ ...state }));
@@ -39,78 +41,149 @@ const Header = () => {
     history.push("/signin");
   };
 
+  const showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  const handleOk = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setVisible(false);
+    }, 3000);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
   return (
-    <div className="horizontal-nav">
-      <Menu
-        style={{ background: "#cfdfef" }}
-        onClick={handleClick}
-        selectedKeys={[current]}
-        mode="horizontal"
+    <>
+      <Modal
+        transitionName=""
+        maskStyle={{ backgroundColor: "rgba(0,0,0,0.8" }}
+        title=""
+        centered
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={
+          [
+            // <Button key="back" onClick={handleCancel}>
+            //   Return
+            // </Button>,
+            // <Button
+            //   key="submit"
+            //   type="primary"
+            //   loading={loading}
+            //   onClick={handleOk}
+            // >
+            //   Submit
+            // </Button>,
+            // <Button
+            //   key="link"
+            //   href="https://google.com"
+            //   type="primary"
+            //   loading={loading}
+            //   onClick={handleOk}
+            // >
+            //   Search on Google
+            // </Button>,
+          ]
+        }
       >
-        <Menu.Item key="home">
-          <Link to="/">
-            <img
-              className="sava-logo"
-              src="https://res.cloudinary.com/sale01/image/upload/v1623669939/assets/shopsavaba-logo-white-shadow.png"
-              alt=""
-            />
-          </Link>
-        </Menu.Item>
-        {!user && (
-          <Menu.Item
-            key="register"
-            icon={<UserAddOutlined />}
-            className="float-right"
-          >
-            <Link to="/signup">Registracija</Link>
+        <div className="login-form-container">
+          <div className="email-password-login-form">
+            <input type="text" className="form-control input-no-bg" />
+            <input type="text" className="form-control input-no-bg" />
+          </div>
+          <div className="social-login-form">
+            <button
+              // disabled={}
+              type="submit"
+              className="btn btn-raised login-form-button"
+            >
+              Prijava
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <div className="horizontal-nav">
+        <Menu
+          style={{ background: "#cfdfef" }}
+          onClick={handleClick}
+          selectedKeys={[current]}
+          mode="horizontal"
+        >
+          <Menu.Item key="home">
+            <Link to="/">
+              <img
+                className="sava-logo"
+                src="https://res.cloudinary.com/sale01/image/upload/v1623669939/assets/shopsavaba-logo-white-shadow.png"
+                alt=""
+              />
+            </Link>
           </Menu.Item>
-        )}
-        {!user && (
-          <Menu.Item
-            key="login"
-            icon={<UserOutlined />}
-            className="float-right"
-          >
-            <Link to="/signin">Prijava</Link>
+          {!user && (
+            <Menu.Item
+              key="register"
+              icon={<UserAddOutlined />}
+              className="float-right"
+            >
+              <Link to="/signup">Registracija</Link>
+            </Menu.Item>
+          )}
+          {!user && (
+            <Menu.Item
+              key="login"
+              icon={<UserOutlined />}
+              className="float-right"
+            >
+              <Link to="" onClick={() => setVisible(true)}>
+                Prijava
+              </Link>
+            </Menu.Item>
+          )}
+
+          {user && (
+            <SubMenu
+              key="SubMenu"
+              icon={<SettingOutlined />}
+              title={
+                user.displayName ||
+                user.name ||
+                (user.email && user.email.split("@")[0])
+              }
+              className="float-right"
+            >
+              {user && user.role === "subscriber" && (
+                <Item>
+                  <Link to="/user/history">Upravljačka ploča</Link>
+                </Item>
+              )}
+              {user && user.role === "admin" && (
+                <Item>
+                  <Link to="/admin/dashboard">Admin Upravljačka ploča</Link>
+                </Item>
+              )}
+
+              <Item icon={<LogoutOutlined />} onClick={logout}>
+                Odjava
+              </Item>
+            </SubMenu>
+          )}
+          <Menu.Item icon={<ShoppingCartOutlined />} className="float-right">
+            <Link to="/cart">
+              <Badge count={cart.length} offset={[9, 0]}>
+                Korpa
+              </Badge>
+            </Link>
           </Menu.Item>
-        )}
-
-        {user && (
-          <SubMenu
-            key="SubMenu"
-            icon={<SettingOutlined />}
-            title={
-              user.displayName ||
-              user.name ||
-              (user.email && user.email.split("@")[0])
-            }
-            className="float-right"
-          >
-            {user && user.role === "subscriber" && (
-              <Item>
-                <Link to="/user/history">Upravljačka ploča</Link>
-              </Item>
-            )}
-            {user && user.role === "admin" && (
-              <Item>
-                <Link to="/admin/dashboard">Admin Upravljačka ploča</Link>
-              </Item>
-            )}
-
-            <Item icon={<LogoutOutlined />} onClick={logout}>
-              Odjava
-            </Item>
-          </SubMenu>
-        )}
-        <Menu.Item icon={<ShoppingCartOutlined />} className="float-right">
-          <Link to="/cart">
-            <Badge count={cart.length} offset={[9, 0]}>
-              Korpa
-            </Badge>
-          </Link>
-        </Menu.Item>
-      </Menu>
-    </div>
+        </Menu>
+      </div>
+    </>
   );
 };
 
