@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createOrUpdateUser } from "../../functions/auth";
 
+import { motion } from "framer-motion";
 // const createOrUpdateUser = async (authtoken) => {
 //   return await axios.post(
 //     `${process.env.REACT_APP_API}/create-or-update-user`,
@@ -107,137 +108,156 @@ const RegisterComplete = () => {
   };
 
   const completeRegistrationForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="row">
-              <div className="form-group col-md-6">
-                <label>
-                  Email adresa<span style={{ color: "red" }}>*</span>
-                </label>
-                <input
-                  type="email"
-                  className="form-control input-no-bg"
-                  value={email}
-                  id="email"
-                  disabled
-                />
-              </div>
-              <div className="form-group col-md-6">
-                <label>
-                  Korisničko ime<span style={{ color: "red" }}>*</span>
-                </label>
-                <input
-                  autoComplete="off"
-                  value={name}
-                  placeholder=""
-                  type="text"
-                  id="name"
-                  onChange={(e) => setName(e.target.value)}
-                  className="form-control input-no-bg"
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="form-group col-md-6">
-                <label>
-                  Šifra<span style={{ color: "red" }}>*</span>{" "}
-                </label>
-                <input
-                  autoComplete="off"
-                  value={password}
-                  placeholder=""
-                  type="password"
-                  className="form-control input-no-bg"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="form-group col-md-6">
-                <label>Potvrdite šifru</label>
-                <input
-                  autoComplete="off"
-                  value={confirmPassword}
-                  placeholder=""
-                  type="password"
-                  className="form-control input-no-bg"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="form-group col-md-6">
-                <label>Adresa</label>
-                <input
-                  autoComplete="off"
-                  value={address}
-                  placeholder=""
-                  type="text"
-                  id="address"
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="form-control input-no-bg"
-                />
-              </div>
-              <div className="form-group col-md-6">
-                <label>Telefon</label>
-                <input
-                  autoComplete="off"
-                  value={phone}
-                  placeholder=""
-                  type="text"
-                  id="phone"
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="form-control input-no-bg"
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="form-group col-md-2">
-                <label>Poštanski broj</label>
-                <input
-                  autoComplete="off"
-                  value={poNum}
-                  placeholder=""
-                  type="text"
-                  id="poNum"
-                  onChange={(e) => setPoNum(e.target.value)}
-                  className="form-control input-no-bg"
-                />
-              </div>
+    <motion.div
+      key={"complete-reg-form"}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.3, duration: 0.6 }}
+      exit={{ opacity: 0 }}
+      className="reg-form-container"
+    >
+      <div className="reg-form-title">
+        <span className="reg-form-title-text">
+          Unesite Vaše podatke za registraciju
+        </span>
+        <br />
+        <hr style={{ width: "99%", position: "relative", left: "0.5%" }} />
+        <br />
+      </div>
 
-              <div className="form-group col-md-4">
-                <label>Grad</label>
-                <input
-                  autoComplete="off"
-                  value={city}
-                  placeholder=""
-                  type="text"
-                  id="address"
-                  onChange={(e) => setCity(e.target.value)}
-                  className="form-control input-no-bg"
-                />
+      <form onSubmit={handleSubmit}>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="row">
+                <div className="form-group col-md-6">
+                  <label>
+                    Email adresa <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control input-no-bg"
+                    value={email}
+                    id="email"
+                    disabled
+                  />
+                </div>
+                <div className="form-group col-md-6">
+                  <label>
+                    Korisničko ime <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    autoComplete="off"
+                    value={name}
+                    placeholder=""
+                    type="text"
+                    id="name"
+                    onChange={(e) => setName(e.target.value)}
+                    className="form-control input-no-bg"
+                  />
+                </div>
               </div>
-              <div className="col-md-6 reg-button-container">
-                <button
-                  // disabled={}
-                  type="submit"
-                  className="btn btn-raised reg-button-right"
-                >
-                  Potvrda Registracije
-                </button>
+              <div className="row">
+                <div className="form-group col-md-6">
+                  <label>
+                    Šifra <span style={{ color: "red" }}>*</span>{" "}
+                  </label>
+                  <input
+                    autoComplete="off"
+                    value={password}
+                    placeholder=""
+                    type="password"
+                    className="form-control input-no-bg"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div className="form-group col-md-6">
+                  <label>
+                    Potvrdite šifru <span style={{ color: "red" }}>*</span>{" "}
+                  </label>
+                  <input
+                    autoComplete="off"
+                    value={confirmPassword}
+                    placeholder=""
+                    type="password"
+                    className="form-control input-no-bg"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="form-group col-md-6">
+                  <label>Adresa</label>
+                  <input
+                    autoComplete="off"
+                    value={address}
+                    placeholder=""
+                    type="text"
+                    id="address"
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="form-control input-no-bg"
+                  />
+                </div>
+                <div className="form-group col-md-6">
+                  <label>Telefon</label>
+                  <input
+                    autoComplete="off"
+                    value={phone}
+                    placeholder=""
+                    type="text"
+                    id="phone"
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="form-control input-no-bg"
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="form-group col-md-2">
+                  <label>Poštanski broj</label>
+                  <input
+                    autoComplete="off"
+                    value={poNum}
+                    placeholder=""
+                    type="text"
+                    id="poNum"
+                    onChange={(e) => setPoNum(e.target.value)}
+                    className="form-control input-no-bg"
+                  />
+                </div>
+
+                <div className="form-group col-md-4">
+                  <label>Grad</label>
+                  <input
+                    autoComplete="off"
+                    value={city}
+                    placeholder=""
+                    type="text"
+                    id="address"
+                    onChange={(e) => setCity(e.target.value)}
+                    className="form-control input-no-bg"
+                  />
+                </div>
+                <div className="reg-button-container col-md-6">
+                  <button
+                    // disabled={}
+                    type="submit"
+                    className="btn btn-raised reg-button-right"
+                  >
+                    Potvrda Registracije
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </motion.div>
   );
 
   return (
     <>
-      <br />
       {/* <div className="container"> */}
-      <div className="confirm-reg-container">
+      <div className="register-bg">
         <div className="row">
           <div className="col-md-12">{completeRegistrationForm()}</div>
         </div>

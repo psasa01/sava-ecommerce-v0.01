@@ -13,7 +13,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 const { SubMenu, Item } = Menu;
@@ -60,18 +60,14 @@ const Header = () => {
   return (
     <>
       <Modal
-        className="modal-radius"
         transitionName=""
-        maskStyle={{
-          backgroundColor: "rgba(0,0,0,0.2)",
-          backdropFilter: "blur(.5em) brightness(60%)",
-        }}
+        maskStyle={{ backgroundColor: "rgba(0,0,0,0.8" }}
         title="Prijava"
         centered
         visible={visible}
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={false}
+        footer={null}
         // [
         // <Button key="back" onClick={handleCancel}>
         //   Return
@@ -103,18 +99,16 @@ const Header = () => {
             </label>
             <input
               type="email"
-              className="form-control input-no-bg"
+              className="width-90 form-control input-no-bg"
               id="email"
-              style={{ width: "90%" }}
             />
             <label htmlFor="password" className="auth-input-label">
               Password
             </label>
             <input
               type="password"
-              className="form-control input-no-bg"
+              className="width-90 form-control input-no-bg "
               id="password"
-              style={{ width: "90%" }}
             />
           </div>
 
@@ -137,50 +131,40 @@ const Header = () => {
           </p>
         </div>
       </Modal>
-      <div className="horizontal-nav ">
+      <div className="horizontal-nav">
         <Menu
-          className=""
-          style={{
-            background: "#9dd3ff6e",
-            backdropFilter: "blur(0.3em) brightness(140%)",
-
-            // borderBottom: "none",
-          }}
+          style={{ background: "#131d25a2" }}
           onClick={handleClick}
           selectedKeys={[current]}
           mode="horizontal"
         >
           <Menu.Item key="home">
-            <NavLink exact to="/" activeClassName="nav-link-active">
+            <Link to="/">
               <img
                 className="sava-logo"
                 src="https://res.cloudinary.com/sale01/image/upload/v1623669939/assets/shopsavaba-logo-white-shadow.png"
                 alt=""
               />
-            </NavLink>
+            </Link>
           </Menu.Item>
           {!user && (
-            <Menu.Item key="register" className="float-right n-link">
-              <NavLink
-                to="/signup"
-                activeClassName="nav-link-active"
-                className="n-link"
-              >
-                <UserAddOutlined /> Registracija
-              </NavLink>
+            <Menu.Item
+              key="register"
+              icon={<UserAddOutlined />}
+              className="float-right"
+            >
+              <Link to="/signup">Registracija</Link>
             </Menu.Item>
           )}
           {!user && (
-            <Menu.Item key="login" className="float-right">
-              <NavLink
-                to="#"
-                onClick={showModal}
-                activeClassName="nav-login-active"
-                className="n-link"
-              >
-                <UserOutlined />
+            <Menu.Item
+              key="login"
+              icon={<UserOutlined />}
+              className="float-right"
+            >
+              <Link to="#" onClick={showModal}>
                 Prijava
-              </NavLink>
+              </Link>
             </Menu.Item>
           )}
 
@@ -211,16 +195,12 @@ const Header = () => {
               </Item>
             </SubMenu>
           )}
-          <Menu.Item className="float-right">
-            <NavLink
-              to="/cart"
-              activeClassName="nav-link-active"
-              className="n-link"
-            >
-              <ShoppingCartOutlined />
-              Korpa
-              <Badge count={cart.length} offset={[6, -9]}></Badge>
-            </NavLink>
+          <Menu.Item icon={<ShoppingCartOutlined />} className="float-right">
+            <Link to="/cart">
+              <Badge count={cart.length} offset={[9, 0]}>
+                Korpa
+              </Badge>
+            </Link>
           </Menu.Item>
         </Menu>
       </div>

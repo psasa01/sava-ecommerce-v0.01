@@ -47,7 +47,7 @@ const Register = ({ history }) => {
         />
       </div>
       <br />
-      {/* <div className="form-group">
+      <div className="form-group">
         <label for="password">Enter Password</label>
         <input
           type="password"
@@ -56,7 +56,7 @@ const Register = ({ history }) => {
           className="form-control"
           value={password}
         />
-      </div> 
+      </div>
       <div className="form-group">
         <label for="password-confirm">Confirm Password</label>
         <input
@@ -66,7 +66,7 @@ const Register = ({ history }) => {
           className="form-control"
           value={confirmPassword}
         />
-      </div> */}
+      </div>
       <button type="submit" className="btn btn-raised">
         Register
       </button>
@@ -74,10 +74,11 @@ const Register = ({ history }) => {
   );
 
   return (
-    <div className="container p-5">
+    <div className="p-5 register-bg">
       <div className="row">
         <div className="col-md-6 offset-md-3">
           <h4>Register</h4>
+          {registerForm()}
         </div>
       </div>
     </div>
