@@ -1,7 +1,7 @@
 import React from "react";
 import Typewriter from "typewriter-effect";
 import { Link as ScrollLink } from "react-scroll";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 
 import { motion } from "framer-motion";

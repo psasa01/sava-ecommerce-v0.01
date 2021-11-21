@@ -1,5 +1,5 @@
 html {
-  overflow-y: auto !important;
+  /* overflow-y: auto !important; */
 }
 
 body {
@@ -19,7 +19,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: .0em;
+  width: .5em;
 
 }
 
@@ -846,8 +846,8 @@ h3 {
   margin: 0 !important;
   position: relative;
   top: 0;
-  background-attachment: fixed;
-  overflow-y: scroll !important;
+  /* background-attachment: fixed;
+  overflow-y: scroll !important; */
 }
 
 .filter-title-p {
