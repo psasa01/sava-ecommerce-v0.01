@@ -19,7 +19,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: .0em;
+  width: .3em;
 
 }
 
@@ -1156,10 +1156,16 @@ h3 {
 
 /* ---------------------- CAROUSEL ---------------- */
 
+.ant-scrolling-effect {
+  width: 100% !important;
+}
+
 .carousel {
   /* box-shadow: inset 0em 2em 3em black, inset 0em -2em 3em black; */
   width: 100% !important;
   position: relative;
+  min-width: 100%;
+  overflow: hidden !important;
 
 }
 
@@ -1248,6 +1254,7 @@ h3 {
   height: 4vw;
   z-index: 999;
   opacity: .8;
+
 }
 
 .carousel-image {

@@ -90,7 +90,9 @@ const Header = ({ history }) => {
       .signInWithPopup(googleAuthProvider)
       .then(async (result) => {
         const { user } = result;
+
         const idTokenResult = await user.getIdTokenResult();
+        console.log("toookeeeeen", idTokenResult);
         createOrUpdateUser(idTokenResult.token)
           .then((res) => {
             dispatch({

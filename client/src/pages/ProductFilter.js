@@ -42,6 +42,7 @@ const ProductFilter = () => {
   const [filters, setFilters] = useState(initialFiltersState);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     load();
   }, []);
 
