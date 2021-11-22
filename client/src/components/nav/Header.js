@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Menu, Badge, Button } from "antd";
+
+import { auth, googleAuthProvider } from "./../../firebase";
+import { toast } from "react-toastify";
+
 import {
   UserOutlined,
   UserAddOutlined,
@@ -8,7 +12,10 @@ import {
   LogoutOutlined,
   ShoppingCartOutlined,
   ShopOutlined,
+  GoogleOutlined,
 } from "@ant-design/icons";
+
+import { createOrUpdateUser } from "../../functions/auth";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -19,15 +26,26 @@ import { useDispatch, useSelector } from "react-redux";
 
 const { SubMenu, Item } = Menu;
 
-const Header = () => {
+const Header = ({ history }) => {
   const [current, setCurrent] = useState("home");
   const [visible, setVisible] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  let history = useHistory();
+  // let history = useHistory();
   let { user, cart } = useSelector((state) => ({ ...state }));
 
+  useEffect(() => {
+    if (user && user.token) {
+      history.push("/");
+    }
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+
   let dispatch = useDispatch();
+
+  // const history = useHistory();
 
   const handleClick = (e) => {
     setCurrent(e.key);
@@ -56,6 +74,48 @@ const Header = () => {
 
   const handleCancel = () => {
     setVisible(false);
+  };
+
+  const roleBasedRedirect = (res) => {
+    if (res.data.role === "admin") {
+      history.push("/admin/dashboard");
+    } else {
+      history.push("/user/history");
+    }
+  };
+
+  const googleLogin = async () => {
+    auth
+      .signInWithPopup(googleAuthProvider)
+      .then(async (result) => {
+        const { user } = result;
+        const idTokenResult = await user.getIdTokenResult();
+        createOrUpdateUser(idTokenResult.token)
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+            roleBasedRedirect(res);
+            toast.success("uspjesno ste se prijavili", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              className: "foo-bar",
+            });
+          })
+          .catch();
+
+        // history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
   };
 
   return (
@@ -136,6 +196,17 @@ const Header = () => {
               Registrujte se!
             </Link>
           </p>
+          <Button
+            onClick={googleLogin}
+            type="danger"
+            className="mb-3"
+            block
+            shape="round"
+            icon={<GoogleOutlined />}
+            size="large"
+          >
+            Google Prijava
+          </Button>
         </div>
       </Modal>
       <div className="horizontal-nav ">
