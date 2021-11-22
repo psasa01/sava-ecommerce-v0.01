@@ -19,7 +19,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: .5em;
+  width: .0em;
 
 }
 
@@ -437,7 +437,7 @@ h3 {
   transition: all 0.6s ease;
   border-radius: 1.8em 1.8em 0em 0;
   cursor: pointer;
-  box-shadow: 2px 2px 3px 0px #999999, inset -1px -1px 1px #666, inset 1px 1px 1px white;
+  box-shadow: 2px 2px 3px 0px #0000005b, inset -1px -1px 1px #666, inset 1px 1px 1px white;
   /* border-top: 1px solid #fff;
   border-left: 1px solid #fff; */
   /* box-shadow: inset 1px 1px 2px 1px #ffffff; */
@@ -445,8 +445,10 @@ h3 {
 }
 
 .product-card:hover {
-  box-shadow: 2px 2px 3px 0px #999999, inset -1px -1px 1px #666, inset 1px 1px 1px white, 0 0 1.5em rgba(33, 33, 33, 0.3);
+  /* box-shadow: 2px 2px 4px 0px #00000098, inset -1px -1px 1px #666, inset 1px 1px 1px white, 0 0 1.5em rgba(33, 33, 33, 0.3);
+  backdrop-filter: brightness(200%); */
   /* transform: scale(100.1%); */
+  box-shadow: 0 0 .5em rgba(255, 255, 255, 0.712);
 }
 
 .product-image {
@@ -825,19 +827,21 @@ h3 {
 .filter-container {
   background: rgba(255, 255, 255, 0.411);
   width: 25%;
-  top: 6em;
+  top: 12em;
   bottom: 0;
   margin-top: 4.7em;
   margin-left: 3em;
-  margin-bottom: 3em;
+  margin-bottom: 1.5em;
   padding: 1em 3em 3em 3em;
   border-radius: 1.5em;
   backdrop-filter: blur(2em) brightness(200%);
+  box-shadow: inset 1px 1px 1px white, inset -1px -1px 2px black, 1px 1px 10px rgba(0, 0, 0, 0.233);
+
 }
 
 .filter-bg {
-  /* width: 100vw;
-  height: 100vh !important; */
+  width: 100%;
+  height: 100% !important;
   background-image: linear-gradient(0deg, #1b1e22 0%, rgba(0, 0, 0, 0.623) 20%), url("./images/filter-bg.jpg") !important;
   background-size: cover;
   background-color: #000;
@@ -846,8 +850,8 @@ h3 {
   margin: 0 !important;
   position: relative;
   top: 0;
-  /* background-attachment: fixed;
-  overflow-y: scroll !important; */
+  background-attachment: fixed;
+  overflow-y: hidden !important;
 }
 
 .filter-title-p {
@@ -985,22 +989,25 @@ h3 {
 .filter-button {
   width: 100%;
   border-radius: .5em;
-  background-color: #28cdd3 !important;
+  background-color: var(--good-year-carousel) !important;
   transition: all .6s ease;
   margin-bottom: .5em;
 
 }
 
-.filter-button h3 {
+.filter-button h3,
+.filter-reset-button h3 {
   color: white !important;
+  font-size: 1.2em;
+  ;
 }
 
 .filter-button:hover {
-  background-color: #28b6bb !important;
+  background-color: #3f9fec !important;
 }
 
 .filter-button:disabled:hover {
-  background-color: #28cdd3 !important;
+  background-color: var(--good-year-carousel) !important;
 }
 
 /* .filter-button:disabled::after {

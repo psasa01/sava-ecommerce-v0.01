@@ -7,6 +7,7 @@ import {
   SettingOutlined,
   LogoutOutlined,
   ShoppingCartOutlined,
+  ShopOutlined,
 } from "@ant-design/icons";
 
 import firebase from "firebase/app";
@@ -220,6 +221,16 @@ const Header = () => {
               <ShoppingCartOutlined />
               Korpa
               <Badge count={cart.length} offset={[6, -9]}></Badge>
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item className="float-right">
+            <NavLink
+              to="/products/filter"
+              activeClassName="nav-link-active"
+              className="n-link"
+            >
+              <ShopOutlined />
+              Prodavnica
             </NavLink>
           </Menu.Item>
         </Menu>
