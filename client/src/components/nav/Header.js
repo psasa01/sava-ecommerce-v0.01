@@ -21,7 +21,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 const { SubMenu, Item } = Menu;
@@ -35,7 +35,7 @@ const Header = ({ history }) => {
   const [loading, setLoading] = useState(false);
 
   // let history = useHistory();
-  let { user, cart } = useSelector((state) => ({ ...state }));
+  const { user, cart } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     if (user && user.token) {
@@ -44,37 +44,6 @@ const Header = ({ history }) => {
   }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   let dispatch = useDispatch();
-
-  // const history = useHistory();
-
-  const handleClick = (e) => {
-    setCurrent(e.key);
-  };
-
-  const logout = () => {
-    firebase.auth().signOut();
-    dispatch({
-      type: "LOGOUT",
-      payload: null,
-    });
-    history.push("/signin");
-  };
-
-  const showModal = () => {
-    setVisible(true);
-  };
-
-  const handleOk = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setVisible(false);
-    }, 3000);
-  };
-
-  const handleCancel = () => {
-    setVisible(false);
-  };
 
   const roleBasedRedirect = (res) => {
     if (res.data.role === "admin") {
@@ -107,6 +76,7 @@ const Header = ({ history }) => {
               position: toast.POSITION.BOTTOM_RIGHT,
               className: "foo-bar",
             });
+            handleCancel();
           })
           .catch();
 
@@ -116,6 +86,36 @@ const Header = ({ history }) => {
         console.log(err);
         toast.error(err.message);
       });
+  };
+  // const history = useHistory();
+
+  const handleClick = (e) => {
+    setCurrent(e.key);
+  };
+
+  const logout = () => {
+    firebase.auth().signOut();
+    dispatch({
+      type: "LOGOUT",
+      payload: null,
+    });
+    history.push("/signin");
+  };
+
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setVisible(false);
+    }, 3000);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
   };
 
   return (
