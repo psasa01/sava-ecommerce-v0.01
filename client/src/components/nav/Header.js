@@ -53,6 +53,38 @@ const Header = ({ history }) => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const result = await auth.signInWithEmailAndPassword(email, password);
+      const { user } = result;
+      const idTokenResult = await user.getIdTokenResult();
+
+      createOrUpdateUser(idTokenResult.token)
+        .then((res) => {
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              name: res.data.name,
+              email: res.data.email,
+              token: idTokenResult.token,
+              role: res.data.role,
+              _id: res.data._id,
+            },
+          });
+          roleBasedRedirect(res);
+          toast.success("uspjesno ste se prijavili");
+        })
+        .catch((err) => console.log(err));
+
+      // history.push("/");
+    } catch (err) {
+      toast.error(err.message);
+      setLoading(false);
+    }
+  };
+
   const googleLogin = async () => {
     auth
       .signInWithPopup(googleAuthProvider)
@@ -159,24 +191,33 @@ const Header = ({ history }) => {
       >
         <div className="login-form-container">
           <div className="email-password-login-form">
-            <label htmlFor="" className="auth-input-label">
-              Email
-            </label>
-            <input
-              type="email"
-              className="form-control input-no-bg"
-              id="email"
-              style={{ width: "90%" }}
-            />
-            <label htmlFor="password" className="auth-input-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control input-no-bg"
-              id="password"
-              style={{ width: "90%" }}
-            />
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="" className="auth-input-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control input-no-bg"
+                id="email"
+                style={{ width: "90%" }}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                autoFocus
+              />
+              <label htmlFor="password" className="auth-input-label">
+                Password
+              </label>
+              <input
+                type="password"
+                className="form-control input-no-bg"
+                id="password"
+                style={{ width: "90%" }}
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                placeholder="Šifra"
+              />
+            </form>
           </div>
 
           <Link onClick={handleCancel} to="/forgot/password">
@@ -186,6 +227,8 @@ const Header = ({ history }) => {
             // disabled={}
             type="submit"
             className="btn btn-raised login-form-button"
+            disabled={!email || password.length < 6}
+            onClick={handleSubmit}
           >
             Prijava
           </button>
@@ -196,6 +239,7 @@ const Header = ({ history }) => {
               Registrujte se!
             </Link>
           </p>
+
           <Button
             onClick={googleLogin}
             type="danger"
