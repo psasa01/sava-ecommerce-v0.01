@@ -1160,9 +1160,13 @@ h3 {
   width: 100% !important;
 }
 
+.ant-carousel {
+  margin-left: -3em !important;
+}
+
 .carousel {
   /* box-shadow: inset 0em 2em 3em black, inset 0em -2em 3em black; */
-  width: 100vw !important;
+  width: 100% !important;
   position: relative;
   min-width: 100%;
   overflow: hidden !important;
