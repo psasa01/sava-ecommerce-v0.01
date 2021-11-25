@@ -37,7 +37,7 @@ const initialState = {
   producedin: "",
   posebnaPonuda: false,
   fullTitle: "",
-  sifra: ""
+  sifra: "",
 };
 
 const ProductCreate = () => {
@@ -47,19 +47,19 @@ const ProductCreate = () => {
   const [loading, setLoading] = useState(false);
 
   // redux
-  const { user } = useSelector(state => ({ ...state }));
+  const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     loadCategories();
   }, []);
 
   const loadCategories = () =>
-    getCategories().then(c => setValues({ ...values, categories: c.data }));
+    getCategories().then((c) => setValues({ ...values, categories: c.data }));
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     createProduct(values, user.token)
-      .then(res => {
+      .then((res) => {
         // console.log("RRREEESSS --------->", res);
 
         const { width, height, rim, loadindex, speedindex, title } = res.data;
@@ -68,7 +68,7 @@ const ProductCreate = () => {
         );
         window.location.reload();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         if (err.response.status === 400)
           toast.error("Doslo je do greske pri kreiranju novog artikla!");
@@ -76,29 +76,29 @@ const ProductCreate = () => {
       });
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setValues({
       ...values,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleCheckboxChange = e => {
+  const handleCheckboxChange = (e) => {
     setValues({
       ...values,
-      posebnaPonuda: !values.posebnaPonuda
+      posebnaPonuda: !values.posebnaPonuda,
     });
   };
 
-  const handleCategoryChange = e => {
+  const handleCategoryChange = (e) => {
     e.preventDefault();
     // console.log("CLICKED CATEGORY:", e.target.value);
     setValues({
       ...values,
       // subs: [],
-      category: e.target.value
+      category: e.target.value,
     });
-    getCategorySubs(e.target.value).then(res => {
+    getCategorySubs(e.target.value).then((res) => {
       setSubOptions(res.data);
       setShowSub(true);
     });

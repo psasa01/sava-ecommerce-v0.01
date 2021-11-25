@@ -7,6 +7,8 @@ import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrUpdateUser } from "../../functions/auth";
 
+import BackButton from "../../components/nav/BackButton";
+
 // const createOrUpdateUser = async (authtoken) => {
 //   return await axios.post(
 //     `${process.env.REACT_APP_API}/create-or-update-user`,
@@ -112,87 +114,112 @@ const Login = ({ history }) => {
   };
 
   const loginForm = () => (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "2.5em" }}>
-      <div className="form-group">
-        <input
-          type="email"
-          className="form-control"
-          value={email}
-          id="email"
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          autoFocus
-        />
-      </div>
-
-      <div className="form-group">
-        <input
-          type="password"
-          id="password"
-          onChange={(e) => setPassword(e.target.value)}
-          className="form-control"
-          value={password}
-          placeholder="Šifra"
-        />
-      </div>
+    <div
+      className="reg-form-container"
+      style={{
+        top: "3.6em",
+        width: "44vw",
+        padding: "0 3em 1em 3em",
+        borderRadius: "2em",
+      }}
+    >
       <br />
-      <Button
-        onClick={handleSubmit}
-        type="primary"
-        className="mb-3"
-        block
-        shape="round"
-        icon={<MailOutlined />}
-        size="large"
-        disabled={!email || password.length < 6}
+      <span className="reg-form-title-text">
+        Unesite Vaše pristupne podatke
+      </span>
+      <br />
+      <div
+        style={{
+          width: "",
+          position: "relative",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
       >
-        Prijava
-      </Button>
+        <hr style={{ paddingTop: ".5em" }} />
+        <br />
+      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="form-group">
+                <label
+                  htmlFor="email"
+                  style={{
+                    fontSize: "1em",
+                    color: "#999",
+                  }}
+                >
+                  Email
+                </label>
+                <input
+                  // type="email"
+                  className="form-control input-no-bg"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Vaš Email"
+                  autoFocus
+                />
+                <label
+                  htmlFor="password"
+                  style={{
+                    fontSize: "1em",
+                    color: "#999",
+                  }}
+                >
+                  Šifra
+                </label>
+                <input
+                  type="password"
+                  className="form-control input-no-bg"
+                  id="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  placeholder="Vaša Šifra"
+                />
+                <Link to="/forgot/password">
+                  <p className="auth-p">Zaboravili ste šifru?</p>
+                </Link>
+                <button
+                  // disabled={}
+                  type="submit"
+                  className="btn btn-raised reg-button-right"
+                  disabled={!email || password.length < 6}
+                  onClick={handleSubmit}
+                >
+                  Prijava
+                </button>
 
-      <Button
-        onClick={googleLogin}
-        type="danger"
-        className="mb-3"
-        block
-        shape="round"
-        icon={<GoogleOutlined />}
-        size="large"
-      >
-        Google Prijava
-      </Button>
-
-      <Link to="/forgot/password" className="float-right">
-        Zaboravili ste šifru?
-      </Link>
-    </form>
+                <p className="auth-p2">
+                  Niste registrovani?&nbsp;
+                  <Link to="/signup">Registrujte se!</Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div className="google-button-container">
+        <button
+          style={{ backgroundColor: "#cf4332", width: "90% !important" }}
+          onClick={googleLogin}
+          className="btn btn-raised google-button-login"
+        >
+          <GoogleOutlined /> Google Prijava
+        </button>
+      </div>
+    </div>
   );
   // if (loading) {
   //   return <h1>LOADING...</h1>;
   // }
   return (
-    <div className="container p-5">
-      <div className="row">
-        <div className="col-md-6 offset-md-3">
-          {loading ? (
-            <h4 className="text-danger">Loading...</h4>
-          ) : (
-            <h4>Prijava</h4>
-          )}
-
-          {loginForm()}
-          <hr style={{ marginBottom: "1.3em" }} />
-          <Link to="/signup">
-            <Button
-              type="primary"
-              className="mb-3"
-              block
-              shape="round"
-              size="large"
-            >
-              <b>REGISTRACIJA</b>
-            </Button>
-          </Link>
-        </div>
+    <div className="register-bg">
+      <BackButton />
+      <div className="container p-5">
+        <div className="row">{loginForm()}</div>
       </div>
     </div>
   );

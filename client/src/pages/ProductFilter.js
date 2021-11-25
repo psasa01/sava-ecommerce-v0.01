@@ -5,6 +5,7 @@ import ProductCard from "../components/cards/ProductCard";
 import BackButton from "./../components/nav/BackButton";
 import _ from "lodash";
 import Loader from "../components/loader/Loader";
+import { motion } from "framer-motion";
 
 const initialSizeSearchState = [];
 
@@ -456,7 +457,14 @@ const ProductFilter = () => {
           <></>
         )}
       </div>
-      <div className="filter-bg">
+      <motion.div
+        key={"filterbg"}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0, duration: 0.6 }}
+        exit={{ opacity: 0 }}
+        className="filter-bg"
+      >
         <div className="row">
           <div className="filter-container">
             {/* <h1>{JSON.stringify(location.state.from)}</h1> */}
@@ -779,7 +787,7 @@ const ProductFilter = () => {
             <br />
           </div>
         </div>
-      </div>
+      </motion.div>
       <BackButton />
     </>
   );

@@ -56,6 +56,7 @@ const Header = ({}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
       const { user } = result;
@@ -110,7 +111,6 @@ const Header = ({}) => {
               position: toast.POSITION.BOTTOM_RIGHT,
               className: "foo-bar",
             });
-            handleCancel();
           })
           .catch();
 
@@ -120,6 +120,7 @@ const Header = ({}) => {
         console.log(err);
         toast.error(err.message);
       });
+    setVisible(false);
   };
   // const history = useHistory();
 
@@ -242,17 +243,13 @@ const Header = ({}) => {
             </Link>
           </p>
 
-          <Button
+          <button
+            style={{ backgroundColor: "#cf4332" }}
             onClick={googleLogin}
-            type="danger"
-            className="mb-3"
-            block
-            shape="round"
-            icon={<GoogleOutlined />}
-            size="large"
+            className="btn btn-raised google-login-form-button"
           >
-            Google Prijava
-          </Button>
+            <GoogleOutlined /> Google Prijava
+          </button>
         </div>
       </Modal>
       <div className="horizontal-nav ">

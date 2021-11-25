@@ -1311,9 +1311,9 @@ h3 {
   cursor: pointer;
 }
 
-.back-button:hover {
+/* .back-button:hover {
   background-color: rgb(243, 64, 64);
-}
+} */
 
 /* -------------------------------- FULL  SINGLE PRODUCT --------------------------------- */
 
@@ -2464,7 +2464,7 @@ hr {
 }
 
 .auth-p2 {
-  margin: 1em 0 0 0;
+  margin: .5em 0 1em 0;
   text-align: center;
 }
 
@@ -2481,6 +2481,17 @@ hr {
   background-color: var(--good-year-carousel) !important;
 }
 
+.google-login-form-button {
+  left: 0;
+  right: 0;
+  margin: 0 5% !important;
+  color: white;
+  padding: 1rem;
+  height: 3rem;
+  width: 90%;
+  background-color: var(--red) !important;
+}
+
 .reg-button-container {
   padding-top: 1.5em;
   width: 100% !important;
@@ -2495,16 +2506,37 @@ hr {
   left: 0;
   right: 0;
   margin: auto;
+  cursor: pointer !important;
 }
 
 .reg-button-right:disabled {
   color: white !important;
   cursor: default !important;
+  background-color: var(--good-year-carousel) !important;
 }
 
 .reg-button-right:disabled:hover {
   background-color: var(--good-year-carousel) !important;
 
+
+}
+
+.google-button-container {
+  width: 96% !important;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: -2em 0 2em 0;
+}
+
+.google-button-login {
+  height: 3rem;
+  width: 100% !important;
+  color: white !important;
+  background-color: var(--red) !important;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .reg-form-container {
