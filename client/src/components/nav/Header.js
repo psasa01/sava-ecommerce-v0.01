@@ -21,12 +21,12 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 const { SubMenu, Item } = Menu;
 
-const Header = ({ history }) => {
+const Header = () => {
   const [current, setCurrent] = useState("home");
   const [visible, setVisible] = useState(false);
 
@@ -34,7 +34,7 @@ const Header = ({ history }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // let history = useHistory();
+  let history = useHistory();
   const { user, cart } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
