@@ -24,6 +24,7 @@ const BrandCarousel = () => {
         arrows
         prevArrow={<LeftOutlined />}
         nextArrow={<RightOutlined />}
+        style={{ width: "100vw", position: "relative", left: "0" }}
       >
         <div className="carousel">
           <div className="carousel-gradient"></div>
