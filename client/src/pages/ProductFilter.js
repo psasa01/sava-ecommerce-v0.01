@@ -467,8 +467,6 @@ const ProductFilter = () => {
       >
         <div className="row">
           <div className="filter-container">
-            {/* <h1>{JSON.stringify(location.state.from)}</h1> */}
-
             <form>
               <p className="filter-title-p">Odaberite filtere za pretragu</p>
               <hr style={{ marginBottom: ".5em" }} />
@@ -495,9 +493,6 @@ const ProductFilter = () => {
                       <option value="sirina" id="sirina-option">
                         Širina
                       </option>
-                      {/* <option key="185" value="185">
-                185
-              </option> */}
 
                       {w.map((w) => (
                         <option key={w} value={w}>
@@ -770,7 +765,8 @@ const ProductFilter = () => {
               </h3>
             </button>
           </div>
-          <div className="col" style={{ top: "3em" }}>
+
+          <div className="col filter-results-container" style={{ top: "3em" }}>
             <div className="title-page">
               {/* <h4>Svi Proizvodi</h4> */}
               {/* <div className="page-no">Stranica: {page}</div> */}
@@ -790,7 +786,6 @@ const ProductFilter = () => {
               ))}
             </div>
 
-            {/* {JSON.stringify(filtered)} */}
             <br />
           </div>
         </div>

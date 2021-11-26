@@ -256,8 +256,9 @@ const Header = ({}) => {
         <Menu
           className=""
           style={{
-            background: "#9dd3ff6e",
-            backdropFilter: "blur(0.3em) brightness(140%)",
+            background: "#00002266",
+            backdropFilter: "blur(0.3em) brightness(60%)",
+            color: "#ccc",
 
             // borderBottom: "none",
           }}
@@ -275,25 +276,30 @@ const Header = ({}) => {
             </NavLink>
           </Menu.Item>
           {!user && (
-            <Menu.Item key="register" className="float-right n-link">
+            <Menu.Item
+              key="register"
+              style={{ color: "#ccc" }}
+              className="float-right"
+              icon={<UserAddOutlined />}
+            >
               <NavLink
+                style={{ color: "#ccc" }}
                 to="/signup"
-                activeClassName="nav-link-active"
-                className="n-link"
+                // activeClassName="nav-link-active"
+                // className="n-link"
               >
-                <UserAddOutlined /> Registracija
+                Registracija
               </NavLink>
             </Menu.Item>
           )}
           {!user && (
-            <Menu.Item key="login" className="float-right">
-              <NavLink
-                to="#"
-                onClick={showModal}
-                activeClassName="nav-login-active"
-                className="n-link"
-              >
-                <UserOutlined />
+            <Menu.Item
+              style={{ color: "#ccc" }}
+              key="login"
+              className="float-right"
+              icon={<UserOutlined />}
+            >
+              <NavLink to="#" onClick={showModal} style={{ color: "#bbb" }}>
                 Prijava
               </NavLink>
             </Menu.Item>
@@ -301,6 +307,7 @@ const Header = ({}) => {
 
           {user && (
             <SubMenu
+              style={{ color: "#ccc" }}
               key="SubMenu"
               icon={<SettingOutlined />}
               title={
@@ -326,24 +333,32 @@ const Header = ({}) => {
               </Item>
             </SubMenu>
           )}
-          <Menu.Item className="float-right">
+          <Menu.Item
+            className="float-right"
+            icon={<ShoppingCartOutlined />}
+            style={{ color: "#ccc" }}
+          >
             <NavLink
+              style={{ color: "#ccc" }}
               to="/cart"
-              activeClassName="nav-link-active"
-              className="n-link"
+              // activeClassName="nav-link-active"
+              // className="n-link"
             >
-              <ShoppingCartOutlined />
               Korpa
               <Badge count={cart.length} offset={[6, -9]}></Badge>
             </NavLink>
           </Menu.Item>
-          <Menu.Item className="float-right">
+          <Menu.Item
+            className="float-right"
+            style={{ color: "#ccc" }}
+            icon={<ShopOutlined />}
+          >
             <NavLink
               to="/products/filter"
-              activeClassName="nav-link-active"
-              className="n-link"
+              style={{ color: "#ccc" }}
+              // activeClassName="nav-link-active"
+              // className="n-link"
             >
-              <ShopOutlined />
               Prodavnica
             </NavLink>
           </Menu.Item>
