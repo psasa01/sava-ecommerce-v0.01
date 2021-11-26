@@ -832,7 +832,7 @@ h3 {
   margin-top: 4.7em;
   margin-left: 3em;
   margin-bottom: 1.5em;
-  padding: 1em 3em 3em 3em;
+  padding: 1em 3em 1em 3em;
   border-radius: 1.5em;
   backdrop-filter: blur(2em) brightness(200%);
   box-shadow: inset 1px 1px 1px white, inset -1px -1px 2px black, 1px 1px 10px rgba(0, 0, 0, 0.233);
@@ -934,9 +934,10 @@ h3 {
 
 .filter-checkbox-label-h3 {
   font-size: 1em;
-  color: #1a7f83;
+  color: rgb(47, 132, 230);
   font-weight: 400;
   padding-bottom: 0;
+  /* text-shadow: 1px 1px 2px rgb(255, 255, 255); */
 }
 
 
@@ -1037,7 +1038,7 @@ h3 {
 .filter-reset-button {
   width: 100%;
   border-radius: .5em;
-  background-color: #ff3333 !important;
+  background-color: var(--red) !important;
   transition: all .6s ease
 }
 
@@ -1895,16 +1896,17 @@ h3 {
 }
 
 .footer {
-  height: 1.6em;
-  background-color: #cfdfef;
+  height: 1.4em;
+  background-color: #afd7ff;
   position: fixed;
   bottom: 0;
   width: 100vw;
-  padding: 0.2em;
+
 }
 
 .footer p {
   position: absolute;
+  bottom: -1.1em !important;
   right: 5em;
 }
 
