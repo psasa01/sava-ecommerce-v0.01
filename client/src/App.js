@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -37,6 +37,8 @@ import { currentUser } from "./functions/auth";
 const App = () => {
   const dispatch = useDispatch();
 
+  const location = useLocation();
+
   // check Firebase auth state
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -67,7 +69,7 @@ const App = () => {
     <>
       <Header />
       <ToastContainer />
-      <Switch>
+      <Switch location={location}>
         <Route exact path="/" component={Home} />
         <Route exact path="/signin" component={Login} />
         <Route exact path="/signup" component={Register} />

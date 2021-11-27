@@ -36,7 +36,7 @@ const ProductCard = ({ product, handleRemove }) => {
   return (
     <AnimatePresence>
       <motion.div
-        key={_id}
+        key="dropdown"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.6 }}

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Modal, Menu, Badge, Button } from "antd";
 
 import { auth, googleAuthProvider } from "./../../firebase";
 import { toast } from "react-toastify";
+
+import { motion, AnimatePresence } from "framer-motion";
 
 import {
   UserOutlined,
@@ -32,16 +34,39 @@ const Header = ({}) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const [dropdown, setDropdown] = useState(false);
 
   let history = useHistory();
   const { user, cart } = useSelector((state) => ({ ...state }));
 
+  const ref = useRef();
+
   useEffect(() => {
     if (user && user.token) {
       history.push("/");
+      setLoading(false);
     }
+    setLoading(false);
   }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (dropdown && ref.current && !ref.current.contains(e.target)) {
+        setDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [dropdown]);
 
   let dispatch = useDispatch();
 
@@ -51,6 +76,14 @@ const Header = ({}) => {
     } else {
       history.push("/user/history");
     }
+  };
+
+  const handleDropdown = () => {
+    setDropdown(!dropdown);
+  };
+
+  const handleDropdownClose = () => {
+    setDropdown(false);
   };
 
   const handleSubmit = async (e) => {
@@ -129,6 +162,7 @@ const Header = ({}) => {
   };
 
   const logout = () => {
+    handleDropdownClose();
     firebase.auth().signOut();
     dispatch({
       type: "LOGOUT",
@@ -155,6 +189,23 @@ const Header = ({}) => {
 
   return (
     <>
+      <div className="loading-container" onclick="return false;">
+        {loading ? (
+          // <LoadingOutlined style={{ color: "red" }} />
+          <div
+            className={
+              loading ? "loading-image fadeIn" : "loading-image fadeOut"
+            }
+          >
+            <img
+              src="https://res.cloudinary.com/sale01/image/upload/v1623307453/assets/loading.gif"
+              className="loading-centered"
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
       <Modal
         className="modal-radius"
         transitionName=""
@@ -168,29 +219,6 @@ const Header = ({}) => {
         onOk={handleOk}
         onCancel={handleCancel}
         footer={false}
-        // [
-        // <Button key="back" onClick={handleCancel}>
-        //   Return
-        // </Button>,
-        // <Button
-        //   key="submit"
-        //   type="primary"
-        //   loading={loading}
-        //   onClick={handleOk}
-        // >
-        //   Submit
-        // </Button>,
-        // <Button
-        //   key="link"
-        //   href="https://google.com"
-        //   type="primary"
-        //   loading={loading}
-        //   onClick={handleOk}
-        // >
-        //   Search on Google
-        // </Button>,
-
-        // }
       >
         <div className="login-form-container">
           <div className="email-password-login-form">
@@ -253,12 +281,17 @@ const Header = ({}) => {
         </div>
       </Modal>
 
-      <div className="new-horizontal-nav">
+      <div className="new-horizontal-nav" ref={ref}>
         <ul className="new-nav-ul">
           <div className="new-nav-left">
             <li>
               {" "}
-              <NavLink exact to="/" activeClassName="nav-link-active">
+              <NavLink
+                exact
+                to="/"
+                activeClassName="nav-link-active"
+                onClick={handleDropdownClose}
+              >
                 <img
                   className="sava-logo"
                   src="https://res.cloudinary.com/sale01/image/upload/v1623669939/assets/shopsavaba-logo-white-shadow.png"
@@ -268,84 +301,125 @@ const Header = ({}) => {
             </li>
           </div>
           <div className="new-nav-right">
-            {!user && (
-              <li className="new-nav-ul-item">
-                <Link to="#" onClick={showModal} style={{ color: "#bbb" }}>
-                  Prijava
-                </Link>
-              </li>
-            )}
-
-            {!user && (
-              <li className="new-nav-ul-item">
-                {" "}
-                <NavLink
-                  // style={{ color: "#ccc" }}
-                  to="/signup"
-                  activeClassName="nav-link-active"
-                  className="new-nav-link"
-                >
-                  <UserAddOutlined />
-                  Registracija
-                </NavLink>
-              </li>
-            )}
             <li className="new-nav-ul-item">
               <NavLink
-                className="new-nav-link"
-                // style={{ color: "#ccc" }}
-                to="/cart"
-                activeClassName="nav-link-active"
-                className="new-nav-link"
-              >
-                Korpa
-                <Badge count={cart.length} offset={[8, -20]}></Badge>
-              </NavLink>
-            </li>
-            <li className="new-nav-ul-item">
-              <NavLink
+                onClick={handleDropdownClose}
                 to="/products/filter"
                 // style={{ color: "#ccc" }}
                 className="new-nav-item"
                 activeClassName="nav-link-active"
                 className="new-nav-link"
               >
-                Prodavnica
+                <ShopOutlined />
+                &nbsp; Prodavnica
               </NavLink>
             </li>
+            <li className="new-nav-ul-item">
+              <NavLink
+                onClick={handleDropdownClose}
+                className="new-nav-link"
+                // style={{ color: "#ccc" }}
+                to="/cart"
+                activeClassName="nav-link-active"
+                className="new-nav-link"
+              >
+                <ShoppingCartOutlined />
+                &nbsp; Korpa
+                <Badge count={cart.length} offset={[8, -20]}></Badge>
+              </NavLink>
+            </li>
+
+            {!user && (
+              <li className="new-nav-ul-item">
+                {" "}
+                <NavLink
+                  onClick={handleDropdownClose}
+                  // style={{ color: "#ccc" }}
+                  to="/signup"
+                  activeClassName="nav-link-active"
+                  className="new-nav-link"
+                >
+                  <UserAddOutlined />
+                  &nbsp; Registracija
+                </NavLink>
+              </li>
+            )}
+
+            {!user && (
+              <li className="new-nav-ul-item">
+                <Link
+                  to="#"
+                  onClick={showModal}
+                  style={{ color: "#bbb" }}
+                  className="new-nav-link"
+                >
+                  <UserOutlined />
+                  &nbsp; Prijava
+                </Link>
+              </li>
+            )}
 
             {user && (
               <li className="new-nav-ul-item">
                 <Link
                   to="#"
+                  onClick={handleDropdown}
                   // style={{ color: "#ccc" }}
-                  className="new-nav-link"
+                  className="new-nav-link dropdown-trigger"
+                  style={{ color: dropdown && "white" }}
                 >
                   {/* <img src={user.picture[0]} alt="" /> */}
                   {user.displayName ||
                     user.name ||
                     (user.email && user.email.split("@")[0])}
                 </Link>
-                <ul className="dropdown">
-                  {user && user.role === "subscriber" && (
-                    <li>
-                      <Link to="/user/history">Upravljačka ploča</Link>
-                    </li>
-                  )}
+                {dropdown && (
+                  <AnimatePresence>
+                    <motion.ul
+                      key="dropdown"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.6 }}
+                      exit={{ opacity: 0 }}
+                      className="dropdown"
+                    >
+                      {user && user.role === "subscriber" && (
+                        <li className="dropdown-item">
+                          <Link
+                            to="/user/history"
+                            className="dropdown-item-link"
+                            onClick={handleDropdownClose}
+                          >
+                            Upravljačka ploča
+                          </Link>
+                        </li>
+                      )}
 
-                  {user && user.role === "admin" && (
-                    <li>
-                      <Link to="/admin/dashboard">Admin Upravljačka ploča</Link>
-                    </li>
-                  )}
+                      {user && user.role === "admin" && (
+                        <li className="dropdown-item">
+                          <Link
+                            onClick={handleDropdownClose}
+                            to="/admin/dashboard"
+                            className="dropdown-item-link"
+                          >
+                            Admin Upravljačka ploča
+                          </Link>
+                        </li>
+                      )}
 
-                  <li>
-                    <Link to="#" onClick={logout}>
-                      <LogoutOutlined />
-                      &nbsp; Odjava
-                    </Link>
-                  </li>
-                </ul>
+                      <li className="dropdown-item">
+                        <Link
+                          to="#"
+                          onClick={logout}
+                          className="dropdown-item-link"
+                        >
+                          <LogoutOutlined />
+                          &nbsp; Odjava
+                        </Link>
+                      </li>
+                    </motion.ul>
+                  </AnimatePresence>
+                )}
               </li>
             )}
           </div>
