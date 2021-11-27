@@ -60,13 +60,12 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   z-index: 999;
   color: gray !important
-
 }
 
 .main-menu-attributes {
   background-color: #1f2931a9;
   -webkit-backdrop-filter: blur(.2em) brightness(80%);
-          backdrop-filter: blur(.2em) brightness(80%);
+  backdrop-filter: blur(.2em) brightness(80%);
 }
 
 .sava-logo {
@@ -105,15 +104,7 @@ body::-webkit-scrollbar-thumb {
   color: white !important;
 }
 
-.nav-link-active {
-  height: 100%;
-  
-  padding: 1em 0;
-  border-bottom: 3px var(--good-year-carousel) solid !important;
-  margin: 0 !important;
-  color: white !important;
 
-}
 
 .nav-login-active {
   color: #5c5c5c
@@ -142,6 +133,102 @@ body::-webkit-scrollbar-thumb {
 
 
 } */
+
+
+
+/* ---------------------- NEW NAVIGATION ------------------ */
+
+.new-horizontal-nav {
+  height: 3.33em !important;
+  width: 100vw;
+  position: fixed;
+  top: 0 !important;
+  left: 0 !important;
+  background-color: #242424d5;
+  box-shadow: inset 0px -1px 0px rgb(151, 151, 151);
+  z-index: 998;
+  padding: 0 1em;
+  backdrop-filter: blur(3px) !important;
+
+}
+
+.new-nav-ul {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  /* overflow: hidden; */
+  align-items: center;
+  justify-content: space-between;
+  vertical-align: middle;
+  justify-self: center;
+
+}
+
+.new-nav-right {
+  display: inline-flex;
+  flex-direction: row;
+
+  gap: 0em;
+}
+
+.new-nav-ul-logo {}
+
+.new-nav-ul-item {
+  color: yellow !important;
+  padding-top: 1.2em;
+  padding-left: 1em;
+  padding-right: 1em;
+  align-self: center;
+  align-items: center;
+  vertical-align: middle;
+  align-content: center;
+  height: 4em;
+  transition: all .6s !important;
+  cursor: pointer;
+  background-color: #ffffff00;
+  /* background-color: #00ff00; */
+}
+
+.new-nav-ul-item:hover>.new-nav-link {
+
+  color: white !important;
+}
+
+
+
+.nav-link-active {
+  color: var(--good-year-carousel) !important;
+  /* border-bottom: solid 2px white; */
+
+}
+
+.new-nav-link {
+  color: #aaa;
+  transition: all .6s ease;
+}
+
+.dropdown {
+  padding: .5em !important;
+  display: flex;
+  flex-direction: column;
+  left: 0em;
+  border: solid white 1px;
+  line-height: 2em;
+  list-style: none;
+  justify-content: baseline;
+}
+
+.dropdown li {
+
+  background: red;
+  margin-bottom: .2em;
+  left: 0;
+  float: left;
+}
+
 
 /* ------------------ LANDING PAGE -------------- */
 
@@ -233,7 +320,7 @@ body::-webkit-scrollbar-thumb {
   transition: all 0.6s ease;
   cursor: pointer;
   -webkit-backdrop-filter: blur(.3em) brightness(150%);
-          backdrop-filter: blur(.3em) brightness(150%);
+  backdrop-filter: blur(.3em) brightness(150%);
 }
 
 .cta:hover {
@@ -841,13 +928,14 @@ h3 {
   padding: 1em 3em 1em 3em;
   border-radius: 1.5em;
   -webkit-backdrop-filter: blur(2em) brightness(200%);
-          backdrop-filter: blur(2em) brightness(200%);
+  backdrop-filter: blur(2em) brightness(200%);
   box-shadow: inset 1px 1px 1px white, inset -1px -1px 2px black, 1px 1px 10px rgba(0, 0, 0, 0.233);
 
 }
 
 .filter-bg {
   max-width: 100% !important;
+  width: 100vw !important;
   height: 100vh !important;
   background-image: linear-gradient(0deg, #1b1e22 0%, rgba(0, 0, 0, 0.623) 20%), url("./images/filter-bg.jpg") !important;
   background-size: cover;
@@ -859,7 +947,7 @@ h3 {
   top: 0;
   background-attachment: fixed;
   overflow-y: visible !important
-  /* overflow-x: hidden !important; */
+    /* overflow-x: hidden !important; */
 }
 
 .filter-title-p {
@@ -1008,7 +1096,6 @@ h3 {
 .filter-reset-button h3 {
   color: white !important;
   font-size: 1.2em;
-  ;
 }
 
 .filter-button:hover {
@@ -1074,9 +1161,33 @@ h3 {
 } */
 
 .filter-results-container {
-/* background-color: blue; */
-height: 94vh !important;
-overflow-Y: scroll;
+  /* background-color: blue; */
+  position: relative;
+  top: 0 !important;
+  padding-top: 3em !important;
+  height: 100vh !important;
+  width: 100% !important;
+  overflow-Y: scroll;
+
+}
+
+.filter-results-container::-webkit-scrollbar {
+  top: 4em !important;
+
+  width: .3em;
+
+
+}
+
+.filter-results-container::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(116, 116, 116);
+}
+
+.filter-results-container::-webkit-scrollbar-thumb {
+  background-color: rgb(207, 207, 207);
+  outline: 1px solid slategrey;
+
 
 }
 
@@ -1087,7 +1198,7 @@ overflow-Y: scroll;
   background-image: linear-gradient(rgba(0, 0, 0, 0.596), rgba(131, 131, 131, 0.274)) 97.5%;
   background-color: rgba(51, 54, 56, 0) !important;
   -webkit-backdrop-filter: blur(.4em) brightness(140%);
-          backdrop-filter: blur(.4em) brightness(140%);
+  backdrop-filter: blur(.4em) brightness(140%);
   padding: 3em !important;
 }
 
@@ -1228,7 +1339,7 @@ overflow-Y: scroll;
   text-align: center;
   transition: all .6s ease;
   -webkit-backdrop-filter: blur(.2em) brightness(120%);
-          backdrop-filter: blur(.2em) brightness(120%);
+  backdrop-filter: blur(.2em) brightness(120%);
 }
 
 .carousel-h3-goodyear {
@@ -2567,7 +2678,7 @@ hr {
   top: 7em;
   padding-bottom: 1.66em;
   -webkit-backdrop-filter: blur(.2em) brightness(240%);
-          backdrop-filter: blur(.2em) brightness(240%);
+  backdrop-filter: blur(.2em) brightness(240%);
   border-radius: 3em;
   box-shadow: inset 1px 1px 1px white, .5em .5em 1em rgba(0, 0, 0, 0.233), inset -1px -1px 2px black;
 }

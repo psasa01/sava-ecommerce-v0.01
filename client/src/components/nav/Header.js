@@ -252,7 +252,107 @@ const Header = ({}) => {
           </button>
         </div>
       </Modal>
-      <div className="horizontal-nav ">
+
+      <div className="new-horizontal-nav">
+        <ul className="new-nav-ul">
+          <div className="new-nav-left">
+            <li>
+              {" "}
+              <NavLink exact to="/" activeClassName="nav-link-active">
+                <img
+                  className="sava-logo"
+                  src="https://res.cloudinary.com/sale01/image/upload/v1623669939/assets/shopsavaba-logo-white-shadow.png"
+                  alt=""
+                />
+              </NavLink>
+            </li>
+          </div>
+          <div className="new-nav-right">
+            {!user && (
+              <li className="new-nav-ul-item">
+                <Link to="#" onClick={showModal} style={{ color: "#bbb" }}>
+                  Prijava
+                </Link>
+              </li>
+            )}
+
+            {!user && (
+              <li className="new-nav-ul-item">
+                {" "}
+                <NavLink
+                  // style={{ color: "#ccc" }}
+                  to="/signup"
+                  activeClassName="nav-link-active"
+                  className="new-nav-link"
+                >
+                  <UserAddOutlined />
+                  Registracija
+                </NavLink>
+              </li>
+            )}
+            <li className="new-nav-ul-item">
+              <NavLink
+                className="new-nav-link"
+                // style={{ color: "#ccc" }}
+                to="/cart"
+                activeClassName="nav-link-active"
+                className="new-nav-link"
+              >
+                Korpa
+                <Badge count={cart.length} offset={[8, -20]}></Badge>
+              </NavLink>
+            </li>
+            <li className="new-nav-ul-item">
+              <NavLink
+                to="/products/filter"
+                // style={{ color: "#ccc" }}
+                className="new-nav-item"
+                activeClassName="nav-link-active"
+                className="new-nav-link"
+              >
+                Prodavnica
+              </NavLink>
+            </li>
+
+            {user && (
+              <li className="new-nav-ul-item">
+                <Link
+                  to="#"
+                  // style={{ color: "#ccc" }}
+                  className="new-nav-link"
+                >
+                  {/* <img src={user.picture[0]} alt="" /> */}
+                  {user.displayName ||
+                    user.name ||
+                    (user.email && user.email.split("@")[0])}
+                </Link>
+                <ul className="dropdown">
+                  {user && user.role === "subscriber" && (
+                    <li>
+                      <Link to="/user/history">Upravljačka ploča</Link>
+                    </li>
+                  )}
+
+                  {user && user.role === "admin" && (
+                    <li>
+                      <Link to="/admin/dashboard">Admin Upravljačka ploča</Link>
+                    </li>
+                  )}
+
+                  <li>
+                    <Link to="#" onClick={logout}>
+                      <LogoutOutlined />
+                      &nbsp; Odjava
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            )}
+          </div>
+        </ul>
+      </div>
+
+      {/* <div className="horizontal-nav ">
         <Menu
           className=""
           style={{
@@ -363,7 +463,7 @@ const Header = ({}) => {
             </NavLink>
           </Menu.Item>
         </Menu>
-      </div>
+      </div> */}
     </>
   );
 };
