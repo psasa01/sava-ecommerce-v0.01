@@ -1,9 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Modal, Menu, Badge, Button } from "antd";
-
-import { auth, googleAuthProvider } from "./../../firebase";
-import { toast } from "react-toastify";
-
+import React, { useState, useRef, useEffect } from "react";
+import { Menu, Badge } from "antd";
 import { motion, AnimatePresence } from "framer-motion";
 
 import {
@@ -36,7 +32,7 @@ const Header = ({}) => {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
 
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const [dropdown, setDropdown] = useState(false);
 
@@ -45,13 +41,13 @@ const Header = ({}) => {
 
   const ref = useRef();
 
-  useEffect(() => {
-    if (user && user.token) {
-      history.push("/");
-      setLoading(false);
-    }
-    setLoading(false);
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   if (user && user.token) {
+  //     history.push("/");
+  //     setLoading(false);
+  //   }
+  //   setLoading(false);
+  // }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -192,7 +188,7 @@ const Header = ({}) => {
 
   return (
     <>
-      <div className="loading-container" onclick="return false;">
+      {/* <div className="loading-container" onclick="return false;">
         {loading ? (
           // <LoadingOutlined style={{ color: "red" }} />
           <div
@@ -208,7 +204,7 @@ const Header = ({}) => {
         ) : (
           <></>
         )}
-      </div>
+      </div> */}
       {/* <Modal
         className="modal-radius"
         transitionName=""

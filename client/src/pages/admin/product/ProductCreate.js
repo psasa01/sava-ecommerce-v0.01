@@ -69,8 +69,8 @@ const ProductCreate = () => {
         window.alert(
           `Uspjesno ste kreirali proizvod: ${width}/${height}R${rim} ${loadindex}${speedindex} - ${title}`
         );
-        // window.location.reload();
-        setValues(initialState);
+        window.location.reload();
+        // setValues(initialState);
       })
       .catch((err) => {
         console.log(err);
