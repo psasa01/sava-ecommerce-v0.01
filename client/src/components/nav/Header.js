@@ -17,7 +17,7 @@ import {
   GoogleOutlined,
 } from "@ant-design/icons";
 
-import { createOrUpdateUser } from "../../functions/auth";
+// import { createOrUpdateUser } from "../../functions/auth";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -30,10 +30,12 @@ const { SubMenu, Item } = Menu;
 
 const Header = ({}) => {
   const [current, setCurrent] = useState("home");
-  const [visible, setVisible] = useState(false);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [visible, setVisible] = useState(false);
+
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
   const [loading, setLoading] = useState(true);
 
   const [dropdown, setDropdown] = useState(false);
@@ -86,75 +88,76 @@ const Header = ({}) => {
     setDropdown(false);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
 
-    try {
-      const result = await auth.signInWithEmailAndPassword(email, password);
-      const { user } = result;
-      const idTokenResult = await user.getIdTokenResult();
+  //   try {
+  //     const result = await auth.signInWithEmailAndPassword(email, password);
+  //     const { user } = result;
+  //     const idTokenResult = await user.getIdTokenResult();
 
-      createOrUpdateUser(idTokenResult.token)
-        .then((res) => {
-          dispatch({
-            type: "LOGGED_IN_USER",
-            payload: {
-              name: res.data.name,
-              email: res.data.email,
-              token: idTokenResult.token,
-              role: res.data.role,
-              _id: res.data._id,
-            },
-          });
-          roleBasedRedirect(res);
-          toast.success("uspjesno ste se prijavili");
-        })
-        .catch((err) => console.log(err));
+  //     createOrUpdateUser(idTokenResult.token)
+  //       .then((res) => {
+  //         dispatch({
+  //           type: "LOGGED_IN_USER",
+  //           payload: {
+  //             name: res.data.name,
+  //             email: res.data.email,
+  //             token: idTokenResult.token,
+  //             role: res.data.role,
+  //             _id: res.data._id,
+  //           },
+  //         });
+  //         roleBasedRedirect(res);
+  //         toast.success("uspjesno ste se prijavili");
+  //       })
+  //       .catch((err) => console.log(err));
 
-      // history.push("/");
-    } catch (err) {
-      toast.error(err.message);
-      setLoading(false);
-    }
-  };
+  //     // history.push("/");
+  //   } catch (err) {
+  //     toast.error(err.message);
+  //     setLoading(false);
+  //   }
+  // };
 
-  const googleLogin = async () => {
-    auth
-      .signInWithPopup(googleAuthProvider)
-      .then(async (result) => {
-        const { user } = result;
+  // const googleLogin = async () => {
+  //   auth
+  //     .signInWithPopup(googleAuthProvider)
+  //     .then(async (result) => {
+  //       const { user } = result;
 
-        const idTokenResult = await user.getIdTokenResult();
-        console.log("toookeeeeen", idTokenResult);
-        createOrUpdateUser(idTokenResult.token)
-          .then((res) => {
-            dispatch({
-              type: "LOGGED_IN_USER",
-              payload: {
-                name: res.data.name,
-                email: res.data.email,
-                token: idTokenResult.token,
-                role: res.data.role,
-                _id: res.data._id,
-              },
-            });
-            roleBasedRedirect(res);
-            toast.success("uspjesno ste se prijavili", {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              className: "foo-bar",
-            });
-          })
-          .catch();
+  //       const idTokenResult = await user.getIdTokenResult();
+  //       console.log("toookeeeeen", idTokenResult);
+  //       createOrUpdateUser(idTokenResult.token)
+  //         .then((res) => {
+  //           dispatch({
+  //             type: "LOGGED_IN_USER",
+  //             payload: {
+  //               name: res.data.name,
+  //               email: res.data.email,
+  //               token: idTokenResult.token,
+  //               role: res.data.role,
+  //               _id: res.data._id,
+  //             },
+  //           });
+  //           roleBasedRedirect(res);
+  //           toast.success("uspjesno ste se prijavili", {
+  //             position: toast.POSITION.BOTTOM_RIGHT,
+  //             className: "foo-bar",
+  //           });
+  //         })
+  //         .catch();
 
-        // history.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(err.message);
-      });
-    setVisible(false);
-  };
+  //       // history.push("/");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       toast.error(err.message);
+  //     });
+  //   setVisible(false);
+  // };
+
   // const history = useHistory();
 
   const handleClick = (e) => {
@@ -171,21 +174,21 @@ const Header = ({}) => {
     history.push("/signin");
   };
 
-  const showModal = () => {
-    setVisible(true);
-  };
+  // const showModal = () => {
+  //   setVisible(true);
+  // };
 
-  const handleOk = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setVisible(false);
-    }, 3000);
-  };
+  // const handleOk = () => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //     setVisible(false);
+  //   }, 3000);
+  // };
 
-  const handleCancel = () => {
-    setVisible(false);
-  };
+  // const handleCancel = () => {
+  //   setVisible(false);
+  // };
 
   return (
     <>
@@ -206,7 +209,7 @@ const Header = ({}) => {
           <></>
         )}
       </div>
-      <Modal
+      {/* <Modal
         className="modal-radius"
         transitionName=""
         maskStyle={{
@@ -279,7 +282,7 @@ const Header = ({}) => {
             <GoogleOutlined /> Google Prijava
           </button>
         </div>
-      </Modal>
+      </Modal> */}
 
       <div className="new-horizontal-nav" ref={ref}>
         <ul className="new-nav-ul">
@@ -339,15 +342,16 @@ const Header = ({}) => {
 
             {!user && (
               <li className="new-nav-ul-item">
-                <Link
-                  to="#"
-                  onClick={showModal}
-                  style={{ color: "#bbb" }}
+                <NavLink
+                  to="/signin"
+                  // onClick={showModal}
+                  // style={{ color: "#bbb" }}
+                  activeClassName="nav-link-active"
                   className="new-nav-link"
                 >
                   <UserOutlined />
                   &nbsp; Prijava
-                </Link>
+                </NavLink>
               </li>
             )}
 
