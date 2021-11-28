@@ -286,12 +286,7 @@ const Header = ({}) => {
           <div className="new-nav-left">
             <li>
               {" "}
-              <NavLink
-                exact
-                to="/"
-                activeClassName="nav-link-active"
-                onClick={handleDropdownClose}
-              >
+              <NavLink exact to="/" activeClassName="nav-link-active">
                 <img
                   className="sava-logo"
                   src="https://res.cloudinary.com/sale01/image/upload/v1623669939/assets/shopsavaba-logo-white-shadow.png"
@@ -303,7 +298,6 @@ const Header = ({}) => {
           <div className="new-nav-right">
             <li className="new-nav-ul-item">
               <NavLink
-                onClick={handleDropdownClose}
                 to="/products/filter"
                 // style={{ color: "#ccc" }}
                 className="new-nav-item"
@@ -316,7 +310,6 @@ const Header = ({}) => {
             </li>
             <li className="new-nav-ul-item">
               <NavLink
-                onClick={handleDropdownClose}
                 className="new-nav-link"
                 // style={{ color: "#ccc" }}
                 to="/cart"
@@ -333,7 +326,6 @@ const Header = ({}) => {
               <li className="new-nav-ul-item">
                 {" "}
                 <NavLink
-                  onClick={handleDropdownClose}
                   // style={{ color: "#ccc" }}
                   to="/signup"
                   activeClassName="nav-link-active"
@@ -360,18 +352,36 @@ const Header = ({}) => {
             )}
 
             {user && (
-              <li className="new-nav-ul-item">
+              <li
+                className="new-nav-ul-item"
+                onMouseEnter={() => setDropdown(true)}
+                onMouseLeave={() => setDropdown(false)}
+              >
                 <Link
                   to="#"
-                  onClick={handleDropdown}
                   // style={{ color: "#ccc" }}
                   className="new-nav-link dropdown-trigger"
-                  style={{ color: dropdown && "white" }}
+                  style={{
+                    color: dropdown && "white",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
                 >
                   {/* <img src={user.picture[0]} alt="" /> */}
                   {user.displayName ||
                     user.name ||
                     (user.email && user.email.split("@")[0])}
+                  <div className="image-container">
+                    <img
+                      src={"../../../../images/profile-placeholder.png"}
+                      style={{
+                        width: "2em",
+                        height: "2em",
+                        borderRadius: "50%",
+                      }}
+                      alt=""
+                    />
+                  </div>
                 </Link>
                 {dropdown && (
                   <AnimatePresence>
@@ -388,7 +398,6 @@ const Header = ({}) => {
                           <Link
                             to="/user/history"
                             className="dropdown-item-link"
-                            onClick={handleDropdownClose}
                           >
                             Upravljačka ploča
                           </Link>
@@ -398,7 +407,6 @@ const Header = ({}) => {
                       {user && user.role === "admin" && (
                         <li className="dropdown-item">
                           <Link
-                            onClick={handleDropdownClose}
                             to="/admin/dashboard"
                             className="dropdown-item-link"
                           >

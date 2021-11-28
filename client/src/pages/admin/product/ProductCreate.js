@@ -103,6 +103,21 @@ const ProductCreate = () => {
       setShowSub(true);
     });
   };
+
+  const handleSubChange = (e) => {
+    e.preventDefault();
+    // console.log("CLICKED CATEGORY:", e.target.value);
+    setValues({
+      ...values,
+      // subs: [],
+      subs: e.target.value,
+    });
+    // getCategorySubs(e.target.value).then((res) => {
+    //   setSubOptions(res.data);
+    //   setShowSub(true);
+    // });
+  };
+
   return (
     <>
       <div className="loading-container" onclick="return false;">
@@ -127,36 +142,38 @@ const ProductCreate = () => {
           <div className="col-md-2" style={{ top: "3em" }}>
             <AdminNav />
           </div>
-          <div
-            className="col-md-10 "
-            style={{ mixBlendMode: "multiply", top: "3em" }}
-          >
-            <h4 className="naslov">Kreiranje Novog Proizvoda</h4>
-
-            {/* <hr /> */}
-
-            {/* {JSON.stringify(values.images)} */}
-
-            <div className="col" style={{ mixBlendMode: "multiply" }}>
-              <FileUpload
-                style={{ mixBlendMode: "multiply" }}
-                values={values}
+          <div className="col-md-10" style={{ top: "3em" }}>
+            <div className="product-create-form-container">
+              <p
+                className="create-product-title-padding reg-form-title-text "
+                style={{ paddingBottom: "0em" }}
+              >
+                Kreiranje Novog Proizvoda
+              </p>
+              <hr style={{ paddingTop: "0.5em" }} />
+              {/* {JSON.stringify(values.images)} */}
+              <div className="col">
+                <FileUpload
+                  // style={{ mixBlendMode: "multiply" }}
+                  values={values}
+                  setValues={setValues}
+                  setLoading={setLoading}
+                />
+              </div>
+              {/* <hr className="col-md-12 " /> */}
+              <br />
+              <ProductCreateForm
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                handleCheckboxChange={handleCheckboxChange}
                 setValues={setValues}
-                setLoading={setLoading}
+                values={values}
+                handleCategoryChange={handleCategoryChange}
+                subOptions={subOptions}
+                showSub={showSub}
+                handleSubChange={handleSubChange}
               />
             </div>
-            <hr className="col-md-10 " />
-
-            <ProductCreateForm
-              handleSubmit={handleSubmit}
-              handleChange={handleChange}
-              handleCheckboxChange={handleCheckboxChange}
-              setValues={setValues}
-              values={values}
-              handleCategoryChange={handleCategoryChange}
-              subOptions={subOptions}
-              showSub={showSub}
-            />
           </div>
         </div>
       </div>

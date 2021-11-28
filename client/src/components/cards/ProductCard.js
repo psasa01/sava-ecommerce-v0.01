@@ -9,7 +9,7 @@ import slugify from "slugify";
 
 import { motion, AnimatePresence } from "framer-motion";
 
-const ProductCard = ({ product, handleRemove }) => {
+const ProductCard = ({ product }) => {
   // destructure
   const {
     _id,
@@ -36,7 +36,7 @@ const ProductCard = ({ product, handleRemove }) => {
   return (
     <AnimatePresence>
       <motion.div
-        key="dropdown"
+        key={_id}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.6 }}
