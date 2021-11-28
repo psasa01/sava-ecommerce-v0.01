@@ -33,6 +33,9 @@ const initialState = {
   rim: "",
   speedindex: "",
   loadindex: "",
+  fuel: "",
+  wetGrip: "",
+  noise: "",
   dot: "",
   producedin: "",
   posebnaPonuda: false,
@@ -66,7 +69,8 @@ const ProductCreate = () => {
         window.alert(
           `Uspjesno ste kreirali proizvod: ${width}/${height}R${rim} ${loadindex}${speedindex} - ${title}`
         );
-        window.location.reload();
+        // window.location.reload();
+        setValues(initialState);
       })
       .catch((err) => {
         console.log(err);
