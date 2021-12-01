@@ -1,27 +1,22 @@
 const User = require("../models/user");
 
 exports.createOrUpdateUser = async (req, res) => {
-  const { name, picture, email, address, phone, poNum, city } = req.body;
+  const { name, picture, email } = req.user;
   // console.log("REEEEEQQQQQQ", req);
   const user = await User.findOneAndUpdate(
     { email },
-    { name, picture, address, city, phone, poNum },
+    { name, picture },
     { new: true }
   );
   if (user) {
     console.log("USER UPDATED", user);
     res.json(user);
   } else {
-    console.log("REQ BODDDDYYYYYYY: ", req);
-
+    console.log;
     const newUser = await new User({
       email,
       name,
       picture,
-      address,
-      phone,
-      poNum,
-      city,
     }).save();
     console.log("USER CREATED", newUser);
     res.json(newUser);
