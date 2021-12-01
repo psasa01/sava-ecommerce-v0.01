@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { auth, googleAuthProvider } from "./../../firebase";
+import {
+  auth,
+  googleAuthProvider,
+  facebookAuthProvider,
+} from "./../../firebase";
 import { toast } from "react-toastify";
 import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
@@ -79,20 +83,61 @@ const Login = ({ history }) => {
     }
   };
 
+  const facebookLogin = async () => {
+    auth
+      .signInWithPopup(facebookAuthProvider)
+      .then(async (result) => {
+        const { user, credential } = result;
+        let accessToken = credential.accessToken;
+        console.log("acccesss tokkkennn", accessToken);
+        const idTokenResult = await user.getIdTokenResult();
+        console.log("getidresukt", idTokenResult.token);
+        createOrUpdateUser(idTokenResult.token)
+          .then((res) => {
+            console.log("rereeeeeessss", res);
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: user.email,
+                email: user.email,
+                token: idTokenResult.token,
+                role: "user",
+                _id: user.uid,
+              },
+            });
+            roleBasedRedirect(res);
+            toast.success("uspjesno ste se prijavili", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              className: "foo-bar",
+            });
+          })
+          .catch();
+
+        // history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
+  };
+
   const googleLogin = async () => {
     auth
       .signInWithPopup(googleAuthProvider)
       .then(async (result) => {
         const { user } = result;
-        const idTokenResult = await user.getIdTokenResult();
-        createOrUpdateUser(idTokenResult.token)
+        const idTokenResult = await user.getIdToken(true);
+        console.log("true", idTokenResult);
+
+        createOrUpdateUser(idTokenResult)
           .then((res) => {
+            console.log("rrreeesss from ggolfg;le", res);
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
                 name: res.data.name,
                 email: res.data.email,
-                token: idTokenResult.token,
+                token: idTokenResult,
                 role: res.data.role,
                 _id: res.data._id,
               },
@@ -201,14 +246,25 @@ const Login = ({ history }) => {
           </div>
         </div>
       </form>
-      <div className="google-button-container">
-        <button
-          style={{ backgroundColor: "#cf4332", width: "90% !important" }}
-          onClick={googleLogin}
-          className="btn btn-raised google-button-login"
-        >
-          <GoogleOutlined /> Google Prijava
-        </button>
+      <div className="social-login-buttons-container">
+        <div className="google-button-container">
+          <button
+            style={{ backgroundColor: "#cf4332", width: "90% !important" }}
+            onClick={googleLogin}
+            className="btn btn-raised google-button-login"
+          >
+            <GoogleOutlined /> Google Prijava
+          </button>
+        </div>
+        <div className="google-button-container">
+          <button
+            style={{ backgroundColor: "#cf4332", width: "90% !important" }}
+            onClick={facebookLogin}
+            className="btn btn-raised facebook-button-login"
+          >
+            <GoogleOutlined /> Facebook Prijava
+          </button>
+        </div>
       </div>
     </div>
   );
