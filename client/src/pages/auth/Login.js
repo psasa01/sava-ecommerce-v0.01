@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { auth, googleAuthProvider } from "./../../firebase";
+import {
+  auth,
+  googleAuthProvider,
+  facebookAuthProvider,
+} from "./../../firebase";
 import { toast } from "react-toastify";
 import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
@@ -111,6 +115,40 @@ const Login = ({ history }) => {
       });
   };
 
+  const facebookLogin = async () => {
+    auth
+      .signInWithPopup(facebookAuthProvider)
+      .then(async (result) => {
+        const { user } = result;
+        const idTokenResult = await user.getIdTokenResult();
+        createOrUpdateUser(idTokenResult.token)
+          .then((res) => {
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+            roleBasedRedirect(res);
+            toast.success("uspjesno ste se prijavili", {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              className: "foo-bar",
+            });
+          })
+          .catch();
+
+        // history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
+  };
+
   const loginForm = () => (
     <form onSubmit={handleSubmit} style={{ marginBottom: "2.5em" }}>
       <div className="form-group">
@@ -159,6 +197,18 @@ const Login = ({ history }) => {
         size="large"
       >
         Google Prijava
+      </Button>
+
+      <Button
+        onClick={facebookLogin}
+        type="danger"
+        className="mb-3"
+        block
+        shape="round"
+        icon={<GoogleOutlined />}
+        size="large"
+      >
+        Facebook Prijava
       </Button>
 
       <Link to="/forgot/password" className="float-right">
