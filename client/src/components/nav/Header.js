@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Menu, Badge, Button } from "antd";
-
-import { auth, googleAuthProvider } from "./../../firebase";
-import { toast } from "react-toastify";
+import React, { useState, useRef, useEffect } from "react";
+import { Menu, Badge } from "antd";
+import { motion, AnimatePresence } from "framer-motion";
 
 import {
   UserOutlined,
@@ -15,7 +13,7 @@ import {
   GoogleOutlined,
 } from "@ant-design/icons";
 
-import { createOrUpdateUser } from "../../functions/auth";
+// import { createOrUpdateUser } from "../../functions/auth";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -28,20 +26,45 @@ const { SubMenu, Item } = Menu;
 
 const Header = ({}) => {
   const [current, setCurrent] = useState("home");
-  const [visible, setVisible] = useState(false);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [visible, setVisible] = useState(false);
+
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
+  // const [loading, setLoading] = useState(true);
+
+  const [dropdown, setDropdown] = useState(false);
 
   let history = useHistory();
   const { user, cart } = useSelector((state) => ({ ...state }));
 
+  const ref = useRef();
+
+  // useEffect(() => {
+  //   if (user && user.token) {
+  //     history.push("/");
+  //     setLoading(false);
+  //   }
+  //   setLoading(false);
+  // }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
-    if (user && user.token) {
-      history.push("/");
-    }
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (dropdown && ref.current && !ref.current.contains(e.target)) {
+        setDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [dropdown]);
 
   let dispatch = useDispatch();
 
@@ -53,75 +76,84 @@ const Header = ({}) => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const result = await auth.signInWithEmailAndPassword(email, password);
-      const { user } = result;
-      const idTokenResult = await user.getIdTokenResult();
-
-      createOrUpdateUser(idTokenResult.token)
-        .then((res) => {
-          dispatch({
-            type: "LOGGED_IN_USER",
-            payload: {
-              name: res.data.name,
-              email: res.data.email,
-              token: idTokenResult.token,
-              role: res.data.role,
-              _id: res.data._id,
-            },
-          });
-          roleBasedRedirect(res);
-          toast.success("uspjesno ste se prijavili");
-        })
-        .catch((err) => console.log(err));
-
-      // history.push("/");
-    } catch (err) {
-      toast.error(err.message);
-      setLoading(false);
-    }
+  const handleDropdown = () => {
+    setDropdown(!dropdown);
   };
 
-  const googleLogin = async () => {
-    auth
-      .signInWithPopup(googleAuthProvider)
-      .then(async (result) => {
-        const { user } = result;
-
-        const idTokenResult = await user.getIdTokenResult();
-        console.log("toookeeeeen", idTokenResult);
-        createOrUpdateUser(idTokenResult.token)
-          .then((res) => {
-            dispatch({
-              type: "LOGGED_IN_USER",
-              payload: {
-                name: res.data.name,
-                email: res.data.email,
-                token: idTokenResult.token,
-                role: res.data.role,
-                _id: res.data._id,
-              },
-            });
-            roleBasedRedirect(res);
-            toast.success("uspjesno ste se prijavili", {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              className: "foo-bar",
-            });
-          })
-          .catch();
-
-        // history.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(err.message);
-      });
-    setVisible(false);
+  const handleDropdownClose = () => {
+    setDropdown(false);
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+
+  //   try {
+  //     const result = await auth.signInWithEmailAndPassword(email, password);
+  //     const { user } = result;
+  //     const idTokenResult = await user.getIdTokenResult();
+
+  //     createOrUpdateUser(idTokenResult.token)
+  //       .then((res) => {
+  //         dispatch({
+  //           type: "LOGGED_IN_USER",
+  //           payload: {
+  //             name: res.data.name,
+  //             email: res.data.email,
+  //             token: idTokenResult.token,
+  //             role: res.data.role,
+  //             _id: res.data._id,
+  //           },
+  //         });
+  //         roleBasedRedirect(res);
+  //         toast.success("uspjesno ste se prijavili");
+  //       })
+  //       .catch((err) => console.log(err));
+
+  //     // history.push("/");
+  //   } catch (err) {
+  //     toast.error(err.message);
+  //     setLoading(false);
+  //   }
+  // };
+
+  // const googleLogin = async () => {
+  //   auth
+  //     .signInWithPopup(googleAuthProvider)
+  //     .then(async (result) => {
+  //       const { user } = result;
+
+  //       const idTokenResult = await user.getIdTokenResult();
+  //       console.log("toookeeeeen", idTokenResult);
+  //       createOrUpdateUser(idTokenResult.token)
+  //         .then((res) => {
+  //           dispatch({
+  //             type: "LOGGED_IN_USER",
+  //             payload: {
+  //               name: res.data.name,
+  //               email: res.data.email,
+  //               token: idTokenResult.token,
+  //               role: res.data.role,
+  //               _id: res.data._id,
+  //             },
+  //           });
+  //           roleBasedRedirect(res);
+  //           toast.success("uspjesno ste se prijavili", {
+  //             position: toast.POSITION.BOTTOM_RIGHT,
+  //             className: "foo-bar",
+  //           });
+  //         })
+  //         .catch();
+
+  //       // history.push("/");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       toast.error(err.message);
+  //     });
+  //   setVisible(false);
+  // };
+
   // const history = useHistory();
 
   const handleClick = (e) => {
@@ -129,6 +161,7 @@ const Header = ({}) => {
   };
 
   const logout = () => {
+    handleDropdownClose();
     firebase.auth().signOut();
     dispatch({
       type: "LOGOUT",
@@ -137,25 +170,42 @@ const Header = ({}) => {
     history.push("/signin");
   };
 
-  const showModal = () => {
-    setVisible(true);
-  };
+  // const showModal = () => {
+  //   setVisible(true);
+  // };
 
-  const handleOk = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setVisible(false);
-    }, 3000);
-  };
+  // const handleOk = () => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //     setVisible(false);
+  //   }, 3000);
+  // };
 
-  const handleCancel = () => {
-    setVisible(false);
-  };
+  // const handleCancel = () => {
+  //   setVisible(false);
+  // };
 
   return (
     <>
-      <Modal
+      {/* <div className="loading-container" onclick="return false;">
+        {loading ? (
+          // <LoadingOutlined style={{ color: "red" }} />
+          <div
+            className={
+              loading ? "loading-image fadeIn" : "loading-image fadeOut"
+            }
+          >
+            <img
+              src="https://res.cloudinary.com/sale01/image/upload/v1623307453/assets/loading.gif"
+              className="loading-centered"
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+      </div> */}
+      {/* <Modal
         className="modal-radius"
         transitionName=""
         maskStyle={{
@@ -168,29 +218,6 @@ const Header = ({}) => {
         onOk={handleOk}
         onCancel={handleCancel}
         footer={false}
-        // [
-        // <Button key="back" onClick={handleCancel}>
-        //   Return
-        // </Button>,
-        // <Button
-        //   key="submit"
-        //   type="primary"
-        //   loading={loading}
-        //   onClick={handleOk}
-        // >
-        //   Submit
-        // </Button>,
-        // <Button
-        //   key="link"
-        //   href="https://google.com"
-        //   type="primary"
-        //   loading={loading}
-        //   onClick={handleOk}
-        // >
-        //   Search on Google
-        // </Button>,
-
-        // }
       >
         <div className="login-form-container">
           <div className="email-password-login-form">
@@ -251,13 +278,169 @@ const Header = ({}) => {
             <GoogleOutlined /> Google Prijava
           </button>
         </div>
-      </Modal>
-      <div className="horizontal-nav ">
+      </Modal> */}
+
+      <div className="new-horizontal-nav" ref={ref}>
+        <ul className="new-nav-ul">
+          <div className="new-nav-left">
+            <li>
+              {" "}
+              <NavLink exact to="/" activeClassName="nav-link-active">
+                <img
+                  className="sava-logo"
+                  src="https://res.cloudinary.com/sale01/image/upload/v1623669939/assets/shopsavaba-logo-white-shadow.png"
+                  alt=""
+                />
+              </NavLink>
+            </li>
+          </div>
+          <div className="new-nav-right">
+            <li className="new-nav-ul-item">
+              <NavLink
+                to="/products/filter"
+                // style={{ color: "#ccc" }}
+                className="new-nav-item"
+                activeClassName="nav-link-active"
+                className="new-nav-link"
+              >
+                <ShopOutlined />
+                &nbsp; Prodavnica
+              </NavLink>
+            </li>
+            <li className="new-nav-ul-item">
+              <NavLink
+                className="new-nav-link"
+                // style={{ color: "#ccc" }}
+                to="/cart"
+                activeClassName="nav-link-active"
+                className="new-nav-link"
+              >
+                <ShoppingCartOutlined />
+                &nbsp; Korpa
+                <Badge count={cart.length} offset={[8, -20]}></Badge>
+              </NavLink>
+            </li>
+
+            {!user && (
+              <li className="new-nav-ul-item">
+                {" "}
+                <NavLink
+                  // style={{ color: "#ccc" }}
+                  to="/signup"
+                  activeClassName="nav-link-active"
+                  className="new-nav-link"
+                >
+                  <UserAddOutlined />
+                  &nbsp; Registracija
+                </NavLink>
+              </li>
+            )}
+
+            {!user && (
+              <li className="new-nav-ul-item">
+                <NavLink
+                  to="/signin"
+                  // onClick={showModal}
+                  // style={{ color: "#bbb" }}
+                  activeClassName="nav-link-active"
+                  className="new-nav-link"
+                >
+                  <UserOutlined />
+                  &nbsp; Prijava
+                </NavLink>
+              </li>
+            )}
+
+            {user && (
+              <li
+                className="new-nav-ul-item"
+                onMouseEnter={() => setDropdown(true)}
+                onMouseLeave={() => setDropdown(false)}
+              >
+                <Link
+                  to="#"
+                  // style={{ color: "#ccc" }}
+                  className="new-nav-link dropdown-trigger"
+                  style={{
+                    color: dropdown && "white",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  {/* <img src={user.picture[0]} alt="" /> */}
+                  {user.displayName ||
+                    user.name ||
+                    (user.email && user.email.split("@")[0])}
+                  <div className="image-container">
+                    <img
+                      src={"../../../../images/profile-placeholder.png"}
+                      style={{
+                        width: "2em",
+                        height: "2em",
+                        borderRadius: "50%",
+                      }}
+                      alt=""
+                    />
+                  </div>
+                </Link>
+                {dropdown && (
+                  <AnimatePresence>
+                    <motion.ul
+                      key="dropdown"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.6 }}
+                      exit={{ opacity: 0 }}
+                      className="dropdown"
+                    >
+                      {user && user.role === "subscriber" && (
+                        <li className="dropdown-item">
+                          <Link
+                            to="/user/history"
+                            className="dropdown-item-link"
+                          >
+                            Upravljačka ploča
+                          </Link>
+                        </li>
+                      )}
+
+                      {user && user.role === "admin" && (
+                        <li className="dropdown-item">
+                          <Link
+                            to="/admin/dashboard"
+                            className="dropdown-item-link"
+                          >
+                            Admin Upravljačka ploča
+                          </Link>
+                        </li>
+                      )}
+
+                      <li className="dropdown-item">
+                        <Link
+                          to="#"
+                          onClick={logout}
+                          className="dropdown-item-link"
+                        >
+                          <LogoutOutlined />
+                          &nbsp; Odjava
+                        </Link>
+                      </li>
+                    </motion.ul>
+                  </AnimatePresence>
+                )}
+              </li>
+            )}
+          </div>
+        </ul>
+      </div>
+
+      {/* <div className="horizontal-nav ">
         <Menu
           className=""
           style={{
-            background: "#9dd3ff6e",
-            backdropFilter: "blur(0.3em) brightness(140%)",
+            background: "#00002266",
+            backdropFilter: "blur(0.3em) brightness(60%)",
+            color: "#ccc",
 
             // borderBottom: "none",
           }}
@@ -275,25 +458,30 @@ const Header = ({}) => {
             </NavLink>
           </Menu.Item>
           {!user && (
-            <Menu.Item key="register" className="float-right n-link">
+            <Menu.Item
+              key="register"
+              style={{ color: "#ccc" }}
+              className="float-right"
+              icon={<UserAddOutlined />}
+            >
               <NavLink
+                style={{ color: "#ccc" }}
                 to="/signup"
-                activeClassName="nav-link-active"
-                className="n-link"
+                // activeClassName="nav-link-active"
+                // className="n-link"
               >
-                <UserAddOutlined /> Registracija
+                Registracija
               </NavLink>
             </Menu.Item>
           )}
           {!user && (
-            <Menu.Item key="login" className="float-right">
-              <NavLink
-                to="#"
-                onClick={showModal}
-                activeClassName="nav-login-active"
-                className="n-link"
-              >
-                <UserOutlined />
+            <Menu.Item
+              style={{ color: "#ccc" }}
+              key="login"
+              className="float-right"
+              icon={<UserOutlined />}
+            >
+              <NavLink to="#" onClick={showModal} style={{ color: "#bbb" }}>
                 Prijava
               </NavLink>
             </Menu.Item>
@@ -301,6 +489,7 @@ const Header = ({}) => {
 
           {user && (
             <SubMenu
+              style={{ color: "#ccc" }}
               key="SubMenu"
               icon={<SettingOutlined />}
               title={
@@ -326,29 +515,37 @@ const Header = ({}) => {
               </Item>
             </SubMenu>
           )}
-          <Menu.Item className="float-right">
+          <Menu.Item
+            className="float-right"
+            icon={<ShoppingCartOutlined />}
+            style={{ color: "#ccc" }}
+          >
             <NavLink
+              style={{ color: "#ccc" }}
               to="/cart"
-              activeClassName="nav-link-active"
-              className="n-link"
+              // activeClassName="nav-link-active"
+              // className="n-link"
             >
-              <ShoppingCartOutlined />
               Korpa
               <Badge count={cart.length} offset={[6, -9]}></Badge>
             </NavLink>
           </Menu.Item>
-          <Menu.Item className="float-right">
+          <Menu.Item
+            className="float-right"
+            style={{ color: "#ccc" }}
+            icon={<ShopOutlined />}
+          >
             <NavLink
               to="/products/filter"
-              activeClassName="nav-link-active"
-              className="n-link"
+              style={{ color: "#ccc" }}
+              // activeClassName="nav-link-active"
+              // className="n-link"
             >
-              <ShopOutlined />
               Prodavnica
             </NavLink>
           </Menu.Item>
         </Menu>
-      </div>
+      </div> */}
     </>
   );
 };
