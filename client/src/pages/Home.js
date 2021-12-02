@@ -15,8 +15,8 @@ const Home = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 1 }}
-        className="container-fluid"
+        transition={{ duration: 0.6 }}
+        className="container-fluid after-landing"
         id="after-landing"
       >
         <SizeSearchForm />

@@ -7,9 +7,14 @@ const { authCheck, adminCheck } = require("../middlewares/auth");
 
 // imports
 
-const { createOrUpdateUser, currentUser } = require("../controllers/auth");
+const {
+  createOrUpdateUser,
+  createOrUpdateUserEmailPass,
+  currentUser,
+} = require("../controllers/auth");
 
 router.post("/create-or-update-user", authCheck, createOrUpdateUser);
+router.post("/create-or-update-user-email-pass", authCheck, createOrUpdateUser);
 router.post("/current-user", authCheck, currentUser);
 router.post("/current-admin", authCheck, adminCheck, currentUser);
 

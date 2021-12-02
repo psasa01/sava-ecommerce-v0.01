@@ -5,6 +5,7 @@ import ProductCard from "../components/cards/ProductCard";
 import BackButton from "./../components/nav/BackButton";
 import _ from "lodash";
 import Loader from "../components/loader/Loader";
+import { motion } from "framer-motion";
 
 const initialSizeSearchState = [];
 
@@ -42,6 +43,7 @@ const ProductFilter = () => {
   const [filters, setFilters] = useState(initialFiltersState);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     load();
   }, []);
 
@@ -455,20 +457,22 @@ const ProductFilter = () => {
           <></>
         )}
       </div>
-      <div className="container-fluid">
+      <motion.div
+        key={"filterbg"}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0, duration: 0.6 }}
+        exit={{ opacity: 0 }}
+        className="filter-bg"
+      >
         <div className="row">
-          <div
-            className="col-md-3"
-            style={{
-              width: "93%",
-              top: "4em",
-              left: "2em",
-              paddingRight: "2em",
-            }}
-          >
+          <div className="filter-container">
             {/* <h1>{JSON.stringify(location.state.from)}</h1> */}
 
             <form>
+              <p className="filter-title-p">Odaberite filtere za pretragu</p>
+              <hr style={{ margin: "0" }} />
+
               <h3 className="filter-checkbox-label-h3">
                 Odaberite dimenziju gume
               </h3>
@@ -770,8 +774,7 @@ const ProductFilter = () => {
               {filtered.map((product) => (
                 <div
                   key={product._id}
-                  className="col-lg-6 col-xl-3"
-                  style={{ marginLeft: "2em", width: "95%" }}
+                  style={{ marginLeft: "2em", width: "22%" }}
                 >
                   <Link to={`/product/${product.slug}`}>
                     <ProductCard product={product} />
@@ -784,7 +787,7 @@ const ProductFilter = () => {
             <br />
           </div>
         </div>
-      </div>
+      </motion.div>
       <BackButton />
     </>
   );
