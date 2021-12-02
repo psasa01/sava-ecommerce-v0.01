@@ -6,7 +6,6 @@ const router = express.Router();
 const { authCheck, adminCheck } = require("../middlewares/auth");
 
 // imports
-
 const {
   createOrUpdateUser,
   createOrUpdateUserEmailPass,
@@ -14,7 +13,11 @@ const {
 } = require("../controllers/auth");
 
 router.post("/create-or-update-user", authCheck, createOrUpdateUser);
-router.post("/create-or-update-user-email-pass", authCheck, createOrUpdateUser);
+router.post(
+  "/create-or-update-user-email-pass",
+  authCheck,
+  createOrUpdateUserEmailPass
+);
 router.post("/current-user", authCheck, currentUser);
 router.post("/current-admin", authCheck, adminCheck, currentUser);
 

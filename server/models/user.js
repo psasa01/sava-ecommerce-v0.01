@@ -17,10 +17,13 @@ const userSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    displayName: String,
     address: String,
     phone: String,
     poNum: String,
-    city: String,
+    city: { type: String, default: "" },
+    picture: String,
+    firebase: Object,
     // wishlist: [{type: ObjectId, ref: "Product"}]
   },
   { timestamps: true }

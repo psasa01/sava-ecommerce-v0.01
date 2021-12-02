@@ -33,11 +33,14 @@ const initialState = {
   rim: "",
   speedindex: "",
   loadindex: "",
+  fuel: "",
+  wetGrip: "",
+  noise: "",
   dot: "",
   producedin: "",
   posebnaPonuda: false,
   fullTitle: "",
-  sifra: ""
+  sifra: "",
 };
 
 const ProductCreate = () => {
@@ -47,19 +50,19 @@ const ProductCreate = () => {
   const [loading, setLoading] = useState(false);
 
   // redux
-  const { user } = useSelector(state => ({ ...state }));
+  const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     loadCategories();
   }, []);
 
   const loadCategories = () =>
-    getCategories().then(c => setValues({ ...values, categories: c.data }));
+    getCategories().then((c) => setValues({ ...values, categories: c.data }));
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     createProduct(values, user.token)
-      .then(res => {
+      .then((res) => {
         // console.log("RRREEESSS --------->", res);
 
         const { width, height, rim, loadindex, speedindex, title } = res.data;
@@ -67,8 +70,9 @@ const ProductCreate = () => {
           `Uspjesno ste kreirali proizvod: ${width}/${height}R${rim} ${loadindex}${speedindex} - ${title}`
         );
         window.location.reload();
+        // setValues(initialState);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         if (err.response.status === 400)
           toast.error("Doslo je do greske pri kreiranju novog artikla!");
@@ -76,33 +80,48 @@ const ProductCreate = () => {
       });
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setValues({
       ...values,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleCheckboxChange = e => {
+  const handleCheckboxChange = (e) => {
     setValues({
       ...values,
-      posebnaPonuda: !values.posebnaPonuda
+      posebnaPonuda: !values.posebnaPonuda,
     });
   };
 
-  const handleCategoryChange = e => {
+  const handleCategoryChange = (e) => {
     e.preventDefault();
     // console.log("CLICKED CATEGORY:", e.target.value);
     setValues({
       ...values,
       // subs: [],
-      category: e.target.value
+      category: e.target.value,
     });
-    getCategorySubs(e.target.value).then(res => {
+    getCategorySubs(e.target.value).then((res) => {
       setSubOptions(res.data);
       setShowSub(true);
     });
   };
+
+  const handleSubChange = (e) => {
+    e.preventDefault();
+    // console.log("CLICKED CATEGORY:", e.target.value);
+    setValues({
+      ...values,
+      // subs: [],
+      subs: e.target.value,
+    });
+    // getCategorySubs(e.target.value).then((res) => {
+    //   setSubOptions(res.data);
+    //   setShowSub(true);
+    // });
+  };
+
   return (
     <>
       <div className="loading-container" onclick="return false;">
@@ -127,36 +146,38 @@ const ProductCreate = () => {
           <div className="col-md-2" style={{ top: "3em" }}>
             <AdminNav />
           </div>
-          <div
-            className="col-md-10 "
-            style={{ mixBlendMode: "multiply", top: "3em" }}
-          >
-            <h4 className="naslov">Kreiranje Novog Proizvoda</h4>
-
-            {/* <hr /> */}
-
-            {/* {JSON.stringify(values.images)} */}
-
-            <div className="col" style={{ mixBlendMode: "multiply" }}>
-              <FileUpload
-                style={{ mixBlendMode: "multiply" }}
-                values={values}
+          <div className="col-md-10" style={{ top: "3em" }}>
+            <div className="product-create-form-container">
+              <p
+                className="create-product-title-padding reg-form-title-text "
+                style={{ paddingBottom: "0em" }}
+              >
+                Kreiranje Novog Proizvoda
+              </p>
+              <hr style={{ paddingTop: "0.5em" }} />
+              {/* {JSON.stringify(values.images)} */}
+              <div className="col">
+                <FileUpload
+                  // style={{ mixBlendMode: "multiply" }}
+                  values={values}
+                  setValues={setValues}
+                  setLoading={setLoading}
+                />
+              </div>
+              {/* <hr className="col-md-12 " /> */}
+              <br />
+              <ProductCreateForm
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                handleCheckboxChange={handleCheckboxChange}
                 setValues={setValues}
-                setLoading={setLoading}
+                values={values}
+                handleCategoryChange={handleCategoryChange}
+                subOptions={subOptions}
+                showSub={showSub}
+                handleSubChange={handleSubChange}
               />
             </div>
-            <hr className="col-md-10 " />
-
-            <ProductCreateForm
-              handleSubmit={handleSubmit}
-              handleChange={handleChange}
-              handleCheckboxChange={handleCheckboxChange}
-              setValues={setValues}
-              values={values}
-              handleCategoryChange={handleCategoryChange}
-              subOptions={subOptions}
-              showSub={showSub}
-            />
           </div>
         </div>
       </div>

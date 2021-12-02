@@ -3,7 +3,7 @@ import { auth } from "./../../firebase";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createOrUpdateUser } from "../../functions/auth";
+import { createOrUpdateUserEmailPass } from "../../functions/auth";
 
 import { motion } from "framer-motion";
 // const createOrUpdateUser = async (authtoken) => {
@@ -120,21 +120,22 @@ const RegisterComplete = () => {
 
         console.log("CREATE OR UPDATE USER TOKEN", idTokenResult);
 
-        createOrUpdateUser(values, idTokenResult.token)
+        createOrUpdateUserEmailPass(values, idTokenResult.token)
           .then((res) => {
             console.log("JEBENI USER", user.displayName);
             console.log("JEBENI RES", res);
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
-                name: res.data.name,
-                email: res.data.email,
+                firebase: res.data.firebase,
+                name: values.name,
+                email: values.email,
                 token: idTokenResult.token,
                 role: res.data.role,
                 _id: res.data._id,
-                address: "address",
-                poNum: "poNum",
-                phone: "phone",
+                address: values.address,
+                poNum: values.poNum,
+                phone: values.phone,
               },
             });
 

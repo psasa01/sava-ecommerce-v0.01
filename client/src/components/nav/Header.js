@@ -373,7 +373,10 @@ const Header = ({}) => {
                     (user.email && user.email.split("@")[0])}
                   <div className="image-container">
                     <img
-                      src={"../../../../images/profile-placeholder.png"}
+                      src={
+                        user.picture ||
+                        "../../../../images/profile-placeholder.png"
+                      }
                       style={{
                         width: "2em",
                         height: "2em",

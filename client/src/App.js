@@ -53,6 +53,7 @@ const App = () => {
                 token: idTokenResult.token,
                 role: res.data.role,
                 _id: res.data._id,
+                picture: res.data.picture,
               },
             });
           })

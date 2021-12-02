@@ -103,6 +103,7 @@ const Login = ({ history }) => {
                 token: idTokenResult.token,
                 role: "user",
                 _id: user.uid,
+                firebase: res.data.firebase,
               },
             });
             roleBasedRedirect(res);
@@ -140,6 +141,8 @@ const Login = ({ history }) => {
                 token: idTokenResult,
                 role: res.data.role,
                 _id: res.data._id,
+                firebase: res.data.firebase,
+                picture: res.data.picture,
               },
             });
             roleBasedRedirect(res);

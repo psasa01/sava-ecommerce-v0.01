@@ -1,23 +1,26 @@
 const User = require("../models/user");
 
 exports.createOrUpdateUserEmailPass = async (req, res) => {
-  const { name, picture, email, address, phone, poNum, city } = req.body;
-  // console.log("REEEEEQQQQQQ", req);
+  console.log("REqqQQQQQQQQQQQQQ", req);
+  const { picture, email, firebase } = req.user;
+
+  const { name, address, phone, poNum, city } = req.body;
+
   const user = await User.findOneAndUpdate(
     { email },
-    { name, picture, address, city, phone, poNum },
+    { name, picture, address, phone, poNum, city, firebase },
     { new: true }
   );
   if (user) {
     console.log("USER UPDATED", user);
     res.json(user);
   } else {
-    console.log("REQ BODDDDYYYYYYY: ", req);
-
     const newUser = await new User({
       email,
       name,
       picture,
+      firebase: firebase.sign_in_provider,
+      displayName: name,
       address,
       phone,
       poNum,
@@ -25,15 +28,27 @@ exports.createOrUpdateUserEmailPass = async (req, res) => {
     }).save();
     console.log("USER CREATED", newUser);
     res.json(newUser);
+    const updatingUser = await User.findOneAndUpdate(
+      { email },
+      {
+        name: name,
+        displayName: name,
+        address: address,
+        phone: phone,
+        poNum: poNum,
+        city: city,
+      },
+      { new: true }
+    );
   }
 };
 
 exports.createOrUpdateUser = async (req, res) => {
-  const { name, picture, email } = req.user;
+  const { name, picture, email, firebase } = req.user;
   // console.log("REEEEEQQQQQQ", req);
   const user = await User.findOneAndUpdate(
     { email },
-    { name, picture },
+    { name, picture, firebase },
     { new: true }
   );
   if (user) {
@@ -45,6 +60,7 @@ exports.createOrUpdateUser = async (req, res) => {
       email,
       name,
       picture,
+      firebase: firebase.sign_in_provider,
     }).save();
     console.log("USER CREATED", newUser);
     res.json(newUser);
