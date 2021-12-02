@@ -83,22 +83,26 @@ const Login = ({ history }) => {
     }
   };
 
-  const googleLogin = async () => {
+  const facebookLogin = async () => {
     auth
-      .signInWithPopup(googleAuthProvider)
+      .signInWithPopup(facebookAuthProvider)
       .then(async (result) => {
-        const { user } = result;
+        const { user, credential } = result;
+        let accessToken = credential.accessToken;
+        console.log("acccesss tokkkennn", accessToken);
         const idTokenResult = await user.getIdTokenResult();
+        console.log("getidresukt", idTokenResult.token);
         createOrUpdateUser(idTokenResult.token)
           .then((res) => {
+            console.log("rereeeeeessss", res);
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
-                name: res.data.name,
-                email: res.data.email,
+                name: user.email,
+                email: user.email,
                 token: idTokenResult.token,
-                role: res.data.role,
-                _id: res.data._id,
+                role: "user",
+                _id: user.uid,
               },
             });
             roleBasedRedirect(res);
@@ -117,20 +121,23 @@ const Login = ({ history }) => {
       });
   };
 
-  const facebookLogin = async () => {
+  const googleLogin = async () => {
     auth
-      .signInWithPopup(facebookAuthProvider)
+      .signInWithPopup(googleAuthProvider)
       .then(async (result) => {
         const { user } = result;
-        const idTokenResult = await user.getIdTokenResult();
-        createOrUpdateUser(idTokenResult.token)
+        const idTokenResult = await user.getIdToken(true);
+        console.log("true", idTokenResult);
+
+        createOrUpdateUser(idTokenResult)
           .then((res) => {
+            console.log("rrreeesss from ggolfg;le", res);
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
                 name: res.data.name,
                 email: res.data.email,
-                token: idTokenResult.token,
+                token: idTokenResult,
                 role: res.data.role,
                 _id: res.data._id,
               },
@@ -239,14 +246,25 @@ const Login = ({ history }) => {
           </div>
         </div>
       </form>
-      <div className="google-button-container">
-        <button
-          style={{ backgroundColor: "#cf4332", width: "90% !important" }}
-          onClick={googleLogin}
-          className="btn btn-raised google-button-login"
-        >
-          <GoogleOutlined /> Google Prijava
-        </button>
+      <div className="social-login-buttons-container">
+        <div className="google-button-container">
+          <button
+            style={{ backgroundColor: "#cf4332", width: "90% !important" }}
+            onClick={googleLogin}
+            className="btn btn-raised google-button-login"
+          >
+            <GoogleOutlined /> Google Prijava
+          </button>
+        </div>
+        <div className="google-button-container">
+          <button
+            style={{ backgroundColor: "#cf4332", width: "90% !important" }}
+            onClick={facebookLogin}
+            className="btn btn-raised facebook-button-login"
+          >
+            <GoogleOutlined /> Facebook Prijava
+          </button>
+        </div>
       </div>
     </div>
   );
