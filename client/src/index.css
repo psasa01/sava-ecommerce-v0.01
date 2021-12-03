@@ -1101,6 +1101,7 @@ p.create-product-title-padding.reg-form-title-text {
 }
 
 .filter-checkbox-label {
+  
   height: 2.5em;
   width: 100%;
   text-align: center;
@@ -1142,7 +1143,7 @@ p.create-product-title-padding.reg-form-title-text {
 .checkbox-dostavna:checked~.label-dostavna {
   box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 1),
     inset 3px 3px 1px rgba(0, 0, 0, 0.1);
-  background: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.11);
   text-shadow: 0px 0px 5px #fff;
   ;
 }
@@ -1165,8 +1166,36 @@ p.create-product-title-padding.reg-form-title-text {
 
 .label-summer,
 .label-winter,
-.label-allseason {
-  background: rgba(255, 255, 255, 0.281)
+.label-allseason,
+.label-putnicka,
+.label-dostavna,
+.label-suv
+ {
+  text-align: right !important;
+  padding-right: 1em !important;
+  background-position: top;
+  background-size: contain;
+  /* background-color: rgba(255, 255, 255, 0.432) !important; */
+}
+
+.ljetna-button {
+  background: url('./images/ljetna-button.png');
+}
+.zimska-button {
+  background: url('./images/zimska-button.png');
+}
+.all-season-button {
+  background: url('./images/all-season-button.png');
+}
+
+.putnicka-button {
+  background: url('./images/putnicka-button.png');
+}
+.suv-button {
+  background: url('./images/suv-button.png');
+}
+.dostavna-button {
+  background: url('./images/dostavna-button.png');
 }
 
 .hidden-checkbox {

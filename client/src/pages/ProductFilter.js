@@ -646,7 +646,7 @@ const ProductFilter = () => {
                 />
                 <label
                   for="summer"
-                  className="filter-checkbox-label label-summer"
+                  className="filter-checkbox-label label-summer ljetna-button"
                 >
                   Ljetna Guma
                 </label>
@@ -660,7 +660,7 @@ const ProductFilter = () => {
                 />
                 <label
                   for="winter"
-                  className="filter-checkbox-label label-winter"
+                  className="filter-checkbox-label label-winter zimska-button"
                 >
                   Zimska Guma
                 </label>{" "}
@@ -674,7 +674,7 @@ const ProductFilter = () => {
                 />
                 <label
                   for="allseason"
-                  className="filter-checkbox-label label-allseason"
+                  className="filter-checkbox-label label-allseason all-season-button"
                 >
                   Cjelogodisnja guma
                 </label>
@@ -700,7 +700,7 @@ const ProductFilter = () => {
                 />
                 <label
                   for="putnicka"
-                  className="filter-checkbox-label label-putnicka"
+                  className="filter-checkbox-label label-putnicka putnicka-button"
                 >
                   {" "}
                   Gume za putnicka vozila
@@ -714,7 +714,10 @@ const ProductFilter = () => {
                   id="suv"
                   onChange={handleBrandCheck}
                 />
-                <label for="suv" className="filter-checkbox-label label-suv">
+                <label
+                  for="suv"
+                  className="filter-checkbox-label label-suv suv-button"
+                >
                   {" "}
                   Gume za SUV vozila
                 </label>
@@ -729,7 +732,7 @@ const ProductFilter = () => {
                 />
                 <label
                   for="dostavna"
-                  className="filter-checkbox-label label-dostavna"
+                  className="filter-checkbox-label label-dostavna dostavna-button"
                 >
                   {" "}
                   Gume za dostavna vozila
