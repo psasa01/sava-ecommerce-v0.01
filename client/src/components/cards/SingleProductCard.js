@@ -43,7 +43,7 @@ const SingleProductCard = ({ product }) => {
     setDuplicateProduct(null);
     // if cart is in local storage, GET it
     const cartFromStorage = localStorage.getItem("cart");
-    if (cartFromStorage) {
+    if (cartFromStorage.length) {
       // console.log("jaraniko ovdje vec ima kart na samom pocetku");
       setExistingCart(cartFromStorage);
       // console.log("pocetni cart", existingCart);
@@ -316,7 +316,7 @@ const SingleProductCard = ({ product }) => {
           +
         </button>
 
-        {duplicateProduct != null || duplicateProduct != undefined ? (
+        {duplicateProduct !== null || duplicateProduct !== undefined ? (
           <Popconfirm
             title={`Proizvod je vec u korpi. Da li ste sigurni da želite dodati jos ${count} komada`}
             onConfirm={() => handleAddToCart()}
