@@ -467,13 +467,14 @@ const ProductFilter = () => {
       >
         <div className="row">
           <div className="filter-container">
-            {/* <h1>{JSON.stringify(location.state.from)}</h1> */}
-
             <form>
               <p className="filter-title-p">Odaberite filtere za pretragu</p>
-              <hr style={{ margin: "0" }} />
+              <hr style={{ marginBottom: ".5em" }} />
 
-              <h3 className="filter-checkbox-label-h3">
+              <h3
+                className="filter-checkbox-label-h3"
+                style={{ paddingTop: ".2em", marginBottom: ".33em" }}
+              >
                 Odaberite dimenziju gume
               </h3>
               <div className="filter-size-search-row">
@@ -492,9 +493,6 @@ const ProductFilter = () => {
                       <option value="sirina" id="sirina-option">
                         Širina
                       </option>
-                      {/* <option key="185" value="185">
-                185
-              </option> */}
 
                       {w.map((w) => (
                         <option key={w} value={w}>
@@ -559,7 +557,6 @@ const ProductFilter = () => {
                 </form>
               </div>
 
-              <br />
               <h3 className="filter-checkbox-label-h3">Odaberite brandove</h3>
 
               <div className="filter-checkbox-row">
@@ -632,8 +629,10 @@ const ProductFilter = () => {
                 </label>
               </div>
 
-              <br />
-              <h3 className="filter-checkbox-label-h3">
+              <h3
+                className="filter-checkbox-label-h3"
+                style={{ paddingTop: ".5em" }}
+              >
                 Odaberite vrstu guma po sezoni
               </h3>
               <div className="filter-checkbox-row-flexcolumn">
@@ -684,8 +683,10 @@ const ProductFilter = () => {
                     </button> */}
               </div>
 
-              <br />
-              <h3 className="filter-checkbox-label-h3">
+              <h3
+                className="filter-checkbox-label-h3"
+                style={{ paddingTop: ".5em" }}
+              >
                 Odaberite namjenu guma po vrsti vozila
               </h3>
               <div className="filter-checkbox-row-flexcolumn">
@@ -754,17 +755,18 @@ const ProductFilter = () => {
                   : false
               }
               onClick={handleSubmit}
-              className="filter-button btn btn-raised btn-success float-right"
+              className="filter-button btn btn-success float-right"
             >
               <h3 style={{ marginTop: ".36em" }}>Primjenite filtere</h3>
             </button>
-            <button className="filter-reset-button btn btn-raised btn-danger float-right">
+            <button className="filter-reset-button btn btn-danger float-right">
               <h3 style={{ marginTop: ".36em" }} onClick={resetFilters}>
                 Poništite filtere
               </h3>
             </button>
           </div>
-          <div className="col" style={{ top: "3em" }}>
+
+          <div className="col filter-results-container" style={{ top: "3em" }}>
             <div className="title-page">
               {/* <h4>Svi Proizvodi</h4> */}
               {/* <div className="page-no">Stranica: {page}</div> */}
@@ -772,18 +774,18 @@ const ProductFilter = () => {
 
             <div className="row max-w-100">
               {filtered.map((product) => (
-                <div
-                  key={product._id}
-                  style={{ marginLeft: "2em", width: "22%" }}
-                >
-                  <Link to={`/product/${product.slug}`}>
-                    <ProductCard product={product} />
-                  </Link>
+                <div style={{ marginLeft: "2em", width: "22%" }}>
+                  <div
+                    className={`product-card-hover product-card-hover-${product.brand.toLowerCase()}`}
+                  >
+                    <Link to={`/product/${product.slug}`} key={product._id}>
+                      <ProductCard product={product} />
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
 
-            {/* {JSON.stringify(filtered)} */}
             <br />
           </div>
         </div>
