@@ -2248,7 +2248,7 @@ p.create-product-title-padding.reg-form-title-text {
   height: 2em;
   font-size: 2em;
   border: none !important;
-  background: var(--background-color);
+  background: rgb(212, 212, 212);
   width: 4em
 }
 
