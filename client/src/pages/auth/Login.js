@@ -9,7 +9,10 @@ import { toast } from "react-toastify";
 import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { createOrUpdateUser } from "../../functions/auth";
+import {
+  createOrUpdateUser,
+  createOrUpdateUserEmailPass,
+} from "../../functions/auth";
 
 import BackButton from "../../components/nav/BackButton";
 
@@ -59,7 +62,7 @@ const Login = ({ history }) => {
       const { user } = result;
       const idTokenResult = await user.getIdTokenResult();
 
-      createOrUpdateUser(idTokenResult.token)
+      createOrUpdateUserEmailPass(idTokenResult.token)
         .then((res) => {
           dispatch({
             type: "LOGGED_IN_USER",
