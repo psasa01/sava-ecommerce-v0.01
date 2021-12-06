@@ -104,7 +104,8 @@ const ProductFilter = () => {
         query[keys] = filter[keys];
       }
     }
-    setFilteredFilters(query);
+    // setFilteredFilters(query);
+    return query;
   };
 
   const filterData = (data, query) => {
@@ -124,8 +125,9 @@ const ProductFilter = () => {
     setFrom("nista");
     e.preventDefault();
     setLoading(true);
-    buildFilter(filters);
-    filterData(products, filteredFilters);
+    const test = buildFilter(filters);
+    // filterData(products, filteredFilters);
+    filterData(products, test);
     setLoading(false);
   };
 
@@ -777,7 +779,10 @@ const ProductFilter = () => {
 
             <div className="row max-w-100">
               {filtered.map((product) => (
-                <div style={{ marginLeft: "2em", width: "22%" }}>
+                <div
+                  key={product._id}
+                  style={{ marginLeft: "2em", width: "22%" }}
+                >
                   <div
                     className={`product-card-hover product-card-hover-${product.brand.toLowerCase()}`}
                   >
