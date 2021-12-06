@@ -316,7 +316,7 @@ const SingleProductCard = ({ product }) => {
           +
         </button>
 
-        {duplicateProduct !== null || duplicateProduct !== undefined ? (
+        {duplicateProduct != null || duplicateProduct != undefined ? (
           <Popconfirm
             title={`Proizvod je vec u korpi. Da li ste sigurni da želite dodati jos ${count} komada`}
             onConfirm={() => handleAddToCart()}
