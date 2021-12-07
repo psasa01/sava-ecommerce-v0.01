@@ -45,12 +45,12 @@ const SingleProductCard = ({ product }) => {
     // const cartFromStorage = localStorage.getItem("cart");
     if (cart.length) {
       // console.log("jaraniko ovdje vec ima kart na samom pocetku");
-      setExistingCart(cart);
+
       // console.log("pocetni cart", existingCart);
-      let doubleProduct = _.find(existingCart, { _id: product._id });
+      let doubleProduct = _.find(cart, { _id: product._id });
       // console.log("dprd", doubleProduct);
 
-      setDuplicateProduct(doubleProduct);
+      setDuplicateProduct(doubleProduct || null);
     } else {
       setDuplicateProduct(null);
     }
@@ -319,18 +319,38 @@ const SingleProductCard = ({ product }) => {
         </button>
 
         {duplicateProduct != null || duplicateProduct != undefined ? (
-          <Popconfirm
-            title={`Proizvod je vec u korpi. Da li ste sigurni da želite dodati jos ${count} komada`}
-            onConfirm={() => handleAddToCart()}
-            onCancel={cancel}
-            okText={`DODAJ JOS ${count} KOMADA`}
-            cancelText="Zatvori"
-          >
-            <button
-              className="add-to-cart-submit btn"
-              style={{ fontSize: "2em" }}
-            >{`dodaj jos ${count} u korpu`}</button>
-          </Popconfirm>
+          <div className="">
+            <Popconfirm
+              title={`Proizvod je vec u korpi. Da li ste sigurni da želite dodati jos ${count} komada`}
+              onConfirm={() => handleAddToCart()}
+              onCancel={cancel}
+              okText={`DODAJ JOS ${count} KOMADA`}
+              cancelText="Zatvori"
+            >
+              <button
+                className="add-to-cart-submit btn"
+                style={{ fontSize: "2em" }}
+              >{`dodaj jos ${count} u korpu`}</button>
+            </Popconfirm>
+            <p
+              style={{
+                width: "100%",
+                background:
+                  "linear-gradient(90deg, rgb(255, 255, 150) 0%, rgba(255, 255, 0) 100.2%)",
+                marginTop: "0em",
+                padding: ".2em 2em",
+                color: "red",
+                position: "relative",
+                textAlign: "right",
+                borderRadius: "0 1em 1em 0",
+                textTransform: "uppercase",
+                fontWeight: "bold",
+                fontSize: ".8em",
+              }}
+            >
+              Proizvod je u korpi
+            </p>
+          </div>
         ) : (
           <button onClick={handleAddToCart} className="add-to-cart-submit btn">
             dodaj u korpu
