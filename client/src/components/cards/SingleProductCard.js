@@ -40,19 +40,21 @@ const SingleProductCard = ({ product }) => {
 
   useEffect(() => {
     // ponisti dupli proizvod
-    setDuplicateProduct(null);
+
     // if cart is in local storage, GET it
-    const cartFromStorage = localStorage.getItem("cart");
-    if (cartFromStorage.length) {
+    // const cartFromStorage = localStorage.getItem("cart");
+    if (cart.length) {
       // console.log("jaraniko ovdje vec ima kart na samom pocetku");
-      setExistingCart(cartFromStorage);
+      setExistingCart(cart);
       // console.log("pocetni cart", existingCart);
-      let doubleProduct = _.find(cartFromStorage, { _id: product._id });
-      console.log("dprd", doubleProduct);
+      let doubleProduct = _.find(existingCart, { _id: product._id });
+      // console.log("dprd", doubleProduct);
 
       setDuplicateProduct(doubleProduct);
+    } else {
+      setDuplicateProduct(null);
     }
-  }, [setDuplicateProduct, setExistingCart]);
+  }, []);
 
   const descriptionText = tyreDesc[slugify(title).toLowerCase()]
     ? tyreDesc[slugify(title).toLowerCase()].split("\n").map((i) => {
@@ -316,7 +318,7 @@ const SingleProductCard = ({ product }) => {
           +
         </button>
 
-        {duplicateProduct !== null || duplicateProduct !== undefined ? (
+        {duplicateProduct != null || duplicateProduct != undefined ? (
           <Popconfirm
             title={`Proizvod je vec u korpi. Da li ste sigurni da želite dodati jos ${count} komada`}
             onConfirm={() => handleAddToCart()}

@@ -62,10 +62,9 @@ const ProductFilter = () => {
   const loadBrandProducts = () => {
     setLoading(true);
     loadAllProductsForFiltering();
-    setFilteredFilters(
-      from !== "nista" || from !== "" ? { brand: [from] } : { brand: [""] }
-    );
-    filterData(products, filteredFilters);
+    // const test = { brand: from };
+
+    // filterData(products, test);
     setLoading(false);
   };
 
@@ -74,7 +73,11 @@ const ProductFilter = () => {
     getAllProducts()
       .then((res) => {
         setProducts(res.data);
-        // setFiltered(res.data);
+
+        const prods = _.filter(res.data, { brand: from });
+        console.log("ppprrrooodddsss", prods);
+
+        setFiltered(prods);
         setLoading(false);
       })
       .catch((err) => {
